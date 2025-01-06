@@ -3,14 +3,15 @@ import { customElement } from 'lit/decorators.js'
 
 import "./components/aside-element"
 import "./components/cv-element"
+import "./components/edit-element"
 
 @customElement('root-element')
 export class MyElement extends LitElement {
 
   render() {
     return html`
-    <!-- <cv-element></cv-element> -->
-    <aside-element></aside-element>
+    <edit-element></edit-element>
+    <!-- <aside-element></aside-element> -->
     `
   }
 
