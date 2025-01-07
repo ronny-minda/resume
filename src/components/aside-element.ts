@@ -1,10 +1,102 @@
 import { LitElement, css, html } from 'lit'
-import { customElement, state } from 'lit/decorators.js'
+import { customElement, property, state } from 'lit/decorators.js'
 
 import jsPDF from 'jspdf';
+import { Copy, createElement, Download, LayoutTemplate, Send, View } from 'lucide';
+
+type yy = {
+  img: string;
+  pdf: string;
+  name: string;
+}
 
 @customElement('aside-element')
 export class MyElement extends LitElement {
+
+
+  @property({type: Array})
+  template = [
+    {
+      img: "",
+      pdf: "plantillas/Plantilla CV - Harvard.pdf",
+      name: "Plantilla CV - Harvard"
+    },
+    {
+      img: 'plantillasImg/Black Modern Professional Resume.jpg',
+      pdf: "plantillas/Black Modern Professional Resume.pdf",
+      name: "Black Modern Professional Resume",
+    },
+    {
+      img: 'plantillasImg/Currículum Agente comercial Minimalista Blanco y negro.jpg',
+      pdf: "plantillas/Currículum Agente comercial Minimalista Blanco y negro.pdf",
+      name: "Currículum Agente comercial Minimalista Blanco y negro",
+    },
+    {
+      img: 'plantillasImg/Currículum Agente comercial Profesional Blanco y negro.jpg',
+      pdf: "plantillas/Currículum Agente comercial Profesional Blanco y negro.pdf",
+      name: "Currículum Agente comercial Profesional Blanco y negro",
+    },
+    {
+      img: 'plantillasImg/Currículum Agente comercial Sencillo Crema.jpg',
+      pdf: "plantillas/Currículum Agente comercial Sencillo Crema.pdf",
+      name: "Currículum Agente comercial Sencillo Crema",
+    },
+    {
+      img: 'plantillasImg/Currículum CV Diseñador Gráfico Masculino Profesional Azul.jpg',
+      pdf: "plantillas/Currículum CV Diseñador Gráfico Masculino Profesional Azul.pdf",
+      name: "Currículum CV Diseñador Gráfico Masculino Profesional Azul",
+    },
+    {
+      img: 'plantillasImg/Curriculum CV Resume Profesional Marketing Creativo Rosa.jpg',
+      pdf: "plantillas/Curriculum CV Resume Profesional Marketing Creativo Rosa.pdf",
+      name: "Curriculum CV Resume Profesional Marketing Creativo Rosa",
+    },
+    {
+      img: 'plantillasImg/Currículum Diseñadora Minimalista Gris y Blanco.jpg',
+      pdf: "plantillas/Currículum Diseñadora Minimalista Gris y Blanco.pdf",
+      name: "Currículum Diseñadora Minimalista Gris y Blanco",
+    },
+    {
+      img: 'plantillasImg/Currículum Vitae Asesor Financiero Profesional Corporativo Azul y Gris.jpg',
+      pdf: "plantillas/Currículum Vitae Asesor Financiero Profesional Corporativo Azul y Gris.pdf",
+      name: "Currículum Vitae Asesor Financiero Profesional Corporativo Azul y Gris",
+    },
+    {
+      img: 'plantillasImg/Currículum Vitae Cv de Administración Simple Azul.jpg',
+      pdf: "plantillas/Currículum Vitae Cv de Administración Simple Azul.pdf",
+      name: "Currículum Vitae Cv de Administración Simple Azul",
+    },
+    {
+      img: 'plantillasImg/Currículum Vitae CV de Contabilidad Simple Gris.jpg',
+      pdf: "plantillas/Currículum Vitae CV de Contabilidad Simple Gris.pdf",
+      name: "Currículum Vitae CV de Contabilidad Simple Gris",
+    },
+    {
+      img: 'plantillasImg/Currículum Vitae CV Diseñadora y Arquitecta Minimalista Rosa.jpg',
+      pdf: "plantillas/Currículum Vitae CV Diseñadora y Arquitecta Minimalista Rosa.pdf",
+      name: "Currículum Vitae CV Diseñadora y Arquitecta Minimalista Rosa",
+    },
+    {
+      img: 'plantillasImg/Curriculum Vitae CV Elegante Profesional Rosa.jpg',
+      pdf: "plantillas/Curriculum Vitae CV Elegante Profesional Rosa.pdf",
+      name: "Curriculum Vitae CV Elegante Profesional Rosa",
+    },
+    {
+      img: 'plantillasImg/Currículum Vitae CV Fotógrafo Sencillo Simple Blanco y Negro.jpg',
+      pdf: "plantillas/Currículum Vitae CV Fotógrafo Sencillo Simple Blanco y Negro.pdf",
+      name: "Currículum Vitae CV Fotógrafo Sencillo Simple Blanco y Negro",
+    },
+    {
+      img: 'plantillasImg/Currículum Vitae CV Minimalista Sencillo Clásico Gris.jpg',
+      pdf: "plantillas/Currículum Vitae CV Minimalista Sencillo Clásico Gris.pdf",
+      name: "Currículum Vitae CV Minimalista Sencillo Clásico Gris",
+    },
+    {
+      img: "",
+      pdf: "plantillas/CV Español.pdf",
+      name: "CV Español"
+    },    
+  ]
 
   @state() private base64Image = ""
   @state() private selecionado = 1
@@ -222,13 +314,35 @@ export class MyElement extends LitElement {
   render() {
     return html`
 
-
       <div class="aside">
+        <style>
+          .inputImg {
+            height: 150px;
+            width: 150px;
+            border: 1px solid red;
+            background-color: #f5f7ff;
+            border: 1px solid #c9cfe7;
+            cursor: pointer;
+            border-radius: 50%;
+            /* background-image: url() */
+            background-repeat: no-repeat;
+            background-size: cover;
+            box-shadow: 0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;
+            transition: 0.5s;
+
+            input {
+              display: none;
+            }
+          }
+          .inputImg:hover {
+            background-color: #c1c6d9;
+          }
+        </style>
       <button
         @click=${ () => this.canbio=!this.canbio }
-      >canbio</button>
+      >Cambio</button>
 
-      <label class="inputImg" style="background-image: url(${this.base64Image})">
+      <label title="Cargar Imagen" class="inputImg" style="background-image: url(${this.base64Image})">
         <input
           type="file"
           @change=${this.handleFileChange}
@@ -238,6 +352,35 @@ export class MyElement extends LitElement {
 
       ${
         this.canbio == true ?html`
+          <style>
+            button,a {
+              cursor: pointer;
+              background-color: #f5f7ff;
+              border: 1px solid #c9cfe7;
+              outline: none;
+              border-radius: 4px;
+              padding: 3px;
+              height: 30px;
+              width: 30px;
+              box-shadow: 0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;
+    
+              svg {
+                height: 100%;
+                width: 100%;
+                color: #535b77;
+              }
+              &:hover {
+                svg {
+                  color: #8992af;
+                }
+              }
+              &:active {
+                svg {
+                  color: #535b77;
+                }
+              }
+            }
+          </style>
           <textarea 
             @input=${ (e: Event) => {
               const target = e.target as HTMLTextAreaElement
@@ -249,22 +392,25 @@ export class MyElement extends LitElement {
           >${JSON.stringify(this.cv)} </textarea>
       
           <button
+            title="Templates"
             @click=${ () => {
               console.log()
               this.templates = !this.templates
             } }
-          >Templates</button>
+          >${createElement(LayoutTemplate)}</button>
       
           <button
+            title="Copiar"
             @click=${ () => this.copy() }
-          >Copiar OBJ</button>
+          >${createElement(Copy)}</button>
       
           <button
+            title="Descargar"
             @click=${ () => this.downloadPDF() }
-          >Descargar CV</button>
+          >${createElement(Download)}</button>
       
           <a href=${`mailto:${this.cv.correoDestino}?subject=${this.cv.asuntoDestino}&body=${this.cv.mensajeDestino}`}>
-            Enviar correo con enlaces
+            ${createElement(Send)}
           </a>
         `:html`
           <div>ui noral</div>
@@ -275,242 +421,525 @@ export class MyElement extends LitElement {
     <div class="cuerpo">
 
       ${
+        this.selecionado==3?html`
+          <style>
+            .cv {
+              display: flex;
+              height: 848px;
+              width: 600px;
+              position: relative;
+              background-color: #fff;
+              /* padding: 35px 28px; */
+              font-family: Helvetica;
+              /* font-family: Inter; */
+
+              .iz {
+                position: relative;
+                height: 100%;
+                width: 210px;
+                /* background-color: red; */
+                display: flex;
+                flex-direction: column;
+                align-items: end;
+                padding-right: 15px;
+                padding-top: 67px;
+                /* justify-content: center; */
+
+                .bola {
+                  height: 9px;
+                  width: 9px;
+                  border: 1px solid #000;
+                  background-color: #fff;
+                  border-radius: 50%;
+                  position: absolute;
+                  top: 50%;
+                  right: 0;
+                  transform: translateX(19px) translateY(-50%);
+                  z-index: 999999;
+                }
+
+                .foto {
+                  height: 223px;
+                  width: 135px;
+                  background-color: #b7b7b7;
+                  margin-bottom: 30px;
+
+                  .imgPlatilla {
+                    height: 100%;
+                    width: 100%;
+                    object-fit: cover;
+                    filter: grayscale(1);
+                  }
+                }
+
+                .abi {
+                  font-size: 12px;
+                  font-weight: bold;
+                  margin-bottom: 10px;
+                  margin-top: 20px;
+                  position: relative;
+                }
+
+                p {
+                  font-size: 10px;
+                  width: 150px;
+                  text-align: end;
+                }
+
+                .bti {
+                  font-size: 10px;
+                  font-weight: bold;
+                  text-align: end;
+                }
+
+                .bp {
+                  font-size: 10px;
+                  text-align: end;
+                  margin-bottom: 10px;
+                }
+
+                .raya {
+                  position: absolute;
+                  top: 80px;
+                  right: 0;
+                  height: 750px;
+                  border-right: 1px solid #000;
+                
+                }
+
+
+              }
+
+              .dere {
+                height: 100%;
+                width: 310px;
+                padding-top: 64px;
+                padding-left: 18px;
+                
+                /* background-color: red; */
+
+                .bola {
+                  height: 9px;
+                  width: 9px;
+                  border: 1px solid #000;
+                  background-color: #fff;
+                  border-radius: 50%;
+                  position: absolute;
+                  top: 50%;
+                  left: 0;
+                  transform: translateX(-23px) translateY(-50%);
+                }
+                h1 {
+                  font-size: 26px;
+                  position: relative;
+
+                }
+                h2 {
+                  margin-top: -7px;
+                  font-size: 12px;
+                  letter-spacing: 2px;
+                  margin-bottom: 21px;
+                  font-weight: 100;
+                }
+                .so {
+                  font-size: 12px;
+                  font-weight: bold;
+                  margin-bottom: 10px;
+                  position: relative;
+                }
+                
+                .st {
+                  font-size: 10px;
+                  font-weight: bold;
+                  /* color: red;  */
+                  margin-top: -4px;
+                }
+                .sp {
+                  margin-top: -2px;
+                  font-size: 10px;
+                  /* color: red;  */
+                }
+                li {
+                  margin-top: 2px;
+                  margin-left: 4px;
+                  /* margin-bottom: 14px; */
+                  /* color: red;  */
+                  font-size: 10px;
+                }
+                li::marker {
+                  margin-right: 2px;
+                }
+                p {
+                  font-size: 10px;
+                  /* width: 150px; */
+                  /* text-align: end; */
+                }
+                table {
+                  margin-bottom: 18px;
+                  margin-top: 13px;
+
+                  .tt {
+                    padding-right: 40px;
+                    padding-left: 5px;
+                  }
+                  td {
+                    font-size: 10px;
+                    /* display: flex; */
+                    text-align: start;
+
+                    .ico {
+                      height: 21px;
+                      width: 21px;
+                      margin-bottom: 3px;
+                      border-radius: 50%;
+                      background-color: #000;
+                    }
+                  }
+                }
+              }
+
+            }
+          </style>
+
+          <div class="cv">
+              <!-- <img class="imgPlatilla" src="plantillasImg/Currículum Agente comercial Minimalista Blanco y negro_page-0001.jpg" alt="perfil"> -->
+
+              <div class="iz">
+                <div class="foto">
+                  <img class="imgPlatilla" src=${this.base64Image} alt="perfil">
+                </div>
+                <div class="abi"><div class="bola"></div>DATOS ACADÉMICOS</div>
+                ${
+                  this.cv.educacion.map((value) => {
+                    const { titulo, fechaFin, fechaInicio, institucion } = value
+                    return (html`
+                      <div class="bti">${institucion}</div>
+                      <div class="bp">${titulo} | ${fechaInicio} - ${fechaFin}</div>
+                    `)
+                  })
+                }
+                <div class="abi"><div class="bola"></div>HABILIDADES</div>
+                ${
+                  this.cv.experticia.map((value) => {
+                    return (html`
+                      <P>${value}</P>
+                    `)
+                  })
+                }
+                
+
+                
+                <div class="raya"></div>
+              </div>
+              
+              <div class="dere">
+                <h1><div class="bola"></div>${this.cv.perfil.nombre.split(" ")[0]} ${this.cv.perfil.nombre.split(" ")[2]}</h1>
+                <h2>${this.cv.perfil.titulo}</h2>
+                <div class="so"><div class="bola"></div>SOBRE MÍ</div>
+                
+                <p>${this.cv.perfil.descripcion}</p>
+                <table>
+                  <tr>
+                    <td><div class="ico"></div></td>
+                    <td class="tt">${this.cv.datosPersonales.fechaNacimiento}</td>
+                    <td><div class="ico"></div></td>
+                    <td class="tt">${this.cv.contacto.email}</td>
+                  </tr>
+                  <tr>
+                    <td><div class="ico"></div></td>
+                    <td class="tt">${this.cv.contacto.telefono}</td>
+                    <td><div class="ico"></div></td>
+                    <td class="tt">${this.cv.contacto.direccionExacta}</td>
+                  </tr>
+                </table>
+
+                <div class="so"><div class="bola"></div>EXPERIENCIA LABORAL</div>
+                ${
+                  this.cv.experiencia.map((value) => {
+                    const { titulo, empresa, duracionInicio, duracionFin, descripcion } = value
+                    return (html`
+                    <div style="margin-top: 15px;"></div>
+                    <div class="st">${titulo}</div>
+                    <div class="sp" style="margin-bottom: 4px;">${empresa} | ${duracionInicio} - ${duracionFin}</div>
+                    ${
+                      descripcion.map((value) => {
+                        return (html`
+                          <li>${value}</li>                
+                        `)
+                      })
+                    }
+                  `)
+                  })
+                }
+
+                <div class="so" style="margin-top: 20px;"><div class="bola"></div>INFORMACION PERSONAL</div>
+                <table style="margin-top: -5px;">
+                  <tr>
+                    <td style="font-weight: bold;">Cedula:</td>
+                    <td>${this.cv.datosPersonales.cedula}</td>
+                  </tr>
+                  <tr>
+                    <td style="font-weight: bold;">Edad:</td>
+                    <td>${this.cv.datosPersonales.edad}</td>
+                  </tr>
+                  <tr>
+                    <td style="font-weight: bold;">Estado Civil:</td>
+                    <td>${this.cv.datosPersonales.estadoCivil}</td>
+                  </tr>
+                  <tr>
+                    <td style="font-weight: bold;padding-right: 30px;">Fecha Nacimiento:</td>
+                    <td>${this.cv.datosPersonales.fechaNacimiento}</td>
+                  </tr>
+                  <tr>
+                    <td style="font-weight: bold;">Nacionalidad:</td>
+                    <td>${this.cv.datosPersonales.nacionalidad}</td>
+                  </tr>
+                </table>
+
+                
+              </div>
+            
+            </div>
+        `:""
+      }
+
+      ${
         this.selecionado==2?html`
             <style>
-      .cv {
-        display: flex;
-        height: 848px;
-        width: 600px;
-        position: relative;
-        background-color: #fff;
-        /* padding: 35px 28px; */
-        font-family: Helvetica;
-        /* font-family: Inter; */
-        
-        .titu {
-          position: absolute;
-          top: 78px;
-          left: 0;
-          height: 117px;
-          width: 100%;
-          background-color: #043382;
-          z-index: 9;
-          color: #fff;
-          
-          .deco {
-            position: absolute;
-            top: 0px;
-            left: 30px;
-            height: 100%;
-            width: 250px;
-            background-color: #042b6b;          
-            transform: skew(-25deg); 
-          }
+              .cv {
+                display: flex;
+                height: 848px;
+                width: 600px;
+                position: relative;
+                background-color: #fff;
+                /* padding: 35px 28px; */
+                font-family: Helvetica;
+                /* font-family: Inter; */
+                
+                .titu {
+                  position: absolute;
+                  top: 78px;
+                  left: 0;
+                  height: 117px;
+                  width: 100%;
+                  background-color: #043382;
+                  z-index: 9;
+                  color: #fff;
+                  
+                  .deco {
+                    position: absolute;
+                    top: 0px;
+                    left: 30px;
+                    height: 100%;
+                    width: 250px;
+                    background-color: #042b6b;          
+                    transform: skew(-25deg); 
+                  }
 
-          .nom {
-            position: absolute;
-            top: 0px;left: 233px;
-            font-weight: bold;
-            font-size: 37px;
-            height: auto;
-            width: auto;
-          }
-          .titu {
-            position: absolute;
-            top: 91px;
-            left: 310px;
-            font-size: 15px;
-            height: auto;
-            width: auto;
-          }
-        }
+                  .nom {
+                    position: absolute;
+                    top: 0px;left: 233px;
+                    font-weight: bold;
+                    font-size: 37px;
+                    height: auto;
+                    width: auto;
+                  }
+                  .titu {
+                    position: absolute;
+                    top: 91px;
+                    left: 310px;
+                    font-size: 15px;
+                    height: auto;
+                    width: auto;
+                  }
+                }
 
-        .iz {
-          height: 100%;
-          width: 222px;
-          background: #191919;
-          margin-left: 34px;
-          display: flex;
-          /* justify-content: center; */
-          align-items: center;
-          flex-direction: column;
-          color: #fff;
+                .iz {
+                  height: 100%;
+                  width: 222px;
+                  background: #191919;
+                  margin-left: 34px;
+                  display: flex;
+                  /* justify-content: center; */
+                  align-items: center;
+                  flex-direction: column;
+                  color: #fff;
 
-          .bolaFoto {
-            position: relative;
-            z-index: 99;
-            height: 165px;
-            width: 165px;
-            background-color: #043382;
-            border-radius: 50%;
-            margin-top: 52px;
-            border: 3px solid #043382;
-            background-repeat: no-repeat;
-            background-size: cover;
+                  .bolaFoto {
+                    position: relative;
+                    z-index: 99;
+                    height: 165px;
+                    width: 165px;
+                    background-color: #043382;
+                    border-radius: 50%;
+                    margin-top: 52px;
+                    border: 3px solid #043382;
+                    background-repeat: no-repeat;
+                    background-size: cover;
 
-            img {
-              height: 100%;
-              width: 100%;
-              object-fit: cover;
-              border-radius: 50%;
-              background-color: #043382;
-            }
-          }
-          .mi {
-            text-align: center;
-            margin-top: 5px;
-            font-size: 16px;
-          }
-          .mide {
-            margin-top: 5px;
-            font-size: 10px;
-            text-align: center;
-            width: 160px;
-            margin-bottom: 22px;
-          }
-          .ell {
-            font-size: 10px;
-            color: #fff;
-            margin-bottom: 12px;
-            text-align: start;
-            display: flex;
-            align-items: center;
-            padding-left: 13px;
-            /* background-color: red; */
-            width: 175px;
+                    img {
+                      height: 100%;
+                      width: 100%;
+                      object-fit: cover;
+                      border-radius: 50%;
+                      background-color: #043382;
+                    }
+                  }
+                  .mi {
+                    text-align: center;
+                    margin-top: 5px;
+                    font-size: 16px;
+                  }
+                  .mide {
+                    margin-top: 5px;
+                    font-size: 10px;
+                    text-align: center;
+                    width: 160px;
+                    margin-bottom: 22px;
+                  }
+                  .ell {
+                    font-size: 10px;
+                    color: #fff;
+                    margin-bottom: 12px;
+                    text-align: start;
+                    display: flex;
+                    align-items: center;
+                    padding-left: 13px;
+                    /* background-color: red; */
+                    width: 175px;
 
-            .bola {
-              margin-right: 5px;
-              height: 20px;
-              width: 20px;
-              background-color: #0774bb;
-              border-radius: 50%;
+                    .bola {
+                      margin-right: 5px;
+                      height: 20px;
+                      width: 20px;
+                      background-color: #0774bb;
+                      border-radius: 50%;
 
-              svg {
-                color: blue;
-                height: 100%;
-                width: 100%;
+                      svg {
+                        color: blue;
+                        height: 100%;
+                        width: 100%;
+                      }
+                    }
+                  }
+                
+                  .deta {
+                    font-size: 14px;
+                    margin-top: 13px;
+                    background-color: #0774bb00;
+                    width: 173px;
+                    height: 28px;
+                    border-radius: 20px;
+                    border: 2px solid #0774bb;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    margin-bottom: 11px;
+                  }
+                  .li {
+                    width: 173px;
+                    text-align: start;
+                    display: flex;
+                    align-items: center;
+                    font-size: 10px;
+                    margin-bottom: 5px;
+                    padding-left: 29px;
+
+                    .bola {
+                      height: 5px;
+                      width: 5px;
+                      background-color: #fff;
+                      border-radius: 50%;
+                      margin-right: 7px;
+                    }
+                  }
+                }
+
+                .dere {
+                  /* background-color: red; */
+                  width: 280px;
+                  padding-left: 8px;
+
+                  .ti {
+                    background-color: #043382;
+                    color: #fff;
+                    font-size: 13px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 150px;
+                    height: 24px;
+                    border-radius: 20px;
+                    margin-bottom: 12px;
+                  }
+                  .tra {
+                    font-weight: bold;
+                    font-size: 11px;
+                    margin-left: 5px;
+                  }
+                  .tra2 {
+                    font-size: 10px;
+                    margin-left: 5px;
+                  }
+                }
+
+                table {
+                  font-size: 11px;
+                  
+                }
+
               }
-            }
-          }
-         
-          .deta {
-            font-size: 14px;
-            margin-top: 13px;
-            background-color: #0774bb00;
-            width: 173px;
-            height: 28px;
-            border-radius: 20px;
-            border: 2px solid #0774bb;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 11px;
-          }
-          .li {
-            width: 173px;
-            text-align: start;
-            display: flex;
-            align-items: center;
-            font-size: 10px;
-            margin-bottom: 5px;
-            padding-left: 29px;
+            </style>
 
-            .bola {
-              height: 5px;
-              width: 5px;
-              background-color: #fff;
-              border-radius: 50%;
-              margin-right: 7px;
-            }
-          }
-        }
+            <div class="cv">
 
-        .dere {
-          /* background-color: red; */
-          width: 280px;
-          padding-left: 8px;
+                <div class="titu">
+                  <div class="deco"></div>
+                  <div class="nom">${this.cv.perfil.nombre.split(" ")[0].toLocaleUpperCase()}</div>
+                  <div style="top: 44px;left: 266px;" class="nom">${this.cv.perfil.nombre.split(" ")[2].toLocaleUpperCase()}</div>
+                  <div class="titu">${this.cv.perfil.titulo}</div>
+                </div>
+                <div class="iz">
+                  <div class="bolaFoto">
+                    <img src=${this.base64Image}>
+              </div>
+                  
+                  <div class="mi">Sobre Mi</div>
+                  <div class="mide">${this.cv.perfil.descripcion}</div>
+                  
+                  <div class="ell"><div class="bola"></div>${this.cv.contacto.telefono}</div>
+                  <div class="ell"><div class="bola"></div>${this.cv.contacto.email}</div>
+                  <div class="ell"><div class="bola"></div>${this.cv.contacto.direccion}</div>
+                  <div class="ell"><div class="bola"></div>${this.cv.contacto.web}</div>
 
-          .ti {
-            background-color: #043382;
-            color: #fff;
-            font-size: 13px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 150px;
-            height: 24px;
-            border-radius: 20px;
-            margin-bottom: 12px;
-          }
-          .tra {
-            font-weight: bold;
-            font-size: 11px;
-            margin-left: 5px;
-          }
-          .tra2 {
-            font-size: 10px;
-            margin-left: 5px;
-          }
-        }
+                  <div class="deta">Experticia</div>
 
-        table {
-          font-size: 11px;
-          
-        }
+                  ${
+                    this.cv.experticia.map((value) => {
+                      return (html`<div class="li"><div class="bola"></div>${value}</div>`)
+                    })
+                  }
 
-      }
-    </style>
+                </div>
 
-    <div class="cv">
+                <div class="dere">
+                  <div style="margin-top: 219px;"></div>
+                  <div class="ti">Experience</div>
+                  ${
+                    this.cv.experiencia.map((value) => {
+                      const { empresa, duracionInicio, duracionFin, descripcion, titulo } = value
+                      return (html`
+                        <div style="margin-top: 15px;"></div>
+                        <div class="tra">${empresa} </div>
+                        <div class="tra">${titulo} </div>
+                        <div class="tra">${duracionInicio} - ${duracionFin}</div>
+                        <div class="tra2">${descripcion}</div>
+                      `)
+                    })
+                  }
 
-        <div class="titu">
-          <div class="deco"></div>
-          <div class="nom">${this.cv.perfil.nombre.split(" ")[0].toLocaleUpperCase()}</div>
-          <div style="top: 44px;left: 266px;" class="nom">${this.cv.perfil.nombre.split(" ")[2].toLocaleUpperCase()}</div>
-          <div class="titu">${this.cv.perfil.titulo}</div>
-        </div>
-        <div class="iz">
-          <div class="bolaFoto">
-            <img src=${this.base64Image}>
-      </div>
-          
-          <div class="mi">Sobre Mi</div>
-          <div class="mide">${this.cv.perfil.descripcion}</div>
-          
-          <div class="ell"><div class="bola"></div>${this.cv.contacto.telefono}</div>
-          <div class="ell"><div class="bola"></div>${this.cv.contacto.email}</div>
-          <div class="ell"><div class="bola"></div>${this.cv.contacto.direccion}</div>
-          <div class="ell"><div class="bola"></div>${this.cv.contacto.web}</div>
-
-          <div class="deta">Experticia</div>
-
-          ${
-            this.cv.experticia.map((value) => {
-              return (html`<div class="li"><div class="bola"></div>${value}</div>`)
-            })
-          }
-
-        </div>
-
-        <div class="dere">
-          <div style="margin-top: 219px;"></div>
-          <div class="ti">Experience</div>
-          ${
-            this.cv.experiencia.map((value) => {
-              const { empresa, duracionInicio, duracionFin, descripcion, titulo } = value
-              return (html`
-                <div style="margin-top: 15px;"></div>
-                <div class="tra">${empresa} </div>
-                <div class="tra">${titulo} </div>
-                <div class="tra">${duracionInicio} - ${duracionFin}</div>
-                <div class="tra2">${descripcion}</div>
-              `)
-            })
-          }
-
-          ${
-            this.informaionSesible==true?html`
+                  ${
+                    this.informaionSesible==true?html`
                       <div style="margin-top: 15px;"></div>
 
                       <div class="ti">Informacion</div>
@@ -537,164 +966,162 @@ export class MyElement extends LitElement {
                         </tr>
                         
                       </table>
-            `:""
-          }
+                    `:""
+                  }
 
-        </div>
-      </div>
+                </div>
+              </div>
         `:""
       }
       
       ${
-        this.selecionado==1?
-        html`
+        this.selecionado==1?html`
         <style>
-        .cv {
-          height: 848px;
-          width: 600px;
-          position: relative;
-          background-color: #fff;
-          padding: 35px 28px;
-          font-family: Inter;
-          
-          h1 {
-            text-align: center;
-            font-size: 26px;
-            font-weight: bold;
-            color: #000;
-          }
-          p {
-            text-align: center;
-            font-size: 11px;
-          }
-          hr {
-            margin-top: 4px;
-            transform: scaleY(0.3);
-            border: 1px solid black;
-            border-top: none;
-            border-left: none;
-            border-right: none;
-          }
-          .ita {
-            /* line-height: 1.5;
-            word-spacing: 3px; */
-            margin-top: 4px;
-            margin-left: 4px;
-            text-align: start;
-            font-style: italic;
-          }
-          h2 {
-            margin-top: 7px;
-            margin-left: 5px;
-            font-size: 12px;
-          }
-          .conteExp {
-            padding: 0 5px;
-            font-size: 10px;
-            margin-top: 7px;
-            display: flex;
-            justify-content: space-between;
-            h4 {
-              font-weight: 100;
+          .cv {
+            height: 848px;
+            width: 600px;
+            position: relative;
+            background-color: #fff;
+            padding: 35px 28px;
+            font-family: Inter;
+            
+            h1 {
+              text-align: center;
+              font-size: 26px;
+              font-weight: bold;
+              color: #000;
             }
-          }
-          ul {
-            font-size: 10px;
-            padding: 0 37px;
-            margin-top: 9px;
-            li {
-              list-style: none;
-              position: relative;
-              .bola {
-                display: inline-block;
-                position: absolute;
-                top: 7px;
-                left: -17px;
-                height: 5px;
-                width: 5px;
-                background-color: #000;
-                border-radius: 50%;
+            p {
+              text-align: center;
+              font-size: 11px;
+            }
+            hr {
+              margin-top: 4px;
+              transform: scaleY(0.3);
+              border: 1px solid black;
+              border-top: none;
+              border-left: none;
+              border-right: none;
+            }
+            .ita {
+              /* line-height: 1.5;
+              word-spacing: 3px; */
+              margin-top: 4px;
+              margin-left: 4px;
+              text-align: start;
+              font-style: italic;
+            }
+            h2 {
+              margin-top: 7px;
+              margin-left: 5px;
+              font-size: 12px;
+            }
+            .conteExp {
+              padding: 0 5px;
+              font-size: 10px;
+              margin-top: 7px;
+              display: flex;
+              justify-content: space-between;
+              h4 {
+                font-weight: 100;
               }
             }
-          }
-
-          .separa {
-            height: 10px;
-            width: 10px;
-            background-color: red;
-          }
-
-        }
-
-      </style>
-
-      <div class="cv">
-        <h1>${this.cv.perfil.nombre}</h1>
-        <p>${this.cv.contacto.direccion} · ${this.cv.contacto.web} · ${this.cv.contacto.telefono} · ${this.cv.contacto.email}</p>
-        <hr>
-        <p class="ita">${this.cv.perfil.descripcion}</p>
-        <h2>EXPERIENCIA PROFESIONAL</h2>
-        <hr style="margin-top: 0px;">
-
-        ${
-          this.cv.experiencia.map((value) => {
-            const { descripcion, duracionFin, duracionInicio, titulo, empresa } = value
-            return ( html`
-
-              <div class="conteExp">
-                <h3>${empresa}</h3>
-                <!-- <h3>Barcelona,España</h3> -->
-              </div>
-              <div class="conteExp" style="margin-top: -4px; font-size: 11px;">
-                <h4>${titulo}</h4>
-                <h4 style="font-style: italic;">${duracionInicio} - ${duracionFin}</h4>
-              </div>
-        
-              <ul>
-                ${
-                  descripcion.map(item => {
-                    return (html`
-                      <li><div class="bola"></div>${item}</li>
-                    `)
-                  })
+            ul {
+              font-size: 10px;
+              padding: 0 37px;
+              margin-top: 9px;
+              li {
+                list-style: none;
+                position: relative;
+                .bola {
+                  display: inline-block;
+                  position: absolute;
+                  top: 7px;
+                  left: -17px;
+                  height: 5px;
+                  width: 5px;
+                  background-color: #000;
+                  border-radius: 50%;
                 }
-              </ul>
-            `)
-          })
-        }
+              }
+            }
 
-        <h2 style="margin-top: 11px;">EDUCACIÓN</h2>
-        <hr style="margin-top: 0px;">
-        ${
-          this.cv.educacion.map((value) => {
-            const { institucion, nivel, descripcion, fechaFin, fechaInicio, titulo } = value
-            return ( html`
-              <div class="conteExp">
-                <h3>${institucion}</h3>
-                <h3>${nivel}</h3>
-              </div>
-              <div class="conteExp" style="margin-top: -4px; font-size: 11px;">
-                <h4>${titulo}</h4>
-                <h4 style="font-style: italic;">${fechaInicio} - ${fechaFin}</h4>
-              </div>
-              <p style="text-align: start; margin-left: 5px; margin-top: -2px;">${descripcion}</p>
-            `)
-          })
-        }
-        <h2 style="margin-top: 12px;">SKILLS ADICIONALES</h2>
-        <hr style="margin-top: 0px;">
-        <ul>
-        ${
-          this.cv.experticia.map((value) => {
-            return ( html`
-                  <li><div class="bola"></div>${value}</li>
+            .separa {
+              height: 10px;
+              width: 10px;
+              background-color: red;
+            }
+
+          }
+
+        </style>
+
+        <div class="cv">
+          <h1>${this.cv.perfil.nombre}</h1>
+          <p>${this.cv.contacto.direccion} · ${this.cv.contacto.web} · ${this.cv.contacto.telefono} · ${this.cv.contacto.email}</p>
+          <hr>
+          <p class="ita">${this.cv.perfil.descripcion}</p>
+          <h2>EXPERIENCIA PROFESIONAL</h2>
+          <hr style="margin-top: 0px;">
+
+          ${
+            this.cv.experiencia.map((value) => {
+              const { descripcion, duracionFin, duracionInicio, titulo, empresa } = value
+              return ( html`
+
+                <div class="conteExp">
+                  <h3>${empresa}</h3>
+                  <!-- <h3>Barcelona,España</h3> -->
+                </div>
+                <div class="conteExp" style="margin-top: -4px; font-size: 11px;">
+                  <h4>${titulo}</h4>
+                  <h4 style="font-style: italic;">${duracionInicio} - ${duracionFin}</h4>
+                </div>
+          
+                <ul>
+                  ${
+                    descripcion.map(item => {
+                      return (html`
+                        <li><div class="bola"></div>${item}</li>
+                      `)
+                    })
+                  }
+                </ul>
               `)
-          })
-        }
-        </ul>
-      </div>  
-        `
-        :""
+            })
+          }
+
+          <h2 style="margin-top: 11px;">EDUCACIÓN</h2>
+          <hr style="margin-top: 0px;">
+          ${
+            this.cv.educacion.map((value) => {
+              const { institucion, nivel, descripcion, fechaFin, fechaInicio, titulo } = value
+              return ( html`
+                <div class="conteExp">
+                  <h3>${institucion}</h3>
+                  <h3>${nivel}</h3>
+                </div>
+                <div class="conteExp" style="margin-top: -4px; font-size: 11px;">
+                  <h4>${titulo}</h4>
+                  <h4 style="font-style: italic;">${fechaInicio} - ${fechaFin}</h4>
+                </div>
+                <p style="text-align: start; margin-left: 5px; margin-top: -2px;">${descripcion}</p>
+              `)
+            })
+          }
+          <h2 style="margin-top: 12px;">SKILLS ADICIONALES</h2>
+          <hr style="margin-top: 0px;">
+          <ul>
+          ${
+            this.cv.experticia.map((value) => {
+              return ( html`
+                    <li><div class="bola"></div>${value}</li>
+                `)
+            })
+          }
+          </ul>
+        </div>  
+      `:""
       }
     </div>
 
@@ -713,21 +1140,42 @@ export class MyElement extends LitElement {
           backdrop-filter: blur(1px);
         }
         .templateContenedor {
+          box-shadow: 0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;
           position: fixed;
           bottom: 0;
           left: 0;
-          height: 150px;
+          height: auto;
           width: 100%;
-          background-color: red;
+          background-color: #f5f7ff;
           z-index: 9999;
           padding: 5px;
           display: flex;
-
+          flex-wrap: wrap;
+          justify-content: center;
+          
           .cada {
-            height: 100%;
-            margin: 0 5px;
+            border: 1px solid #c9cfe7;
+            height: 140px;
+            margin: 7px;
             width: 100px;
-            background-color: blue;
+            background-color: #fff;
+            border-radius: 3px;
+            cursor: pointer;
+            opacity: 1;
+            transition: 0.5s;
+            box-shadow: 0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;
+            transform: scale(1);
+            /* padding: ; */
+          }
+          .cada:hover {
+            transform: scale(1.1);
+            opacity: 0.5;
+          }
+          a {
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 999;
           }
         }
       </style>
@@ -735,12 +1183,21 @@ export class MyElement extends LitElement {
       <div class="back" @click=${()=>this.templates=false}></div>
       <div class="templateContenedor">
         ${
-          [1,2,3,4,5].map((value) => {
+          this.template.map((value, key) => {
+            const { img, name, pdf } = value
             return (html`
-              <div class="cada" @click=${()=>{
-                this.templates=false
-                this.selecionado=value}
-              }>${value}</div>
+              <div style="position: relative;">
+                <a href=${pdf} target="_blank" rel="noopener noreferrer" title="Ver Pdf">${createElement(View)}</a>
+                <img
+                  src=${img}
+                  class="cada"
+                  title=${name}
+                  @click=${()=>{
+                    this.templates=false
+                    this.selecionado=key+1
+                  }
+                }>
+              </div>
             `)
           })
         }
@@ -805,21 +1262,6 @@ export class MyElement extends LitElement {
       }
       .i2 {
         opacity: 0.5;
-      }
-    }
-    
-    .inputImg {
-      height: 150px;
-      width: 150px;
-      border: 1px solid red;
-      background: red;
-      border-radius: 50%;
-      /* background-image: url() */
-      background-repeat: no-repeat;
-      background-size: cover;
-
-      input {
-        display: none;
       }
     }
 

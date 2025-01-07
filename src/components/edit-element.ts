@@ -297,11 +297,259 @@ async getImage(ico: IconNode) {
         font-family: Helvetica;
         /* font-family: Inter; */
 
+        .imgPlatilla {
+          height: 100%;
+          width: 100%;
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: 999999;
+          opacity: 0.5;
+        }
+
+        .iz {
+          position: relative;
+          height: 100%;
+          width: 210px;
+          /* background-color: red; */
+          display: flex;
+          flex-direction: column;
+          align-items: end;
+          padding-right: 15px;
+          padding-top: 67px;
+          /* justify-content: center; */
+
+          .bola {
+            height: 9px;
+            width: 9px;
+            border: 1px solid #000;
+            background-color: #fff;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateX(19px) translateY(-50%);
+            z-index: 999999;
+          }
+
+          .foto {
+            height: 223px;
+            width: 135px;
+            background-color: blue;
+            margin-bottom: 30px;
+          }
+
+          .abi {
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            margin-top: 20px;
+            position: relative;
+          }
+
+          p {
+            font-size: 10px;
+            width: 150px;
+            text-align: end;
+          }
+
+          .bti {
+            font-size: 10px;
+            font-weight: bold;
+            text-align: end;
+          }
+
+          .bp {
+            font-size: 10px;
+            text-align: end;
+            margin-bottom: 10px;
+          }
+
+          .raya {
+            position: absolute;
+            top: 80px;
+            right: 0;
+            height: 750px;
+            border-right: 1px solid #000;
+          
+          }
+
+
+        }
+
+        .dere {
+          height: 100%;
+          width: 310px;
+          padding-top: 64px;
+          padding-left: 18px;
+          
+          /* background-color: red; */
+
+          .bola {
+            height: 9px;
+            width: 9px;
+            border: 1px solid #000;
+            background-color: #fff;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateX(-23px) translateY(-50%);
+          }
+          h1 {
+            font-size: 26px;
+            position: relative;
+
+          }
+          h2 {
+            margin-top: -7px;
+            font-size: 12px;
+            letter-spacing: 2px;
+            margin-bottom: 21px;
+            font-weight: 100;
+          }
+          .so {
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            position: relative;
+          }
+          
+          .st {
+            font-size: 10px;
+            font-weight: bold;
+            /* color: red;  */
+            margin-top: -4px;
+          }
+          .sp {
+            margin-top: -2px;
+            font-size: 10px;
+            /* color: red;  */
+          }
+          li {
+            margin-top: 2px;
+            margin-left: 4px;
+            /* margin-bottom: 14px; */
+            /* color: red;  */
+            font-size: 10px;
+          }
+          li::marker {
+            margin-right: 2px;
+          }
+          p {
+            font-size: 10px;
+            /* width: 150px; */
+            /* text-align: end; */
+          }
+          table {
+            margin-bottom: 18px;
+            margin-top: 13px;
+
+            .tt {
+              padding-right: 40px;
+              padding-left: 5px;
+            }
+            td {
+              font-size: 10px;
+              /* display: flex; */
+              text-align: start;
+
+              .ico {
+                height: 21px;
+                width: 21px;
+                margin-bottom: 3px;
+                border-radius: 50%;
+                background-color: #000;
+              }
+            }
+          }
+        }
+
       }
     </style>
 
     <div>
       <div class="cv">
+        <!-- <img class="imgPlatilla" src="plantillasImg/Currículum Agente comercial Minimalista Blanco y negro_page-0001.jpg" alt="perfil"> -->
+
+        <div class="iz">
+          <div class="foto"></div>
+          <div class="abi"><div class="bola"></div>DATOS ACADÉMICOS</div>
+          ${
+            this.cv.educacion.map((value) => {
+              const { titulo, fechaFin, fechaInicio, institucion } = value
+              return (html`
+                <div class="bti">${institucion}</div>
+                <div class="bp">${titulo} | ${fechaInicio} - ${fechaFin}</div>
+              `)
+            })
+          }
+          <div class="abi"><div class="bola"></div>HABILIDADES</div>
+          ${
+            this.cv.experticia.map((value) => {
+              return (html`
+                <P>${value}</P>
+              `)
+            })
+          }
+          
+
+          
+          <div class="raya"></div>
+        </div>
+        
+        <div class="dere">
+          <h1><div class="bola"></div>${this.cv.perfil.nombre.split(" ")[0]} ${this.cv.perfil.nombre.split(" ")[2]}</h1>
+          <h2>${this.cv.perfil.titulo}</h2>
+          <div class="so"><div class="bola"></div>SOBRE MÍ</div>
+          
+          <p>${this.cv.perfil.descripcion}</p>
+          <table>
+            <tr>
+              <td><div class="ico"></div></td>
+              <td class="tt">${this.cv.datosPersonales.fechaNacimiento}</td>
+              <td><div class="ico"></div></td>
+              <td class="tt">${this.cv.contacto.email}</td>
+            </tr>
+            <tr>
+              <td><div class="ico"></div></td>
+              <td class="tt">${this.cv.contacto.telefono}</td>
+              <td><div class="ico"></div></td>
+              <td class="tt">${this.cv.contacto.direccionExacta}</td>
+            </tr>
+          </table>
+
+          <div class="so"><div class="bola"></div>EXPERIENCIA LABORAL</div>
+          ${
+            this.cv.experiencia.map((value) => {
+              const { titulo, empresa, duracionInicio, duracionFin, descripcion } = value
+              return (html`
+              <div style="margin-top: 15px;"></div>
+              <div class="st">${titulo}</div>
+              <div class="sp" style="margin-bottom: 4px;">${empresa} | ${duracionInicio} - ${duracionFin}</div>
+              ${
+                descripcion.map((value) => {
+                  return (html`
+                    <li>${value}</li>                
+                  `)
+                })
+              }
+            `)
+            })
+          }
+
+          <div class="so" style="margin-top: 20px;"><div class="bola"></div>INFORMACION PERSONAL</div>
+          <table style="margin-top: -5px;">
+            <tr>
+              <td style="font-weight: bold;">15/10/1995</td>
+              <td>hola@unsitiogenial.es</td>
+            </tr>
+            <tr>
+              <td style="font-weight: bold;">911-234-5678</td>
+              <td>Calle Cualquiera 123, Cualquier Lugar</td>
+            </tr>
+          </table>
+        </div>
       
       </div>
     </div>

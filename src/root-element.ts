@@ -10,8 +10,8 @@ export class MyElement extends LitElement {
 
   render() {
     return html`
-    <edit-element></edit-element>
-    <!-- <aside-element></aside-element> -->
+    <!-- <edit-element></edit-element> -->
+    <aside-element></aside-element>
     `
   }
 
