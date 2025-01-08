@@ -271,7 +271,7 @@ export class MyElement extends LitElement {
     this.loaderDescarga=true
     const element = this.renderRoot.querySelector(".cv") as HTMLElement;
     // Mostrar el PDF en el iframe
-    const iframe = this.renderRoot.querySelector("iframe") as HTMLIFrameElement;
+    // const iframe = this.renderRoot.querySelector("iframe") as HTMLIFrameElement;
     if (!element) {
       console.error("Elemento no encontrado");
       return;
@@ -413,6 +413,8 @@ export class MyElement extends LitElement {
           outline: none;
           border-radius: 4px;
           color: #3b4157;
+          resize: none;
+          field-sizing: content;
           padding: 10px;
           box-shadow: 0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;
         }
@@ -485,6 +487,19 @@ export class MyElement extends LitElement {
             title="UI Dev"
             @click=${ () => this.canbio=!this.canbio }
           >${createElement(Code2)}</button>
+
+          ${
+            Object.entries(this.cv).map(([key, value]) => {
+              if (typeof value == typeof "") {
+                return (html`
+                  <label>
+                    <span>${key}</span>
+                    <input >
+                  </label>
+                `)
+              }
+            })
+          }
 
           <div>ui noral</div>
         `
