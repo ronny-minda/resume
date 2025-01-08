@@ -2,17 +2,17 @@ import { LitElement, css, html } from 'lit'
 import { customElement, state } from 'lit/decorators.js'
 
 import jsPDF from 'jspdf';
-import { createElement, Phone, MapPin, Mail, createIcons, icons, IconNode } from 'lucide';
+import { createIcons, icons } from 'lucide';
 
 @customElement('edit-element')
 export class MyElement extends LitElement {
 
   @state() private modoEditor = true
-  @state() private base64Image = ""
-  @state() private selecionado = 1
-  @state() private templates = false
-  @state() private canbio = false
-  @state() private informaionSesible = true
+  // @state() private base64Image = ""
+  // @state() private selecionado = 1
+  // @state() private templates = false
+  // @state() private canbio = false
+  // @state() private informaionSesible = true
   @state()
   private cv = {
   correoDestino: "",
@@ -192,14 +192,14 @@ convertSvgToPng(svgElement: SVGElement, width: number = 50, height: number = 50)
 }
 
 
-async getImage(ico: IconNode) {
-  const svgElement = createElement(MapPin) as SVGElement;
-  const imgElement = await this.convertSvgToPng(svgElement);
-  console.log(imgElement.outerHTML)
-  return imgElement.outerHTML; // Devuelve la etiqueta <img> como una cadena
+// async getImage(ico: IconNode) {
+//   const svgElement = createElement(MapPin) as SVGElement;
+//   const imgElement = await this.convertSvgToPng(svgElement);
+//   console.log(imgElement.outerHTML)
+//   return imgElement.outerHTML; // Devuelve la etiqueta <img> como una cadena
 
 
-}
+// }
 
   connectedCallback(): void {
 
@@ -214,35 +214,35 @@ async getImage(ico: IconNode) {
     }
   }
 
-  private async handleFileChange(event: Event) {
-    const input = event.target as HTMLInputElement;
+  // private async handleFileChange(event: Event) {
+  //   const input = event.target as HTMLInputElement;
 
-    if (input.files && input.files.length > 0) {
-      const file = input.files[0];
+  //   if (input.files && input.files.length > 0) {
+  //     const file = input.files[0];
 
-      // Verifica que sea una imagen
-      if (!file.type.startsWith('image/')) {
-        console.error('Por favor, selecciona un archivo de imagen.');
-        return;
-      }
+  //     // Verifica que sea una imagen
+  //     if (!file.type.startsWith('image/')) {
+  //       console.error('Por favor, selecciona un archivo de imagen.');
+  //       return;
+  //     }
 
-      try {
-        this.base64Image = await this.convertToBase64(file);
-        console.log('Imagen en Base64:', this.base64Image);
-      } catch (error) {
-        console.error('Error al convertir la imagen a Base64:', error);
-      }
-    }
-  }
+  //     try {
+  //       this.base64Image = await this.convertToBase64(file);
+  //       console.log('Imagen en Base64:', this.base64Image);
+  //     } catch (error) {
+  //       console.error('Error al convertir la imagen a Base64:', error);
+  //     }
+  //   }
+  // }
 
-  private convertToBase64(file: File): Promise<string> {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => resolve(reader.result as string);
-      reader.onerror = (error) => reject(error);
-      reader.readAsDataURL(file);
-    });
-  }
+  // private convertToBase64(file: File): Promise<string> {
+  //   return new Promise((resolve, reject) => {
+  //     const reader = new FileReader();
+  //     reader.onload = () => resolve(reader.result as string);
+  //     reader.onerror = (error) => reject(error);
+  //     reader.readAsDataURL(file);
+  //   });
+  // }
 
   private downloadPDF () {
     const element = this.renderRoot.querySelector(".cv") as HTMLElement;
