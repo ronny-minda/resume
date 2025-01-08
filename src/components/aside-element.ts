@@ -2,13 +2,7 @@ import { LitElement, css, html } from 'lit'
 import { customElement, property, state } from 'lit/decorators.js'
 
 import jsPDF from 'jspdf';
-import { Copy, createElement, Download, LayoutTemplate, Send, View } from 'lucide';
-
-type yy = {
-  img: string;
-  pdf: string;
-  name: string;
-}
+import { Copy, createElement, Download, LayoutTemplate, LoaderCircle, Send, View, Code2, AppWindow } from 'lucide';
 
 @customElement('aside-element')
 export class MyElement extends LitElement {
@@ -101,8 +95,9 @@ export class MyElement extends LitElement {
   @state() private base64Image = ""
   @state() private selecionado = 1
   @state() private templates = false
-  @state() private canbio = false
+  @state() private canbio = true
   @state() private informaionSesible = true
+  @state() private loaderDescarga = false
   @state()
   private cv = {
   correoDestino: "",
@@ -273,6 +268,7 @@ export class MyElement extends LitElement {
   }
 
   private downloadPDF () {
+    this.loaderDescarga=true
     const element = this.renderRoot.querySelector(".cv") as HTMLElement;
     // Mostrar el PDF en el iframe
     const iframe = this.renderRoot.querySelector("iframe") as HTMLIFrameElement;
@@ -291,7 +287,7 @@ export class MyElement extends LitElement {
       callback: (doc) => {
         // Descarga el PDF una vez que esté generado
         doc.save(`${this.cv.perfil.nombre} - Hoja de Vida.pdf`);
-
+        this.loaderDescarga=false
       },
       // x: 10, // Margen X
       // y: 10, // Margen Y
@@ -315,10 +311,38 @@ export class MyElement extends LitElement {
     return html`
 
       <div class="aside">
+      
+      ${
+        this.loaderDescarga==true?html`
+          <style>
+            .loader {
+              position: fixed;
+              top: 0;
+              left: 0;
+              height: 100vh;
+              width: 100vw;
+              z-index: 9999;
+              background-color: #0004;
+              backdrop-filter: blur(1px);
+              svg {
+                height: 200px;
+                width: 200px;
+                color: #fff;
+                /* animation: name 1s; */
+              }
+            }
+          </style>
+          <div class="loader">
+            ${createElement(LoaderCircle)}
+          </div>
+        `:""
+      }
+
         <style>
           .inputImg {
             height: 150px;
             width: 150px;
+            margin: 20px 0;
             border: 1px solid red;
             background-color: #f5f7ff;
             border: 1px solid #c9cfe7;
@@ -338,9 +362,7 @@ export class MyElement extends LitElement {
             background-color: #c1c6d9;
           }
         </style>
-      <button
-        @click=${ () => this.canbio=!this.canbio }
-      >Cambio</button>
+      
 
       <label title="Cargar Imagen" class="inputImg" style="background-image: url(${this.base64Image})">
         <input
@@ -349,39 +371,107 @@ export class MyElement extends LitElement {
           accept="image/*"
         />
       </label>
+      <style>
+        button,a,input {
+          cursor: pointer;
+          background-color: #f5f7ff;
+          border: 1px solid #c9cfe7;
+          outline: none;
+          border-radius: 4px;
+          padding: 3px;
+          height: 30px;
+          width: 30px;
+          box-shadow: 0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;
+          display: inline-block;
 
-      ${
-        this.canbio == true ?html`
-          <style>
-            button,a {
-              cursor: pointer;
-              background-color: #f5f7ff;
-              border: 1px solid #c9cfe7;
-              outline: none;
-              border-radius: 4px;
-              padding: 3px;
-              height: 30px;
-              width: 30px;
-              box-shadow: 0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;
-    
-              svg {
-                height: 100%;
-                width: 100%;
-                color: #535b77;
-              }
-              &:hover {
-                svg {
-                  color: #8992af;
-                }
-              }
-              &:active {
-                svg {
-                  color: #535b77;
-                }
-              }
+          svg {
+            height: 100%;
+            width: 100%;
+            color: #535b77;
+          }
+          &:hover {
+            svg {
+              color: #8992af;
             }
-          </style>
-          <textarea 
+          }
+          &:active {
+            svg {
+              color: #535b77;
+            }
+          }
+        }
+        .contene {
+          margin: 20px 0;
+          width: 100%;
+          display: flex;
+          justify-content: space-evenly;
+        }
+        textarea {
+          width: 100%;
+          height: 200px;
+          border: 1px solid #c9cfe7;
+          outline: none;
+          border-radius: 4px;
+          color: #3b4157;
+          padding: 10px;
+          box-shadow: 0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;
+        }
+        textarea::-webkit-scrollbar {
+          width: 10px;
+        }
+        textarea::-webkit-scrollbar-track {
+          background: #b6c9e7;
+          cursor: pointer;
+        }
+        textarea::-webkit-scrollbar-thumb {
+          background-color: #6e82a1;
+          border-radius: 10px;
+          border: 3px solid #b6c9e7;
+        }
+        textarea::-webkit-scrollbar-thumb:hover {
+          background-color: #4c6181;
+          cursor: pointer;
+        }
+      </style>
+      ${
+        this.canbio == true ?html`          
+          <button
+            title="UI User"
+            @click=${ () => this.canbio=!this.canbio }
+          >${createElement(AppWindow)}</button>
+
+          <div class="contene">
+            <input type="checkbox"
+              .checked=${this.informaionSesible}
+              @change=${(e: Event)=> {
+                const target = e.target as HTMLInputElement
+                this.informaionSesible=target.checked
+              }}
+            >
+            <button
+              title="Templates"
+              @click=${ () => {
+                console.log()
+                this.templates = !this.templates
+              } }
+            >${createElement(LayoutTemplate)}</button>
+        
+            <button
+              title="Copiar"
+              @click=${ () => this.copy() }
+            >${createElement(Copy)}</button>
+        
+            <button
+              title="Descargar"
+              @click=${ () => this.downloadPDF() }
+            >${createElement(Download)}</button>
+        
+            <a href=${`mailto:${this.cv.correoDestino}?subject=${this.cv.asuntoDestino}&body=${this.cv.mensajeDestino}`}>
+              ${createElement(Send)}
+            </a>
+          </div>
+
+          <textarea
             @input=${ (e: Event) => {
               const target = e.target as HTMLTextAreaElement
               console.log(target.value)
@@ -390,35 +480,269 @@ export class MyElement extends LitElement {
             }}
             
           >${JSON.stringify(this.cv)} </textarea>
-      
-          <button
-            title="Templates"
-            @click=${ () => {
-              console.log()
-              this.templates = !this.templates
-            } }
-          >${createElement(LayoutTemplate)}</button>
-      
-          <button
-            title="Copiar"
-            @click=${ () => this.copy() }
-          >${createElement(Copy)}</button>
-      
-          <button
-            title="Descargar"
-            @click=${ () => this.downloadPDF() }
-          >${createElement(Download)}</button>
-      
-          <a href=${`mailto:${this.cv.correoDestino}?subject=${this.cv.asuntoDestino}&body=${this.cv.mensajeDestino}`}>
-            ${createElement(Send)}
-          </a>
         `:html`
+          <button
+            title="UI Dev"
+            @click=${ () => this.canbio=!this.canbio }
+          >${createElement(Code2)}</button>
+
           <div>ui noral</div>
         `
       }
     </div>
     
     <div class="cuerpo">
+
+      ${
+        this.selecionado==10?html`
+          <style>
+            .cv {
+              display: flex;
+              height: 848px;
+              width: 600px;
+              position: relative;
+              background-color: #fff;
+              /* padding: 35px 28px; */
+              font-family: Helvetica;
+              /* font-family: Inter; */
+
+              .iz {
+                position: relative;
+                z-index: 999;
+                height: 100%;
+                width: 227px;
+                margin-left: 24px;
+                background-color: #386dad;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                color: #fff;
+                padding: 0 17px;
+                
+                .bolaPerfil {
+                  background-color: blue;
+                  margin-top: 24px;
+                  height: 192px;
+                  width: 192px;
+                  border-radius: 50%;
+                  border: 5px solid #fff;
+                  margin-bottom: 25px;
+                  
+                  .imgPlatilla {
+                    height: 100%;
+                    width: 100%;
+                    object-fit: cover;
+                    border-radius: 50%;
+                  }
+                }
+                .ti {
+                  font-weight: bold;
+                  text-align: start;
+                  width: 100%;
+                  margin-bottom: 13px;
+                }
+                .t1 {
+                  /* color: red; */
+                  font-weight: bold;
+                  text-align: start;
+                  font-size: 11px;
+                  width: 100%;
+                  margin-bottom: 2px;
+                  margin-left: 40px;
+                  position: relative;
+                  .bola {
+                    height: 6px;
+                    width: 6px;
+                    background-color: #fff;
+                    border-radius: 50%;
+                    position: absolute;
+                    top: 50%;
+                    left: -17px;
+                    transform: translateY(-50%);
+                  }
+                }
+                .t2 {
+                  font-size: 11px;
+                  text-align: start;
+                  width: 100%;
+                  margin-bottom: 0px;
+                  margin-left: 40px;
+                }
+
+                .co {
+                  text-align: start;
+                  width: 100%;
+                  /* color: red; */
+                  font-size: 12px;
+                  display: flex;
+                  align-items: center;
+                  margin-bottom: 11px;
+
+                  .bola {
+                    margin-right: 6px;
+                    border-radius: 50%;
+                    height: 25px;
+                    width: 25px;
+                    background-color: #fff;
+                  }
+                }
+                .raya {
+                  width: 100%;
+                  border-bottom: 2px solid #fff;
+                  margin: 13px 0;
+                }
+              }
+
+              .dere {
+                height: 100%;
+                width: 305px;
+                /* background-color: red; */
+                color: #143f72;
+                padding-left: 25px;
+
+                .ti {
+                  margin-bottom: 9px;
+                  font-weight: bold;
+                }
+                p {
+                  font-size: 10px;
+                  font-weight: 100;
+                }
+                .raya {
+                  width: 100%;
+                  border-bottom: 2px solid #143f72;
+                  margin: 23px 0;
+                }
+                .caja {
+                  width: calc(100% - 10px);
+                  /* background-color: red; */
+                  padding-left: 25px;
+                  margin-left: 10px;
+                  border-left: 2px solid #143f72;
+
+                  .titu {
+                    font-size: 12px;
+                    font-weight: bold;
+                    position: relative;
+                    .bola {
+                      height: 11px;
+                      width: 11px;
+                      background-color: #143f72;
+                      position: absolute;
+                      top: 50%;
+                      left: -31px;
+                      border-radius: 50%;
+                      transform: translateY(-50%);
+                    }
+                  }
+                }
+                /* position: relative;
+                z-index: 999; */
+              }
+              .pti {
+                position: absolute;
+                top: 26px;
+                left: 0;
+                background-color: #143f72;
+                height: 150px;
+                width: 100%;
+                color: #fff;
+                h1 {
+                  font-size: 41px;
+                  position: absolute;
+                  top: 25px;
+                  left: 278px;
+                  letter-spacing: -3px;
+                }
+                h2 {
+                  font-weight: 100;
+                  font-size: 22px;
+                  position: absolute;
+                  top: 88px;
+                  left: 278px;
+                  letter-spacing: -2px;
+                }
+              }
+            }
+          </style>
+
+          <div class="cv">
+            
+            <div class="iz">
+              <div class="bolaPerfil">
+                <img class="imgPlatilla" src=${this.base64Image} alt="perfil">
+              </div>
+              <div class="ti">CONTACTO</div>
+              
+              <div class="co"><div class="bola"></div>${this.cv.contacto.telefono}</div>
+              <div class="co"><div class="bola"></div>${this.cv.contacto.email}</div>
+              <div class="co"><div class="bola"></div>${this.cv.contacto.web}</div>
+              
+              <div class="raya"></div>
+              <div style="margin-top: 11px;"></div>
+              
+              <div class="ti">EDUCACIÓN</div>
+              ${
+                this.cv.educacion.map((value) => {
+                  const { titulo, institucion, fechaFin, fechaInicio } = value
+                  return (html`
+                    <div class="t1"><div class="bola"></div>${titulo}</div>
+                    <div class="t2">${institucion}</div>
+                    <div class="t2">${fechaInicio}-${fechaFin}</div>
+                    <div style="margin-top: 11px;"></div>
+                    `)
+                })
+              }
+
+              <div class="raya"></div>
+              <div style="margin-top: 11px;"></div>
+              
+              <div class="ti">HABILIDADES</div>
+              ${
+                this.cv.experticia.map((value) => {
+                  return (html`
+                    <div class="t1"><div class="bola"></div>${value}</div>
+                    <div style="margin-top: 7px;"></div>
+                    `)
+                })
+              }
+            </div>
+
+            <div class="pti">
+              <h1>${this.cv.perfil.nombre.split(" ")[0]} ${this.cv.perfil.nombre.split(" ")[2]}</h1>
+              <h2>${this.cv.perfil.titulo}</h2>
+            </div>
+
+            <div class="dere">
+              <div style="margin-top: 199px;"></div>
+              <div class="ti">ACERCA DE MÍ</div>
+              <p>${this.cv.perfil.descripcion}</p>
+              <div class="raya"></div>
+              <!-- <div class="rayaY"></div> -->
+              
+              <div class="ti">EXPERIENCIA LABORAL</div>
+              <div class="caja">
+                ${
+                  this.cv.experiencia.map((value) => {
+                    const { descripcion, duracionFin, duracionInicio, empresa, titulo } = value
+                    return (html`
+                      <div class="titu"><div class="bola"></div>${titulo}</div>
+                      <div style="margin-top: 6px;"></div>
+                      <p>${empresa}</p>
+                      <p>${duracionInicio}-${duracionFin}</p>
+                      <div style="margin-top: 6px;"></div>
+                      ${descripcion.map((valor)=>html`<p>${valor}</p>`)}
+                      <div style="margin-top: 8px;"></div>
+                    `)
+                  })
+                }
+              </div>
+
+            </div>
+
+          </div>
+        `:""
+      }
 
       ${
         this.selecionado==3?html`
@@ -672,30 +996,33 @@ export class MyElement extends LitElement {
                   })
                 }
 
-                <div class="so" style="margin-top: 20px;"><div class="bola"></div>INFORMACION PERSONAL</div>
-                <table style="margin-top: -5px;">
-                  <tr>
-                    <td style="font-weight: bold;">Cedula:</td>
-                    <td>${this.cv.datosPersonales.cedula}</td>
-                  </tr>
-                  <tr>
-                    <td style="font-weight: bold;">Edad:</td>
-                    <td>${this.cv.datosPersonales.edad}</td>
-                  </tr>
-                  <tr>
-                    <td style="font-weight: bold;">Estado Civil:</td>
-                    <td>${this.cv.datosPersonales.estadoCivil}</td>
-                  </tr>
-                  <tr>
-                    <td style="font-weight: bold;padding-right: 30px;">Fecha Nacimiento:</td>
-                    <td>${this.cv.datosPersonales.fechaNacimiento}</td>
-                  </tr>
-                  <tr>
-                    <td style="font-weight: bold;">Nacionalidad:</td>
-                    <td>${this.cv.datosPersonales.nacionalidad}</td>
-                  </tr>
-                </table>
-
+                ${
+                  this.informaionSesible==true?html`
+                    <div class="so" style="margin-top: 20px;"><div class="bola"></div>INFORMACION PERSONAL</div>
+                    <table style="margin-top: -5px;">
+                      <tr>
+                        <td style="font-weight: bold;">Cedula:</td>
+                        <td>${this.cv.datosPersonales.cedula}</td>
+                      </tr>
+                      <tr>
+                        <td style="font-weight: bold;">Edad:</td>
+                        <td>${this.cv.datosPersonales.edad}</td>
+                      </tr>
+                      <tr>
+                        <td style="font-weight: bold;">Estado Civil:</td>
+                        <td>${this.cv.datosPersonales.estadoCivil}</td>
+                      </tr>
+                      <tr>
+                        <td style="font-weight: bold;padding-right: 30px;">Fecha Nacimiento:</td>
+                        <td>${this.cv.datosPersonales.fechaNacimiento}</td>
+                      </tr>
+                      <tr>
+                        <td style="font-weight: bold;">Nacionalidad:</td>
+                        <td>${this.cv.datosPersonales.nacionalidad}</td>
+                      </tr>
+                    </table>
+                  `:""
+                }
                 
               </div>
             
@@ -1135,11 +1462,12 @@ export class MyElement extends LitElement {
           left: 0;
           height: 100%;
           width: 100%;
-          background-color: #a0b8d356;
+          background-color: #95adc979;
           z-index: 999;
           backdrop-filter: blur(1px);
         }
         .templateContenedor {
+          border-radius: 5px;
           box-shadow: 0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;
           position: fixed;
           bottom: 0;
@@ -1148,7 +1476,7 @@ export class MyElement extends LitElement {
           width: 100%;
           background-color: #f5f7ff;
           z-index: 9999;
-          padding: 5px;
+          padding: 15px;
           display: flex;
           flex-wrap: wrap;
           justify-content: center;
@@ -1165,7 +1493,6 @@ export class MyElement extends LitElement {
             transition: 0.5s;
             box-shadow: 0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;
             transform: scale(1);
-            /* padding: ; */
           }
           .cada:hover {
             transform: scale(1.1);
@@ -1176,6 +1503,32 @@ export class MyElement extends LitElement {
             top: 0;
             right: 0;
             z-index: 999;
+            cursor: pointer;
+            background-color: #f5f7ff;
+            border: 1px solid #c9cfe7;
+            outline: none;
+            border-radius: 4px;
+            padding: 3px;
+            height: 30px;
+            width: 30px;
+            box-shadow: 0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;
+            display: inline-block;
+  
+            svg {
+              height: 100%;
+              width: 100%;
+              color: #535b77;
+            }
+            &:hover {
+              svg {
+                color: #8992af;
+              }
+            }
+            &:active {
+              svg {
+                color: #535b77;
+              }
+            }
           }
         }
       </style>
@@ -1191,7 +1544,7 @@ export class MyElement extends LitElement {
                 <img
                   src=${img}
                   class="cada"
-                  title=${name}
+                  title=${key+1+name}
                   @click=${()=>{
                     this.templates=false
                     this.selecionado=key+1
@@ -1202,9 +1555,8 @@ export class MyElement extends LitElement {
           })
         }
       </div>
-      `
-      :""
-    }   
+      `:""
+    }
       
      
     `

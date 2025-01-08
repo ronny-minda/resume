@@ -308,249 +308,233 @@ async getImage(ico: IconNode) {
         }
 
         .iz {
-          position: relative;
+          z-index: 999;
           height: 100%;
-          width: 210px;
-          /* background-color: red; */
+          width: 227px;
+          margin-left: 24px;
+          background-color: #386dad;
           display: flex;
           flex-direction: column;
-          align-items: end;
-          padding-right: 15px;
-          padding-top: 67px;
-          /* justify-content: center; */
-
-          .bola {
-            height: 9px;
-            width: 9px;
-            border: 1px solid #000;
-            background-color: #fff;
-            border-radius: 50%;
-            position: absolute;
-            top: 50%;
-            right: 0;
-            transform: translateX(19px) translateY(-50%);
-            z-index: 999999;
-          }
-
-          .foto {
-            height: 223px;
-            width: 135px;
-            background-color: blue;
-            margin-bottom: 30px;
-          }
-
-          .abi {
-            font-size: 12px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            margin-top: 20px;
-            position: relative;
-          }
-
-          p {
-            font-size: 10px;
-            width: 150px;
-            text-align: end;
-          }
-
-          .bti {
-            font-size: 10px;
-            font-weight: bold;
-            text-align: end;
-          }
-
-          .bp {
-            font-size: 10px;
-            text-align: end;
-            margin-bottom: 10px;
-          }
-
-          .raya {
-            position: absolute;
-            top: 80px;
-            right: 0;
-            height: 750px;
-            border-right: 1px solid #000;
+          align-items: center;
+          color: #fff;
+          padding: 0 17px;
           
+          .bolaPerfil {
+            background-color: blue;
+            margin-top: 24px;
+            height: 192px;
+            width: 192px;
+            border-radius: 50%;
+            border: 5px solid #fff;
+            margin-bottom: 25px;
+          }
+          .ti {
+            font-weight: bold;
+            text-align: start;
+            width: 100%;
+            margin-bottom: 13px;
+          }
+          .t1 {
+            /* color: red; */
+            font-weight: bold;
+            text-align: start;
+            font-size: 11px;
+            width: 100%;
+            margin-bottom: 2px;
+            margin-left: 40px;
+            position: relative;
+            .bola {
+              height: 6px;
+              width: 6px;
+              background-color: #fff;
+              border-radius: 50%;
+              position: absolute;
+              top: 50%;
+              left: -17px;
+              transform: translateY(-50%);
+            }
+          }
+          .t2 {
+            font-size: 11px;
+            text-align: start;
+            width: 100%;
+            margin-bottom: 0px;
+            margin-left: 40px;
           }
 
+          .co {
+            text-align: start;
+            width: 100%;
+            /* color: red; */
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 11px;
 
+            .bola {
+              margin-right: 6px;
+              border-radius: 50%;
+              height: 25px;
+              width: 25px;
+              background-color: #fff;
+            }
+          }
+          .raya {
+            width: 100%;
+            border-bottom: 2px solid #fff;
+            margin: 13px 0;
+          }
         }
 
         .dere {
           height: 100%;
-          width: 310px;
-          padding-top: 64px;
-          padding-left: 18px;
-          
+          width: 305px;
           /* background-color: red; */
+          color: #143f72;
+          padding-left: 25px;
 
-          .bola {
-            height: 9px;
-            width: 9px;
-            border: 1px solid #000;
-            background-color: #fff;
-            border-radius: 50%;
-            position: absolute;
-            top: 50%;
-            left: 0;
-            transform: translateX(-23px) translateY(-50%);
-          }
-          h1 {
-            font-size: 26px;
-            position: relative;
-
-          }
-          h2 {
-            margin-top: -7px;
-            font-size: 12px;
-            letter-spacing: 2px;
-            margin-bottom: 21px;
-            font-weight: 100;
-          }
-          .so {
-            font-size: 12px;
+          .ti {
+            margin-bottom: 9px;
             font-weight: bold;
-            margin-bottom: 10px;
-            position: relative;
-          }
-          
-          .st {
-            font-size: 10px;
-            font-weight: bold;
-            /* color: red;  */
-            margin-top: -4px;
-          }
-          .sp {
-            margin-top: -2px;
-            font-size: 10px;
-            /* color: red;  */
-          }
-          li {
-            margin-top: 2px;
-            margin-left: 4px;
-            /* margin-bottom: 14px; */
-            /* color: red;  */
-            font-size: 10px;
-          }
-          li::marker {
-            margin-right: 2px;
           }
           p {
             font-size: 10px;
-            /* width: 150px; */
-            /* text-align: end; */
+            font-weight: 100;
           }
-          table {
-            margin-bottom: 18px;
-            margin-top: 13px;
+          .raya {
+            width: 100%;
+            border-bottom: 2px solid #143f72;
+            margin: 23px 0;
+          }
+          .caja {
+            width: calc(100% - 10px);
+            /* background-color: red; */
+            padding-left: 25px;
+            margin-left: 10px;
+            border-left: 2px solid #143f72;
 
-            .tt {
-              padding-right: 40px;
-              padding-left: 5px;
-            }
-            td {
-              font-size: 10px;
-              /* display: flex; */
-              text-align: start;
-
-              .ico {
-                height: 21px;
-                width: 21px;
-                margin-bottom: 3px;
+            .titu {
+              font-size: 12px;
+              font-weight: bold;
+              position: relative;
+              .bola {
+                height: 11px;
+                width: 11px;
+                background-color: #143f72;
+                position: absolute;
+                top: 50%;
+                left: -31px;
                 border-radius: 50%;
-                background-color: #000;
+                transform: translateY(-50%);
               }
             }
           }
+          /* position: relative;
+          z-index: 999; */
         }
-
+        .pti {
+          position: absolute;
+          top: 26px;
+          left: 0;
+          background-color: #143f72;
+          height: 150px;
+          width: 100%;
+          color: #fff;
+          h1 {
+            font-size: 41px;
+            position: absolute;
+            top: 25px;
+            left: 278px;
+            letter-spacing: -3px;
+          }
+          h2 {
+            font-weight: 100;
+            font-size: 22px;
+            position: absolute;
+            top: 88px;
+            left: 278px;
+            letter-spacing: -3px;
+          }
+        }
       }
     </style>
 
     <div>
       <div class="cv">
-        <!-- <img class="imgPlatilla" src="plantillasImg/Currículum Agente comercial Minimalista Blanco y negro_page-0001.jpg" alt="perfil"> -->
-
+        <img
+          class="imgPlatilla"
+          src="plantillasImg/Currículum Vitae Cv de Administración Simple Azul.jpg"
+          alt="perfil"
+        >
+        <div class="pti">
+          <h1>Pedro Fernández</h1>
+          <h2>LIC. EN ADMINISTRACIÓN</h2>
+        </div>
         <div class="iz">
-          <div class="foto"></div>
-          <div class="abi"><div class="bola"></div>DATOS ACADÉMICOS</div>
+          <div class="bolaPerfil"></div>
+          <div class="ti">CONTACTO</div>
+          
+          <div class="co"><div class="bola"></div>${this.cv.contacto.telefono}</div>
+          <div class="co"><div class="bola"></div>${this.cv.contacto.email}</div>
+          <div class="co"><div class="bola"></div>${this.cv.contacto.web}</div>
+          
+          <div class="raya"></div>
+          <div style="margin-top: 11px;"></div>
+          
+          <div class="ti">EDUCACIÓN</div>
           ${
             this.cv.educacion.map((value) => {
-              const { titulo, fechaFin, fechaInicio, institucion } = value
+              const { titulo, institucion, fechaFin, fechaInicio } = value
               return (html`
-                <div class="bti">${institucion}</div>
-                <div class="bp">${titulo} | ${fechaInicio} - ${fechaFin}</div>
-              `)
+                <div class="t1"><div class="bola"></div>${titulo}</div>
+                <div class="t2">${institucion}</div>
+                <div class="t2">${fechaInicio}-${fechaFin}</div>
+                <div style="margin-top: 11px;"></div>
+                `)
             })
           }
-          <div class="abi"><div class="bola"></div>HABILIDADES</div>
+
+          <div class="raya"></div>
+          <div style="margin-top: 11px;"></div>
+          
+          <div class="ti">HABILIDADES</div>
           ${
             this.cv.experticia.map((value) => {
               return (html`
-                <P>${value}</P>
-              `)
+                <div class="t1"><div class="bola"></div>${value}</div>
+                <div style="margin-top: 7px;"></div>
+                `)
             })
           }
-          
-
-          
-          <div class="raya"></div>
         </div>
-        
+
         <div class="dere">
-          <h1><div class="bola"></div>${this.cv.perfil.nombre.split(" ")[0]} ${this.cv.perfil.nombre.split(" ")[2]}</h1>
-          <h2>${this.cv.perfil.titulo}</h2>
-          <div class="so"><div class="bola"></div>SOBRE MÍ</div>
-          
+          <div style="margin-top: 199px;"></div>
+          <div class="ti">ACERCA DE MÍ</div>
           <p>${this.cv.perfil.descripcion}</p>
-          <table>
-            <tr>
-              <td><div class="ico"></div></td>
-              <td class="tt">${this.cv.datosPersonales.fechaNacimiento}</td>
-              <td><div class="ico"></div></td>
-              <td class="tt">${this.cv.contacto.email}</td>
-            </tr>
-            <tr>
-              <td><div class="ico"></div></td>
-              <td class="tt">${this.cv.contacto.telefono}</td>
-              <td><div class="ico"></div></td>
-              <td class="tt">${this.cv.contacto.direccionExacta}</td>
-            </tr>
-          </table>
+          <div class="raya"></div>
+          <!-- <div class="rayaY"></div> -->
+          
+          <div class="ti">EXPERIENCIA LABORAL</div>
+          <div class="caja">
+            ${
+              this.cv.experiencia.map((value) => {
+                const { descripcion, duracionFin, duracionInicio, empresa, titulo } = value
+                return (html`
+                  <div class="titu"><div class="bola"></div>${titulo}</div>
+                  <div style="margin-top: 6px;"></div>
+                  <p>${empresa}</p>
+                  <p>${duracionInicio}-${duracionFin}</p>
+                  <div style="margin-top: 6px;"></div>
+                  ${descripcion.map((valor)=>html`<p>${valor}</p>`)}
+                  <div style="margin-top: 8px;"></div>
+                `)
+              })
+            }
+          </div>
 
-          <div class="so"><div class="bola"></div>EXPERIENCIA LABORAL</div>
-          ${
-            this.cv.experiencia.map((value) => {
-              const { titulo, empresa, duracionInicio, duracionFin, descripcion } = value
-              return (html`
-              <div style="margin-top: 15px;"></div>
-              <div class="st">${titulo}</div>
-              <div class="sp" style="margin-bottom: 4px;">${empresa} | ${duracionInicio} - ${duracionFin}</div>
-              ${
-                descripcion.map((value) => {
-                  return (html`
-                    <li>${value}</li>                
-                  `)
-                })
-              }
-            `)
-            })
-          }
-
-          <div class="so" style="margin-top: 20px;"><div class="bola"></div>INFORMACION PERSONAL</div>
-          <table style="margin-top: -5px;">
-            <tr>
-              <td style="font-weight: bold;">15/10/1995</td>
-              <td>hola@unsitiogenial.es</td>
-            </tr>
-            <tr>
-              <td style="font-weight: bold;">911-234-5678</td>
-              <td>Calle Cualquiera 123, Cualquier Lugar</td>
-            </tr>
-          </table>
         </div>
-      
+
       </div>
     </div>
     
