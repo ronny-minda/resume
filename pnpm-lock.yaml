@@ -11,6 +11,9 @@ importers:
       '@lit-labs/signals':
         specifier: ^0.1.1
         version: 0.1.1
+      html2pdf.js:
+        specifier: ^0.10.2
+        version: 0.10.2
       jspdf:
         specifier: ^2.5.2
         version: 2.5.2
@@ -400,6 +403,9 @@ packages:
   dompurify@2.5.8:
     resolution: {integrity: sha512-o1vSNgrmYMQObbSSvF/1brBYEQPHhV1+gsmrusO7/GXtp1T9rCS8cXFqVxK/9crT1jA6Ccv+5MTSjBNqr7Sovw==}
 
+  es6-promise@4.2.8:
+    resolution: {integrity: sha512-HJDGx5daxeIvxdBxvG2cb9g4tEvwIk3i8+nhX0yGrYmZUzbkdg8QbDevheDB8gd0//uPj4c1EQua8Q+MViT0/w==}
+
   esbuild@0.24.2:
     resolution: {integrity: sha512-+9egpBW8I3CD5XPe0n6BfT5fxLzxrlDzqydF3aviG+9ni1lDC/OvMHcxqEFV0+LANZG5R1bFMWfUrjVsdwxJvA==}
     engines: {node: '>=18'}
@@ -416,6 +422,9 @@ packages:
   html2canvas@1.4.1:
     resolution: {integrity: sha512-fPU6BHNpsyIhr8yyMpTLLxAbkaK8ArIBcmZIRiBLiDhjeqvXolaEmDGmELFuX9I4xDcaKKcJl+TKZLqruBbmWA==}
     engines: {node: '>=8.0.0'}
+
+  html2pdf.js@0.10.2:
+    resolution: {integrity: sha512-WyHVeMb18Bp7vYTmBv1GVsThH//K7SRfHdSdhHPkl4JvyQarNQXnailkYn0QUbRRmnN5rdbbmSIGEsPZtzPy2Q==}
 
   jspdf@2.5.2:
     resolution: {integrity: sha512-myeX9c+p7znDWPk0eTrujCzNjT+CXdXyk7YmJq5nD5V7uLLKmSXnlQ/Jn/kuo3X09Op70Apm0rQSnFWyGK8uEQ==}
@@ -754,8 +763,7 @@ snapshots:
 
   atob@2.1.2: {}
 
-  base64-arraybuffer@1.0.2:
-    optional: true
+  base64-arraybuffer@1.0.2: {}
 
   btoa@1.2.1: {}
 
@@ -777,10 +785,11 @@ snapshots:
   css-line-break@2.1.0:
     dependencies:
       utrie: 1.0.2
-    optional: true
 
   dompurify@2.5.8:
     optional: true
+
+  es6-promise@4.2.8: {}
 
   esbuild@0.24.2:
     optionalDependencies:
@@ -819,7 +828,12 @@ snapshots:
     dependencies:
       css-line-break: 2.1.0
       text-segmentation: 1.0.3
-    optional: true
+
+  html2pdf.js@0.10.2:
+    dependencies:
+      es6-promise: 4.2.8
+      html2canvas: 1.4.1
+      jspdf: 2.5.2
 
   jspdf@2.5.2:
     dependencies:
@@ -928,7 +942,6 @@ snapshots:
   text-segmentation@1.0.3:
     dependencies:
       utrie: 1.0.2
-    optional: true
 
   tslib@1.14.1: {}
 
@@ -937,7 +950,6 @@ snapshots:
   utrie@1.0.2:
     dependencies:
       base64-arraybuffer: 1.0.2
-    optional: true
 
   vite@6.0.6:
     dependencies:

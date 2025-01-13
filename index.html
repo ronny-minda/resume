@@ -7,8 +7,16 @@
     <title>Vite + Lit + TS</title>
     <link rel="stylesheet" href="./src/index.css" />
     <script type="module" src="/src/root-element.ts"></script>
+    <script type="module" src="./public/tan-pearl-normal.js"></script>
   </head>
   <body>
-    <root-element></root-element>
+    <style>
+      @font-face {
+        font-family: 'WorkSans';
+        src: url('/WorkSans-Regular.ttf')  format('truetype'),
+      }
+    </style>
+    <!-- <root-element></root-element> -->
+     <h1 style="font-family: WorkSans;color: red;">Hola</h1>
   </body>
 </html>

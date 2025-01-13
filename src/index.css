@@ -1,5 +1,19 @@
+@font-face {
+  font-family: 'TAN - PEARL';
+  src: url('/fonts/tan-pearl.eot');
+  src: url('/fonts/tan-pearl.eot?#iefix') format('embedded-opentype'),
+       url('/fonts/tan-pearl.woff2') format('woff2'),
+       url('/fonts/tan-pearl.woff') format('woff'),
+       url('/fonts/tan-pearl.ttf')  format('truetype'),
+       url('/fonts/tan-pearl.svg#TAN - PEARL') format('svg');
+}
+/* @font-face {
+  font-family: 'WorkSans';
+  src: url('/WorkSans-Regular.ttf')  format('truetype'),
+} */
+
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  /* font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif; */
   line-height: 1.5;
   font-weight: 400;
 

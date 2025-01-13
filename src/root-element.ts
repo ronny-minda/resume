@@ -4,6 +4,7 @@ import { customElement } from 'lit/decorators.js'
 import "./components/aside-element"
 import "./components/cv-element"
 import "./components/edit-element"
+import "./components/edit-pru"
 
 @customElement('root-element')
 export class MyElement extends LitElement {
@@ -12,6 +13,7 @@ export class MyElement extends LitElement {
     return html`
     <!-- <edit-element></edit-element> -->
     <aside-element></aside-element>
+    <!-- <edit-pru></edit-pru> -->
     `
   }
 
