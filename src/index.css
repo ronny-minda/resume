@@ -17,9 +17,9 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: #f2faffde;
-  background-color: #191e2c;
+  /* color-scheme: light dark; */
+  /* color: #f2faffde; */
+  /* background-color: #191e2c; */
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -50,9 +50,9 @@ body {
   min-height: 100vh;
 }
 
-@media (prefers-color-scheme: light) {
+/* @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #f5f7ff;
   }
-}
+} */

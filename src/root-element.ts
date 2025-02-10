@@ -1,20 +1,25 @@
-import { LitElement, css, html } from 'lit'
-import { customElement } from 'lit/decorators.js'
+import { LitElement, css, html } from "lit";
+import { customElement } from "lit/decorators.js";
 
-import "./components/aside-element"
-import "./components/cv-element"
-import "./components/edit-element"
-import "./components/edit-pru"
+import "./components/aside-element";
+import "./components/cv-element";
+import "./components/edit-element";
+import "./components/edit-pru";
+import "./components/centro-elements";
+import "./components/templates-elements";
+import { template } from "./store/ui";
+import { SignalWatcher } from "@lit-labs/preact-signals";
 
-@customElement('root-element')
-export class MyElement extends LitElement {
-
+@customElement("root-element")
+export class MyElement extends SignalWatcher(LitElement) {
   render() {
     return html`
-    <!-- <edit-element></edit-element> -->
-    <aside-element></aside-element>
-    <!-- <edit-pru></edit-pru> -->
-    `
+      <!-- <edit-element></edit-element> -->
+      <aside-element></aside-element>
+      <centro-element></centro-element>
+      ${template.value == true ? html`<templates-element></templates-element>` : ""}
+      <!-- <edit-pru></edit-pru> -->
+    `;
   }
 
   static styles = css`
@@ -23,33 +28,13 @@ export class MyElement extends LitElement {
       padding: 0;
       box-sizing: border-box;
     }
-  `
+    :host {
+      display: flex;
+      height: 100vh;
+      width: 100vw;
+    }
+  `;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // import { LitElement, css, html } from 'lit'
 // import { customElement, property } from 'lit/decorators.js'
