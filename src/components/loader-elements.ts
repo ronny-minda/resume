@@ -15,7 +15,7 @@ export class MyElement extends SignalWatcher(LitElement) {
           width: 100vw;
           z-index: 9999;
           background-color: #0004;
-          backdrop-filter: blur(1px);
+          /* backdrop-filter: blur(1px); */
           display: flex;
           justify-content: center;
           align-items: center;

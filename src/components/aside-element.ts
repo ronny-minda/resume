@@ -1,170 +1,22 @@
 import { LitElement, css, html } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
-// import html2pdf from "html2pdf.js"
-import "./centro-elements"
+import { customElement } from "lit/decorators.js";
+import "./centro-elements";
 
-
-import jsPDF from "jspdf";
 import {
   Copy,
   createElement,
   Download,
   LayoutTemplate,
   Send,
-  View,
   Code2,
   AppWindow,
-  IconNode,
-  Phone,
-  Mail,
-  MapPin,
-  Globe,
-  User2,
 } from "lucide";
-import { until } from "lit/directives/until.js";
-import { template } from "../store/ui";
+import { perfilBase64Image, cambio, informacionCv, informacionDestino, informaionSesible, loaderDescarga, template } from "../store/ui";
 import { SignalWatcher } from "@lit-labs/preact-signals";
+import axios from "axios";
 
 @customElement("aside-element")
 export class MyElement extends SignalWatcher(LitElement) {
-
-  @state() private base64Image = "";
-  @state() private canbio = true;
-  @state() private informaionSesible = true;
-  @state()
-  private cv = {
-    correoDestino: "",
-    mensajeDestino: "",
-    asuntoDestino: "",
-    contacto: {
-      telefono: "0993105654",
-      email: "ronny.minda.vera@gmail.com",
-      web: "https://ronnyminda.vercel.app/",
-      direccion: "ISLA TRINITARIA",
-      direccionExacta: "ISLA TRINITARIA COOP ANTONIO MZ. 12A SL. 13B",
-    },
-    perfil: {
-      nombre: "Ronny Michael Minda Vera",
-      titulo: "Desarrollador Full Stack",
-      descripcion:
-        "Desarrollador web con experiencia en desarrollo de aplicaciones web, diseño de interfaz de usuario (UI) y experiencia de usuario (UX). Enfocado en el desarrollo de software tanto front-end como back-end, con el objetivo de crear aplicaciones dinámicas y estáticas con experiencias intuitivas y atractivas.",
-    },
-    datosPersonales: {
-      cedula: "0954703468",
-      fechaNacimiento: "25/08/1999",
-      estadoCivil: "Soltero",
-      nacionalidad: "Ecuatoriano",
-      lugarNacimiento: "Guayaquil",
-      edad: 24,
-    },
-    educacion: [
-      {
-        fechaInicio: "2019",
-        fechaFin: "2023",
-        titulo: "Tecnologo en Sistemas",
-        nivel: "Superior",
-        institucion: "Instituto Superior Universitario Bolivariano (ITB)",
-        descripcion: "Formación como Desarrollador de Software.",
-      },
-      {
-        fechaInicio: "2020",
-        fechaFin: "2022",
-        titulo: "Full Stack",
-        nivel: "Curso",
-        institucion: "Platzi",
-        descripcion: "Desarrollo Web en plataforma de aprendizaje en línea.",
-      },
-    ],
-    experiencia: [
-      {
-        titulo: "Desarrollador Aplicaciones Frontend Eficientes",
-        descripcion: [
-          "Desarrollo de aplicaciones frontend con experiencia en React",
-          "Tailwindcss, Zustand, Redux",
-          "Styled Components",
-          "Styled Components",
-        ],
-        duracionInicio: "Nov. 2023",
-        duracionFin: "Feb. 2024",
-        empresa: "Central File",
-      },
-      // {
-      //   titulo: "Desarrollador frontend (Portafolio de fotógrafo)",
-      //   descripcion:
-      //     "Diseño minimalista para destacar fotografías con transiciones y animaciones sutiles.",
-      //   duracion: "Mar. 2022 - May. 2022",
-      //   empresa: "Servicios Prestados",
-      // },
-      {
-        titulo: "Plataforma de administración de estudiantes Frontend/Backend",
-        descripcion: [
-          "Desarrollo de una aplicación con Node, Express",
-          "React.js y MongoDB",
-          "Gestión eficiente de datos y funcionalidades CRUD",
-        ],
-        duracionInicio: "May. 2022",
-        duracionFin: "Jul. 2022",
-        empresa: "Servicios Prestados",
-      },
-      {
-        titulo: "Desarrollador Web Frontend y Backend",
-        descripcion: [
-          "Desarrollo y mantenimiento de sitios web usando React",
-          "Vue, Next.js, y Nuxt.js",
-          "Implementación de animaciones con Framer Motion y optimización de rendimiento",
-        ],
-        duracionInicio: "Ago. 2022",
-        duracionFin: "Dic. 2022",
-        empresa: "Manasystem (Servicios Prestados)",
-      },
-    ],
-    experticia: [
-      "Frontend y Backend",
-      "UX UI",
-      "Arquitectura cliente-servidor con REST APIs",
-      "Gestión de estado con Tanstack Query",
-    ],
-    tecnologias: [
-      "Node.js APIs",
-      "Framer Motion",
-      "Vue",
-      "Nuxt.js",
-      "React.js",
-      "Preact.js",
-      "Next.js",
-      "MongoDB",
-      "Express.js",
-      "Bcrypt.js",
-      "Redux",
-      "Zustand",
-      "Tailwindcss",
-    ],
-    referencias: [
-      {
-        nombre: "Byron Asencio Rodriguez",
-        puesto:
-          "Ingeniero en Sistemas Computacionales - MSIG, Jefe de Sistemas",
-        telefono: "+593 99 790 0800",
-      },
-      {
-        nombre: "Brady Gutierrez",
-        puesto: "Analista Desarrollador, Tecnólogo de Desarrollo de Software",
-        telefono: "+593 97 932 8153",
-      },
-      {
-        nombre: "Paul Cando",
-        puesto:
-          "Analista Desarrollador, Ingeniero de Sistemas - Mención en Gestión",
-        telefono: "+593 98 249 9225",
-      },
-      {
-        nombre: "Dennisse Pérez Cedeño",
-        puesto:
-          "Lic. Redes y Sistemas Operativos, Analista de Proyectos Digitales",
-        telefono: "+593 99 440 8857",
-      },
-    ],
-  };
 
   private async handleFileChange(event: Event) {
     const input = event.target as HTMLInputElement;
@@ -179,8 +31,8 @@ export class MyElement extends SignalWatcher(LitElement) {
       }
 
       try {
-        this.base64Image = await this.convertToBase64(file);
-        console.log("Imagen en Base64:", this.base64Image);
+        perfilBase64Image.value = await this.convertToBase64(file);
+        console.log("Imagen en Base64:", perfilBase64Image.value);
       } catch (error) {
         console.error("Error al convertir la imagen a Base64:", error);
       }
@@ -197,12 +49,45 @@ export class MyElement extends SignalWatcher(LitElement) {
   }
 
   private async downloadPDF() {
-    
+
+    console.log("Descargando PDF...");
+
+    loaderDescarga.value = true;
+
+    try {
+      const data = {
+        informacionCv,
+        informacionDestino,
+        perfilBase64Image,
+      }
+      const response = await axios.post("http://localhost:3000/api/cv", data, {
+        responseType: 'blob',
+      });
+
+      loaderDescarga.value = false;
+  
+      // Crear un enlace de descarga
+      const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'cv.pdf'); // Nombre del archivo a descargar
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      loaderDescarga.value = false;
+      if (axios.isAxiosError(error)) {
+        console.error("Error de red:", error.message);
+      } else {
+        console.error("Error desconocido:", error);
+      }
+    }
+
   }
 
   private copy() {
     navigator.clipboard
-      .writeText(JSON.stringify(this.cv))
+      .writeText(JSON.stringify(informacionCv.value))
       .then(() => {
         console.log("Texto copiado al portapapeles");
       })
@@ -217,7 +102,7 @@ export class MyElement extends SignalWatcher(LitElement) {
         <label
           title="Cargar Imagen"
           class="inputImg"
-          style="background-image: url(${this.base64Image})"
+          style="background-image: url(${perfilBase64Image.value})"
         >
           <input
             type="file"
@@ -226,11 +111,11 @@ export class MyElement extends SignalWatcher(LitElement) {
           />
         </label>
 
-        ${this.canbio == true
+        ${cambio.value == true
           ? html`
               <button
                 title="UI User"
-                @click=${() => (this.canbio = !this.canbio)}
+                @click=${() => (cambio.value = !cambio.value)}
               >
                 ${createElement(AppWindow)}
               </button>
@@ -238,10 +123,10 @@ export class MyElement extends SignalWatcher(LitElement) {
               <div class="contene">
                 <input
                   type="checkbox"
-                  .checked=${this.informaionSesible}
+                  .checked=${informaionSesible.value}
                   @change=${(e: Event) => {
                     const target = e.target as HTMLInputElement;
-                    this.informaionSesible = target.checked;
+                    informaionSesible.value = target.checked;
                   }}
                 />
                 <button
@@ -260,7 +145,7 @@ export class MyElement extends SignalWatcher(LitElement) {
                 </button>
 
                 <a
-                  href=${`mailto:${this.cv.correoDestino}?subject=${this.cv.asuntoDestino}&body=${this.cv.mensajeDestino}`}
+                  href=${`mailto:${informacionDestino.value.correoDestino}?subject=${informacionDestino.value.asuntoDestino}&body=${informacionDestino.value.mensajeDestino}`}
                 >
                   ${createElement(Send)}
                 </a>
@@ -271,21 +156,21 @@ export class MyElement extends SignalWatcher(LitElement) {
                   const target = e.target as HTMLTextAreaElement;
                   console.log(target.value);
                   const obj = JSON.parse(target.value);
-                  this.cv = obj;
+                  informacionCv.value = obj;
                 }}
-              >
-${JSON.stringify(this.cv)} </textarea
+                .value=${JSON.stringify(informacionCv.value, null, 2)}
+              ></textarea
               >
             `
           : html`
               <button
                 title="UI Dev"
-                @click=${() => (this.canbio = !this.canbio)}
+                @click=${() => (cambio.value = !cambio.value)}
               >
                 ${createElement(Code2)}
               </button>
 
-              ${Object.entries(this.cv).map(([key, value]) => {
+              ${Object.entries(informacionCv.value).map(([key, value]) => {
                 if (typeof value == typeof "") {
                   return html`
                     <label>
@@ -321,8 +206,8 @@ ${JSON.stringify(this.cv)} </textarea
       flex-direction: column;
       border-radius: 5px;
       padding: 10px;
-      box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1),
-        0 4px 6px -4px rgb(0 0 0 / 0.1);
+      box-shadow: 13px 10px 15px -3px rgb(0 0 0 / 0.1),
+        16px 11px 6px -4px rgb(0 0 0 / 0.1);
 
       .inputImg {
         height: 150px;
@@ -384,7 +269,7 @@ ${JSON.stringify(this.cv)} </textarea
         justify-content: space-evenly;
       }
       textarea {
-        width: 100%;
+        width: 220px;
         height: 200px;
         border: 1px solid #c9cfe7;
         outline: none;

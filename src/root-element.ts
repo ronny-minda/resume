@@ -7,7 +7,9 @@ import "./components/edit-element";
 import "./components/edit-pru";
 import "./components/centro-elements";
 import "./components/templates-elements";
-import { template } from "./store/ui";
+import "./components/monte-desmonte";
+import "./components/loader-elements";
+import { loaderDescarga, template } from "./store/ui";
 import { SignalWatcher } from "@lit-labs/preact-signals";
 
 @customElement("root-element")
@@ -17,7 +19,13 @@ export class MyElement extends SignalWatcher(LitElement) {
       <!-- <edit-element></edit-element> -->
       <aside-element></aside-element>
       <centro-element></centro-element>
-      ${template.value == true ? html`<templates-element></templates-element>` : ""}
+      <!-- ${template.value == true ? html`<templates-element></templates-element>` : ""} -->
+      <monte-desmonte .duration=${0.4} .montado=${template.value}>
+        <templates-element></templates-element>
+      </monte-desmonte>
+      <monte-desmonte .duration=${0.4} .montado=${loaderDescarga.value}>
+        <loader-element></loader-element>
+      </monte-desmonte>
       <!-- <edit-pru></edit-pru> -->
     `;
   }
