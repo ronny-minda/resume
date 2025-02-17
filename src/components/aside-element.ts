@@ -70,7 +70,8 @@ export class MyElement extends SignalWatcher(LitElement) {
       const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', 'cv.pdf'); // Nombre del archivo a descargar
+      const nombreArchivo = `${informacionCv.value.perfil.nombre.split(" ")[0]}_${informacionCv.value.perfil.nombre.split(" ")[2]}_CV_${informacionCv.value.perfil.titulo.split(" ")[0]}.pdf`
+      link.setAttribute('download', nombreArchivo); // Nombre del archivo a descargar
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);

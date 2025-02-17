@@ -11,8 +11,8 @@ import { createIcons, icons } from "lucide";
 @customElement("centro-element")
 export class MyElement extends SignalWatcher(LitElement) {
 
-  firstUpdated() {
-    createIcons({icons});
+  connectedCallback() {
+    super.connectedCallback();
   }
 
   render() {
