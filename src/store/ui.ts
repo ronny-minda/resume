@@ -223,7 +223,7 @@ export const cv = signal({
 // });
 
 export const informaionSesible = signal(true);
-export const cambio = signal(true);
+export const cambio = signal(false);
 export const perfilBase64Image = signal("");
 export const informacionCv = signal({
   contacto: {

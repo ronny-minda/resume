@@ -1,5 +1,13 @@
 import { LitElement, css, html } from "lit";
 import { customElement } from "lit/decorators.js";
+import * as monaco from "monaco-editor";
+
+import editorWorker from "monaco-editor/esm/vs/editor/editor.worker?worker";
+import jsonWorker from "monaco-editor/esm/vs/language/json/json.worker?worker";
+import cssWorker from "monaco-editor/esm/vs/language/css/css.worker?worker";
+import htmlWorker from "monaco-editor/esm/vs/language/html/html.worker?worker";
+import tsWorker from "monaco-editor/esm/vs/language/typescript/ts.worker?worker";
+
 import "./centro-elements";
 
 import {
@@ -10,13 +18,71 @@ import {
   Send,
   Code2,
   AppWindow,
+  SquareCheckBig,
+  Square,
 } from "lucide";
-import { perfilBase64Image, cambio, informacionCv, informacionDestino, informaionSesible, loaderDescarga, template } from "../store/ui";
+import {
+  perfilBase64Image,
+  cambio,
+  informacionCv,
+  informacionDestino,
+  informaionSesible,
+  loaderDescarga,
+  template,
+} from "../store/ui";
 import { SignalWatcher } from "@lit-labs/preact-signals";
 import axios from "axios";
 
 @customElement("aside-element")
 export class MyElement extends SignalWatcher(LitElement) {
+  connectedCallback() {
+    super.connectedCallback();
+
+    // Configurar el entorno de Monaco
+    (self as any).MonacoEnvironment = {
+      getWorker: function (_: string, label: string) {
+        if (label === "json") {
+          return new jsonWorker();
+        }
+        if (label === "css" || label === "scss" || label === "less") {
+          return new cssWorker();
+        }
+        if (label === "html" || label === "handlebars" || label === "razor") {
+          return new htmlWorker();
+        }
+        if (label === "typescript" || label === "javascript") {
+          return new tsWorker();
+        }
+        return new editorWorker();
+      },
+    };
+
+    const editor = document.getElementById("container") as HTMLDivElement;
+    const elementoEditor = monaco.editor.create(editor, {
+      automaticLayout: true,
+      value: JSON.stringify(informacionCv.value, null, 2),
+      language: "json",
+    });
+
+    elementoEditor.onDidChangeModelContent(() => {
+      const value = elementoEditor.getValue();
+      try {
+        const parsedValue = JSON.parse(value);
+        informacionCv.value = parsedValue;
+      } catch (error) {
+        console.error("Error al parsear JSON:", error);
+      }
+    });
+
+    const elemento = document.querySelector(".edit") as HTMLDivElement;
+
+    const fondo = document.querySelector(".fondo") as HTMLDivElement;
+
+    fondo.addEventListener("click", function () {
+      elemento.style.top = "100%";
+      elemento.style.opacity = "0";
+    });
+  }
 
   private async handleFileChange(event: Event) {
     const input = event.target as HTMLInputElement;
@@ -49,7 +115,6 @@ export class MyElement extends SignalWatcher(LitElement) {
   }
 
   private async downloadPDF() {
-
     console.log("Descargando PDF...");
 
     loaderDescarga.value = true;
@@ -59,19 +124,25 @@ export class MyElement extends SignalWatcher(LitElement) {
         informacionCv,
         informacionDestino,
         perfilBase64Image,
-      }
+      };
       const response = await axios.post("http://localhost:3000/api/cv", data, {
-        responseType: 'blob',
+        responseType: "blob",
       });
 
       loaderDescarga.value = false;
-  
+
       // Crear un enlace de descarga
-      const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
-      const link = document.createElement('a');
+      const url = window.URL.createObjectURL(
+        new Blob([response.data], { type: "application/pdf" })
+      );
+      const link = document.createElement("a");
       link.href = url;
-      const nombreArchivo = `${informacionCv.value.perfil.nombre.split(" ")[0]}_${informacionCv.value.perfil.nombre.split(" ")[2]}_CV_${informacionCv.value.perfil.titulo.split(" ")[0]}.pdf`
-      link.setAttribute('download', nombreArchivo); // Nombre del archivo a descargar
+      const nombreArchivo = `${
+        informacionCv.value.perfil.nombre.split(" ")[0]
+      }_${informacionCv.value.perfil.nombre.split(" ")[2]}_CV_${
+        informacionCv.value.perfil.titulo.split(" ")[0]
+      }.pdf`;
+      link.setAttribute("download", nombreArchivo); // Nombre del archivo a descargar
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -83,7 +154,6 @@ export class MyElement extends SignalWatcher(LitElement) {
         console.error("Error desconocido:", error);
       }
     }
-
   }
 
   private copy() {
@@ -100,90 +170,103 @@ export class MyElement extends SignalWatcher(LitElement) {
   render() {
     return html`
       <div class="aside">
-        <label
-          title="Cargar Imagen"
-          class="inputImg"
-          style="background-image: url(${perfilBase64Image.value})"
+        <div>
+          <label
+            title="Cargar Imagen"
+            class="inputImg"
+            style="background-image: url(${perfilBase64Image.value})"
+          >
+            <input
+              type="file"
+              @change=${this.handleFileChange}
+              accept="image/*"
+            />
+          </label>
+        </div>
+
+        <button
+          title="UI Dev"
+          @click=${() => {
+            // cambio.value = !cambio.value
+            const elemento = document.querySelector(".edit") as HTMLDivElement;
+            elemento.style.top = "0";
+            elemento.style.opacity = "1";
+          }}
         >
-          <input
-            type="file"
-            @change=${this.handleFileChange}
-            accept="image/*"
-          />
-        </label>
+          ${createElement(Code2)}
+        </button>
+        <div class="contene">
+          <label title="Información Sensible">
+            ${informaionSesible.value
+              ? createElement(SquareCheckBig)
+              : createElement(Square)}
 
-        ${cambio.value == true
-          ? html`
-              <button
-                title="UI User"
-                @click=${() => (cambio.value = !cambio.value)}
-              >
-                ${createElement(AppWindow)}
-              </button>
+            <input
+              type="checkbox"
+              .checked=${informaionSesible.value}
+              @change=${(e: Event) => {
+                const target = e.target as HTMLInputElement;
+                informaionSesible.value = target.checked;
+              }}
+            />
+          </label>
+          <button
+            title="Templates"
+            @click=${() => (template.value = !template.value)}
+          >
+            ${createElement(LayoutTemplate)}
+          </button>
 
-              <div class="contene">
-                <input
-                  type="checkbox"
-                  .checked=${informaionSesible.value}
-                  @change=${(e: Event) => {
-                    const target = e.target as HTMLInputElement;
-                    informaionSesible.value = target.checked;
-                  }}
-                />
-                <button
-                  title="Templates"
-                  @click=${() => (template.value = !template.value)}
-                >
-                  ${createElement(LayoutTemplate)}
-                </button>
+          <button title="Copiar" @click=${() => this.copy()}>
+            ${createElement(Copy)}
+          </button>
 
-                <button title="Copiar" @click=${() => this.copy()}>
-                  ${createElement(Copy)}
-                </button>
+          <button title="Descargar" @click=${() => this.downloadPDF()}>
+            ${createElement(Download)}
+          </button>
 
-                <button title="Descargar" @click=${() => this.downloadPDF()}>
-                  ${createElement(Download)}
-                </button>
+          <a
+            href=${`mailto:${informacionDestino.value.correoDestino}?subject=${informacionDestino.value.asuntoDestino}&body=${informacionDestino.value.mensajeDestino}`}
+          >
+            ${createElement(Send)}
+          </a>
+        </div>
 
-                <a
-                  href=${`mailto:${informacionDestino.value.correoDestino}?subject=${informacionDestino.value.asuntoDestino}&body=${informacionDestino.value.mensajeDestino}`}
-                >
-                  ${createElement(Send)}
-                </a>
-              </div>
-
-              <textarea
-                @input=${(e: Event) => {
-                  const target = e.target as HTMLTextAreaElement;
-                  console.log(target.value);
-                  const obj = JSON.parse(target.value);
-                  informacionCv.value = obj;
-                }}
-                .value=${JSON.stringify(informacionCv.value, null, 2)}
-              ></textarea
-              >
-            `
-          : html`
-              <button
-                title="UI Dev"
-                @click=${() => (cambio.value = !cambio.value)}
-              >
-                ${createElement(Code2)}
-              </button>
-
-              ${Object.entries(informacionCv.value).map(([key, value]) => {
-                if (typeof value == typeof "") {
-                  return html`
-                    <label>
-                      <span>${key}</span>
-                      <input />
-                    </label>
-                  `;
-                }
-              })}
-
-              <div>ui noral</div>
-            `}
+        <div class="formEdit">
+          ${Object.entries(informacionCv.value).map(([key, value]) => {
+            // console.log(value)
+            return html`
+              <div class="titulo">${key}</div>
+              ${Array.isArray(value)
+                ? value.map((value1, key1) => {
+                    if (value1 instanceof Object) {
+                      return html`
+                        <div>${key1 + 1}</div>
+                        ${Object.entries(value1).map(([key2, value2]) => {
+                          return html`
+                            <label class="labelEdit">
+                              <span>${key2}</span>
+                              <input .value=${value2 as string} />
+                            </label>
+                          `;
+                        })}
+                      `;
+                      Object.entries(informacionCv.value).map;
+                    } else {
+                      return html` <span>${value1}</span> `;
+                    }
+                  })
+                : Object.entries(value).map(([key1, value1]) => {
+                    return html`
+                      <label class="labelEdit">
+                        <span>${key1}</span>
+                        <input .value=${value1 as string} />
+                      </label>
+                    `;
+                  })}
+            `;
+          })}
+        </div>
       </div>
     `;
   }
@@ -198,6 +281,22 @@ export class MyElement extends SignalWatcher(LitElement) {
       height: 100%;
       width: 30%;
     }
+    .aside::-webkit-scrollbar {
+      width: 10px;
+    }
+    .aside::-webkit-scrollbar-track {
+      background: #d1d7e1;
+      cursor: pointer;
+    }
+    .aside::-webkit-scrollbar-thumb {
+      background-color: #8e9fb9;
+      border-radius: 10px;
+      border: 3px solid #d1d7e1;
+    }
+    .aside::-webkit-scrollbar-thumb:hover {
+      background-color: #4c6181;
+      cursor: pointer;
+    }
     .aside {
       height: 100%;
       width: 100%;
@@ -206,6 +305,7 @@ export class MyElement extends SignalWatcher(LitElement) {
       align-items: center;
       flex-direction: column;
       border-radius: 5px;
+      overflow-y: auto;
       padding: 10px;
       box-shadow: 13px 10px 15px -3px rgb(0 0 0 / 0.1),
         16px 11px 6px -4px rgb(0 0 0 / 0.1);
@@ -233,9 +333,15 @@ export class MyElement extends SignalWatcher(LitElement) {
         background-color: #c1c6d9;
       }
 
+      label {
+        input {
+          display: none;
+        }
+      }
+
       button,
       a,
-      input {
+      label {
         cursor: pointer;
         background-color: #f5f7ff;
         border: 1px solid #c9cfe7;
@@ -296,6 +402,26 @@ export class MyElement extends SignalWatcher(LitElement) {
       textarea::-webkit-scrollbar-thumb:hover {
         background-color: #4c6181;
         cursor: pointer;
+      }
+
+      .formEdit {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        /* background-color: red; */
+
+        .titulo {
+          font-weight: bold;
+        }
+        input {
+          display: inline-block;
+        }
+        .labelEdit {
+          display: flex;
+          flex-direction: column;
+          width: 100%;
+          height: auto;
+        }
       }
     }
   `;

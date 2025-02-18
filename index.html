@@ -7,8 +7,33 @@
     <title>Vite + Lit + TS</title>
     <link rel="stylesheet" href="./src/index.css" />
     <script type="module" src="/src/root-element.ts"></script>
+    <style>
+      .edit {
+        height: 100vh;
+        width: 100vw;
+        position: fixed;
+        top: 100%;
+        left: 0;
+        z-index: 99999;
+        transition: 0.5s;
+        opacity: 0;
+      }
+      .fondo {
+        height: 20%;
+        width: 100%;
+        cursor: pointer;
+        background: linear-gradient(0deg, #ffffffcc 70%, #ffffff00 100%);
+      }
+    </style>
   </head>
   <body>
+    <div class="edit">
+      <div class="fondo"></div>
+      <div
+        id="container"
+        style="overflow: hidden; width: 100%; height: 80%; position: absolute"
+      ></div>
+    </div>
     <root-element></root-element>
   </body>
 </html>
