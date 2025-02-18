@@ -170,102 +170,110 @@ export class MyElement extends SignalWatcher(LitElement) {
   render() {
     return html`
       <div class="aside">
-        <div>
-          <label
-            title="Cargar Imagen"
-            class="inputImg"
-            style="background-image: url(${perfilBase64Image.value})"
-          >
-            <input
-              type="file"
-              @change=${this.handleFileChange}
-              accept="image/*"
-            />
-          </label>
-        </div>
+        <div class="fondo">
+          <div>
+            <label
+              title="Cargar Imagen"
+              class="inputImg"
+              style="background-image: url(${perfilBase64Image.value})"
+            >
+              <input
+                type="file"
+                @change=${this.handleFileChange}
+                accept="image/*"
+              />
+            </label>
+          </div>
 
-        <button
-          title="UI Dev"
-          @click=${() => {
-            // cambio.value = !cambio.value
-            const elemento = document.querySelector(".edit") as HTMLDivElement;
-            elemento.style.top = "0";
-            elemento.style.opacity = "1";
-          }}
-        >
-          ${createElement(Code2)}
-        </button>
-        <div class="contene">
-          <label title="Información Sensible">
-            ${informaionSesible.value
-              ? createElement(SquareCheckBig)
-              : createElement(Square)}
-
-            <input
-              type="checkbox"
-              .checked=${informaionSesible.value}
-              @change=${(e: Event) => {
-                const target = e.target as HTMLInputElement;
-                informaionSesible.value = target.checked;
-              }}
-            />
-          </label>
           <button
-            title="Templates"
-            @click=${() => (template.value = !template.value)}
+            title="UI Dev"
+            @click=${() => {
+              // cambio.value = !cambio.value
+              const elemento = document.querySelector(
+                ".edit"
+              ) as HTMLDivElement;
+              elemento.style.top = "0";
+              elemento.style.opacity = "1";
+            }}
           >
-            ${createElement(LayoutTemplate)}
+            ${createElement(Code2)}
           </button>
+          <div class="contene">
+            <label title="Información Sensible">
+              ${informaionSesible.value
+                ? createElement(SquareCheckBig)
+                : createElement(Square)}
 
-          <button title="Copiar" @click=${() => this.copy()}>
-            ${createElement(Copy)}
-          </button>
+              <input
+                type="checkbox"
+                .checked=${informaionSesible.value}
+                @change=${(e: Event) => {
+                  const target = e.target as HTMLInputElement;
+                  informaionSesible.value = target.checked;
+                }}
+              />
+            </label>
+            <button
+              title="Templates"
+              @click=${() => (template.value = !template.value)}
+            >
+              ${createElement(LayoutTemplate)}
+            </button>
 
-          <button title="Descargar" @click=${() => this.downloadPDF()}>
-            ${createElement(Download)}
-          </button>
+            <button title="Copiar" @click=${() => this.copy()}>
+              ${createElement(Copy)}
+            </button>
 
-          <a
-            href=${`mailto:${informacionDestino.value.correoDestino}?subject=${informacionDestino.value.asuntoDestino}&body=${informacionDestino.value.mensajeDestino}`}
-          >
-            ${createElement(Send)}
-          </a>
-        </div>
+            <button title="Descargar" @click=${() => this.downloadPDF()}>
+              ${createElement(Download)}
+            </button>
 
-        <div class="formEdit">
-          ${Object.entries(informacionCv.value).map(([key, value]) => {
-            // console.log(value)
-            return html`
-              <div class="titulo">${key}</div>
-              ${Array.isArray(value)
-                ? value.map((value1, key1) => {
-                    if (value1 instanceof Object) {
-                      return html`
-                        <div>${key1 + 1}</div>
-                        ${Object.entries(value1).map(([key2, value2]) => {
+            <a
+              href=${`mailto:${informacionDestino.value.correoDestino}?subject=${informacionDestino.value.asuntoDestino}&body=${informacionDestino.value.mensajeDestino}`}
+            >
+              ${createElement(Send)}
+            </a>
+          </div>
+
+          <div class="formEdit">
+            ${Object.entries(informacionCv.value).map(([key, value]) => {
+              // console.log(value)
+              return html`
+                <details name="accordion" open>
+                  <summary>${key}</summary>
+                  <div style="padding: 5px; border-radius: 5px; box-shadow: inset 13px 10px 15px -3px rgb(0 0 0 / 0.1),inset  16px 11px 6px -4px rgb(0 0 0 / 0.1);">
+
+                  ${Array.isArray(value)
+                    ? value.map((value1, key1) => {
+                        if (value1 instanceof Object) {
                           return html`
-                            <label class="labelEdit">
-                              <span>${key2}</span>
-                              <input .value=${value2 as string} />
-                            </label>
+                            <div>${key1 + 1}</div>
+                            ${Object.entries(value1).map(([key2, value2]) => {
+                              return html`
+                                <label class="labelEdit">
+                                  <span>${key2}</span>
+                                  <input .value=${value2 as string} />
+                                </label>
+                              `;
+                            })}
                           `;
-                        })}
-                      `;
-                      Object.entries(informacionCv.value).map;
-                    } else {
-                      return html` <span>${value1}</span> `;
-                    }
-                  })
-                : Object.entries(value).map(([key1, value1]) => {
-                    return html`
-                      <label class="labelEdit">
-                        <span>${key1}</span>
-                        <input .value=${value1 as string} />
-                      </label>
-                    `;
-                  })}
-            `;
-          })}
+                        } else {
+                          return html` <span>${value1}</span> `;
+                        }
+                      })
+                    : Object.entries(value).map(([key1, value1]) => {
+                        return html`
+                          <label class="labelEdit">
+                            <span>${key1}</span>
+                            <input .value=${value1 as string} />
+                          </label>
+                        `;
+                      })}
+                  </div>
+                </details>
+              `;
+            })}
+          </div>
         </div>
       </div>
     `;
@@ -281,36 +289,50 @@ export class MyElement extends SignalWatcher(LitElement) {
       height: 100%;
       width: 30%;
     }
-    .aside::-webkit-scrollbar {
-      width: 10px;
-    }
-    .aside::-webkit-scrollbar-track {
-      background: #d1d7e1;
-      cursor: pointer;
-    }
-    .aside::-webkit-scrollbar-thumb {
-      background-color: #8e9fb9;
-      border-radius: 10px;
-      border: 3px solid #d1d7e1;
-    }
-    .aside::-webkit-scrollbar-thumb:hover {
-      background-color: #4c6181;
-      cursor: pointer;
-    }
+
     .aside {
       height: 100%;
       width: 100%;
       background-color: #fff;
-      display: flex;
-      align-items: center;
-      flex-direction: column;
-      border-radius: 5px;
-      overflow-y: auto;
-      padding: 10px;
       box-shadow: 13px 10px 15px -3px rgb(0 0 0 / 0.1),
         16px 11px 6px -4px rgb(0 0 0 / 0.1);
+      /* z-index: 20; */
+      background-image: url("/img/bgAside.jpg");
+      background-size: cover;
+      background-repeat: no-repeat;
+
+      .fondo::-webkit-scrollbar {
+        width: 10px;
+      }
+      .fondo::-webkit-scrollbar-track {
+        background: #d1d7e1;
+        cursor: pointer;
+      }
+      .fondo::-webkit-scrollbar-thumb {
+        background-color: #8e9fb9;
+        border-radius: 10px;
+        border: 3px solid #d1d7e1;
+      }
+      .fondo::-webkit-scrollbar-thumb:hover {
+        background-color: #4c6181;
+        cursor: pointer;
+      }
+
+      .fondo {
+        height: 100%;
+        width: 100%;
+        background-color: #ffffffca;
+
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        overflow-y: auto;
+        padding: 10px;
+      }
 
       .inputImg {
+        position: relative;
+        z-index: 10;
         height: 150px;
         width: 150px;
         margin: 20px 0;
@@ -319,7 +341,6 @@ export class MyElement extends SignalWatcher(LitElement) {
         border: 1px solid #c9cfe7;
         cursor: pointer;
         border-radius: 50%;
-        /* background-image: url() */
         background-repeat: no-repeat;
         background-size: cover;
         box-shadow: 0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;
@@ -342,6 +363,8 @@ export class MyElement extends SignalWatcher(LitElement) {
       button,
       a,
       label {
+        position: relative;
+        z-index: 10;
         cursor: pointer;
         background-color: #f5f7ff;
         border: 1px solid #c9cfe7;
@@ -410,17 +433,70 @@ export class MyElement extends SignalWatcher(LitElement) {
         width: 100%;
         /* background-color: red; */
 
+        details {
+          border-bottom: 1px solid #27292f;
+        }
+
+        summary {
+          font-weight: bold;
+          cursor: pointer;
+          display: flex;
+          justify-content: space-between;
+          padding: 5px 0;
+          color: #27292f;
+          &::marker {
+            content: "";
+          }
+          &::after {
+            content: "+";
+          }
+          [open] &::after {
+            content: "-";
+          }
+
+          &:hover {
+            color: #666;
+          }
+        }
+
+        ::details-content {
+          interpolate-size: allow-keywords;
+          transition: all 0.5s ease, content-visibility 0.5s ease allow-discrete;
+          height: 0;
+          overflow: clip;
+          padding: 0px;
+        }
+
+        [open]::details-content {
+          height: auto;
+        }
+
         .titulo {
           font-weight: bold;
         }
         input {
           display: inline-block;
+          border: none;
+          outline: none;
+          padding: 5px;
+          border-radius: 4px;
+          border-bottom: 2px solid #c2c6fd00;
+          background-color: #ffffffd9;
+          transition: 0.5s;
+          &:hover {
+            border-bottom: 2px solid #878cc3;
+          }
+          &:focus {
+            border-bottom: 2px solid #878cc3;
+          }
         }
         .labelEdit {
           display: flex;
           flex-direction: column;
           width: 100%;
           height: auto;
+          background-color: #fff0;
+          border: none;
         }
       }
     }
