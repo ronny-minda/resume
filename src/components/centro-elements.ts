@@ -1,24 +1,22 @@
 import { SignalWatcher } from "@lit-labs/preact-signals";
 import { LitElement, css, html } from "lit";
 import { customElement } from "lit/decorators.js";
-import { coleccionTemplates } from "../data/templates";
-import { informacionCv, perfilBase64Image } from "../store/ui";
-import { createIcons, icons } from "lucide";
-
-// informacionCv
-// perfilBase64Image
+import "./templates-selec";
+// import { coleccionTemplates } from "../data/templates";
+// import { informacionCv, perfilBase64Image, seleccionado } from "../store/ui";
 
 @customElement("centro-element")
 export class MyElement extends SignalWatcher(LitElement) {
-
   connectedCallback() {
     super.connectedCallback();
   }
 
   render() {
-    return html` <div class="cv">
-      ${ coleccionTemplates[1]({ informacionCv: informacionCv.value, perfilBase64Image: perfilBase64Image.value }) }
-    </div> `;
+    return html`
+      <div class="contenedor">
+        <templates-selec></templates-selec>
+      </div>
+    `;
   }
 
   static styles = css`
@@ -29,6 +27,7 @@ export class MyElement extends SignalWatcher(LitElement) {
     }
 
     :host {
+      scrollbar-gutter: stable both-edges;
       height: 100%;
       width: 100%;
       flex-direction: 1;
@@ -59,15 +58,19 @@ export class MyElement extends SignalWatcher(LitElement) {
       cursor: pointer;
     }
 
-    .cv {
+    .contenedor {
       height: 848px;
       width: 600px;
       position: relative;
       background-color: #fff;
       /* padding: 35px 28px; */
       font-family: Inter;
-      box-shadow: 8px 7px 15px -3px rgb(0 0 0 / 0.1),
-        6px 7px 6px -4px rgb(0 0 0 / 0.1);
+      box-shadow: 13px 10px 15px -3px rgb(0 0 0 / 0.1),
+      16px 11px 6px -4px rgb(0 0 0 / 0.1);
+      templates-selec {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        display: block;
+      }
     }
   `;
 }

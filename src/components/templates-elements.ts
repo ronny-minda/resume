@@ -1,7 +1,7 @@
 import { LitElement, css, html } from "lit";
 import { customElement } from "lit/decorators.js";
 
-import { templates, template } from "../store/ui"
+import { templates, template, seleccionado } from "../store/ui"
 import { createElement, View } from "lucide";
 import { SignalWatcher } from "@lit-labs/preact-signals";
 
@@ -28,7 +28,8 @@ export class MyElement extends SignalWatcher(LitElement) {
                 title=${key + 1 + name}
                 @click=${() => {
                   template.value = false;
-                  // this.selecionado = key + 1;
+                  seleccionado.value = key + 1;
+                  console.log(key+1)
                 }}
               />
             </div>
@@ -45,8 +46,8 @@ export class MyElement extends SignalWatcher(LitElement) {
       box-sizing: border-box;
     }
 
-    :host {
-    }
+    /* :host {
+    } */
 
     .back {
       position: fixed;

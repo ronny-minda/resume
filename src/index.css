@@ -1,4 +1,4 @@
-@font-face {
+/* @font-face {
   font-family: 'TAN - PEARL';
   src: url('/fonts/tan-pearl.eot');
   src: url('/fonts/tan-pearl.eot?#iefix') format('embedded-opentype'),
@@ -6,20 +6,137 @@
        url('/fonts/tan-pearl.woff') format('woff'),
        url('/fonts/tan-pearl.ttf')  format('truetype'),
        url('/fonts/tan-pearl.svg#TAN - PEARL') format('svg');
-}
+} */
+
 @font-face {
   font-family: "Wonderful";
-  src: url("/fonts/Wonderful\ Branding\ PersonalUseOnly.ttf")
-    format("truetype");
+  src: url("/fonts/Wonderful\ Branding\ PersonalUseOnly.ttf") format("truetype");
 }
 @font-face {
   font-family: "Roboto-Regular";
-  src: url("/fonts/Roboto-Regular.ttf") format("truetype");
+  src: url("/fonts/roboto/Roboto-Regular.ttf") format("truetype");
 }
 @font-face {
   font-family: "Roboto-Bold";
-  src: url("/fonts/Roboto-Bold.ttf") format("truetype");
+  src: url("/fonts/roboto/Roboto-Bold.ttf") format("truetype");
 }
+@font-face {
+  font-family: "Montserrat-Bold";
+  src: url("/fonts/Montserrat/Montserrat-Bold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Rubik";
+  src: url("/fonts/Rubik/Rubik-VariableFont_wght.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Raleway";
+  src: url("/fonts/Raleway/Raleway-VariableFont_wght.ttf") format("truetype");
+}
+@font-face {
+  font-family: "DMSerifDisplay-Regular";
+  src: url("/fonts/DM_Serif_Display/DMSerifDisplay-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "tan-pearl";
+  src: url("/fonts/tan-pearl-font/tan-pearl.otf") format("truetype");
+}
+@font-face {
+  font-family: "Maharlika";
+  src: url("/fonts/maharlika/Maharlika-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "GlacialIndifference-Regular";
+  src: url("/fonts/glacial-indifference/GlacialIndifference-Regular.otf") format("truetype");
+}
+@font-face {
+  font-family: "hatton-Medium";
+  src: url("/fonts/hatton-font-family/PP\ Hatton\ Medium\ 500.otf") format("truetype");
+}
+@font-face {
+  font-family: "Amiko-Regular";
+  src: url("/fonts/Amiko/Amiko-Regular.ttf") format("truetype");
+}
+@font-face{
+  font-family: "lazord";
+  src: url("/fonts/lazord-sans-serif/Sans/Web-Fonts/952bab25f6798d6bb1937d67e9bee4dd.eot");
+  src: url("/fonts/lazord-sans-serif/Sans/Web-Fonts/952bab25f6798d6bb1937d67e9bee4dd.eot?#iefix")format("embedded-opentype"),
+      url("/fonts/lazord-sans-serif/Sans/Web-Fonts/952bab25f6798d6bb1937d67e9bee4dd.woff")format("woff"),
+      url("/fonts/lazord-sans-serif/Sans/Web-Fonts/952bab25f6798d6bb1937d67e9bee4dd.woff2")format("woff2"),
+      url("/fonts/lazord-sans-serif/Sans/Web-Fonts/952bab25f6798d6bb1937d67e9bee4dd.ttf")format("truetype"),
+      url("/fonts/lazord-sans-serif/Sans/Web-Fonts/952bab25f6798d6bb1937d67e9bee4dd.svg#Sans")format("svg");
+  font-weight:normal;
+  font-style:normal;
+  font-display:swap;
+}
+@font-face {
+  font-family: "Cabin";
+  src: url("/fonts/Cabin/Cabin-VariableFont_wdth_wght.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Assistant";
+  src: url("/fonts/Assistant/Assistant-VariableFont_wght.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Lato-Regular";
+  src: url("/fonts/Lato/Lato-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Lato-Bold";
+  src: url("/fonts/Lato/Lato-Bold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Garet-regular";
+  src: url("/fonts/garet/Garet-Book.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Garet-bold";
+  src: url("/fonts/garet/Garet-Heavy.ttf") format("truetype");
+}
+@font-face {
+  font-family: "CorporativeRegular";
+  src: url("/fonts/corporative-alt/CorporativeBold.otf") format("truetype");
+}
+@font-face {
+  font-family: "Liana";
+  src: url("/fonts/liana/Liana.ttf") format("truetype");
+}
+@font-face {
+  font-family: "OpenSauceOne-Black";
+  src: url("/fonts/open-sauce/OpenSauceOne-Black.ttf") format("truetype");
+}
+@font-face {
+  font-family: "DMSans-Italic-VariableFont";
+  src: url("/fonts/DM_Sans/DMSans-Italic-VariableFont_opsz_wght.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Inter-VariableFont";
+  src: url("/fonts/Inter/Inter-VariableFont_opsz_wght.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Inter-Italic-VariableFont";
+  src: url("/fonts/Inter/Inter-Italic-VariableFont_opsz_wght.ttf") format("truetype");
+}
+@font-face {
+  font-family: "BeVietnamPro-Bold";
+  src: url("/fonts/Be_Vietnam_Pro/BeVietnamPro-Bold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Poppins-Regular";
+  src: url("/fonts/Poppins/Poppins-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Poppins-Bold";
+  src: url("/fonts/Poppins/Poppins-Bold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Poppins-BoldItalic";
+  src: url("/fonts/Poppins/Poppins-BoldItalic.ttf") format("truetype");
+}
+@font-face {
+  font-family: "ABeeZee-Regular";
+  src: url("/fonts/ABeeZee/ABeeZee-Regular.ttf") format("truetype");
+}
+
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;

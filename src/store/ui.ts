@@ -216,14 +216,9 @@ export const cv = signal({
   ],
 });
 
-// export const destino = signal({
-//   correoDestino: "",
-//   mensajeDestino: "",
-//   asuntoDestino: "",
-// });
-
 export const informaionSesible = signal(true);
 export const cambio = signal(false);
+export const seleccionado = signal(2);
 export const perfilBase64Image = signal("");
 export const informacionCv = signal({
   contacto: {

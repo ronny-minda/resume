@@ -4,7 +4,6 @@ import { customElement } from "lit/decorators.js";
 import "./components/aside-element";
 import "./components/cv-element";
 import "./components/edit-element";
-import "./components/edit-pru";
 import "./components/centro-elements";
 import "./components/templates-elements";
 import "./components/monte-desmonte";
@@ -16,17 +15,22 @@ import { SignalWatcher } from "@lit-labs/preact-signals";
 export class MyElement extends SignalWatcher(LitElement) {
   render() {
     return html`
-      <!-- <edit-element></edit-element> -->
-      <aside-element></aside-element>
-      <centro-element></centro-element>
-      <!-- ${template.value == true ? html`<templates-element></templates-element>` : ""} -->
+      <div class="conte">
+        <aside-element></aside-element>
+        <centro-element></centro-element>
+      </div>
+      <footer>
+        Sitio desarrollado por&nbsp;<a href="https://ronnyminda.vercel.app/"
+          >Ronny Minda V.</a
+        >
+      </footer>
+
       <monte-desmonte .duration=${0.4} .montado=${template.value}>
         <templates-element></templates-element>
       </monte-desmonte>
       <monte-desmonte .duration=${0.4} .montado=${loaderDescarga.value}>
         <loader-element></loader-element>
       </monte-desmonte>
-      <!-- <edit-pru></edit-pru> -->
     `;
   }
 
@@ -36,10 +40,30 @@ export class MyElement extends SignalWatcher(LitElement) {
       padding: 0;
       box-sizing: border-box;
     }
-    :host {
+    .conte {
       display: flex;
-      height: 100vh;
+      height: calc(100vh - 24px);
       width: 100vw;
+    }
+    footer {
+      height: 24px;
+      width: 100vw;
+      background-color: #ffffff;
+      position: absolute;
+      z-index: 9;
+      font-size: 12px;
+      display: flex;
+      /* justify-content: center; */
+      align-items: center;
+      padding-left: 20px;
+      border-top: 1px solid #aaacc2;
+      a {
+        color: #000;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
     }
   `;
 }

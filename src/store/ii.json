@@ -1,0 +1,123 @@
+{
+    "contacto": {
+      "telefono": "0993105654",
+      "email": "ronny.minda.vera@gmail.com",
+      "web": "https://ronnyminda.vercel.app/",
+      "direccion": "ISLA TRINITARIA",
+      "direccionExacta": "ISLA TRINITARIA COOP ANTONIO MZ. 12A SL. 13B"
+    },
+    "perfil": {
+      "nombre": "Ronny Michael Minda Vera",
+      "titulo": "Desarrollador Full Stack",
+      "descripcion":
+        "Desarrollador web con experiencia en desarrollo de aplicaciones web, diseño de interfaz de usuario (UI) y experiencia de usuario (UX). Enfocado en el desarrollo de software tanto front-end como back-end, con el objetivo de crear aplicaciones dinámicas y estáticas con experiencias intuitivas y atractivas."
+    },
+    "datosPersonales": {
+      "cedula": "0954703468",
+      "fechaNacimiento": "25/08/1999",
+      "estadoCivil": "Soltero",
+      "nacionalidad": "Ecuatoriano",
+      "lugarNacimiento": "Guayaquil",
+      "edad": 24
+    },
+    "educacion": [
+      {
+        "fechaInicio": "2019",
+        "fechaFin": "2023",
+        "titulo": "Tecnologo en Sistemas",
+        "nivel": "Superior",
+        "institucion": "Instituto Superior Universitario Bolivariano (ITB)",
+        "descripcion": "Formación como Desarrollador de Software."
+      },
+      {
+        "fechaInicio": "2020",
+        "fechaFin": "2022",
+        "titulo": "Full Stack",
+        "nivel": "Curso",
+        "institucion": "Platzi",
+        "descripcion": "Desarrollo Web en plataforma de aprendizaje en línea."
+      }
+    ],
+    "experiencia": [
+      {
+        "titulo": "Desarrollador Aplicaciones Frontend Eficientes",
+        "descripcion": [
+          "Desarrollo de aplicaciones frontend con experiencia en React",
+          "Tailwindcss, Zustand, Redux",
+          "Styled Components",
+          "Styled Components"
+        ],
+        "duracionInicio": "Nov. 2023",
+        "duracionFin": "Feb. 2024",
+        "empresa": "Central File"
+      },
+      {
+        "titulo": "Plataforma de administración de estudiantes Frontend/Backend",
+        "descripcion": [
+          "Desarrollo de una aplicación con Node, Express",
+          "React.js y MongoDB",
+          "Gestión eficiente de datos y funcionalidades CRUD"
+        ],
+        "duracionInicio": "May. 2022",
+        "duracionFin": "Jul. 2022",
+        "empresa": "Servicios Prestados"
+      },
+      {
+        "titulo": "Desarrollador Web Frontend y Backend",
+        "descripcion": [
+          "Desarrollo y mantenimiento de sitios web usando React",
+          "Vue, Next.js, y Nuxt.js",
+          "Implementación de animaciones con Framer Motion y optimización de rendimiento"
+        ],
+        "duracionInicio": "Ago. 2022",
+        "duracionFin": "Dic. 2022",
+        "empresa": "Manasystem (Servicios Prestados)"
+      }
+    ],
+    "experticia": [
+      "Frontend y Backend",
+      "UX UI",
+      "Arquitectura cliente-servidor con REST APIs",
+      "Gestión de estado con Tanstack Query"
+    ],
+    "tecnologias": [
+      "Node.js APIs",
+      "Framer Motion",
+      "Vue",
+      "Nuxt.js",
+      "React.js",
+      "Preact.js",
+      "Next.js",
+      "MongoDB",
+      "Express.js",
+      "Bcrypt.js",
+      "Redux",
+      "Zustand",
+      "Tailwindcss"
+    ],
+    "referencias": [
+      {
+        "nombre": "Byron Asencio Rodriguez",
+        "puesto":
+          "Ingeniero en Sistemas Computacionales - MSIG, Jefe de Sistemas",
+        "telefono": "+593 99 790 0800"
+      },
+      {
+        "nombre": "Brady Gutierrez",
+        "puesto": "Analista Desarrollador, Tecnólogo de Desarrollo de Software",
+        "telefono": "+593 97 932 8153"
+      },
+      {
+        "nombre": "Paul Cando",
+        "puesto":
+          "Analista Desarrollador, Ingeniero de Sistemas - Mención en Gestión",
+        "telefono": "+593 98 249 9225"
+      },
+      {
+        "nombre": "Dennisse Pérez Cedeño",
+        "puesto":
+          "Lic. Redes y Sistemas Operativos, Analista de Proyectos Digitales",
+        "telefono": "+593 99 440 8857"
+      }
+    ]
+  }

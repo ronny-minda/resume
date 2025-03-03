@@ -9,7 +9,7 @@ import htmlWorker from "monaco-editor/esm/vs/language/html/html.worker?worker";
 import tsWorker from "monaco-editor/esm/vs/language/typescript/ts.worker?worker";
 
 import "./centro-elements";
-
+import "./pixel-canvas.js"
 import {
   Copy,
   createElement,
@@ -17,13 +17,12 @@ import {
   LayoutTemplate,
   Send,
   Code2,
-  AppWindow,
   SquareCheckBig,
   Square,
+  CircleX,
 } from "lucide";
 import {
   perfilBase64Image,
-  cambio,
   informacionCv,
   informacionDestino,
   informaionSesible,
@@ -35,6 +34,7 @@ import axios from "axios";
 
 @customElement("aside-element")
 export class MyElement extends SignalWatcher(LitElement) {
+
   connectedCallback() {
     super.connectedCallback();
 
@@ -170,13 +170,18 @@ export class MyElement extends SignalWatcher(LitElement) {
   render() {
     return html`
       <div class="aside">
-        <div class="fondo">
+        <div class="fondo" style="scrollbar-gutter: stable both-edges;">
           <div>
             <label
               title="Cargar Imagen"
               class="inputImg"
-              style="background-image: url(${perfilBase64Image.value})"
+              style="background-image: url(${perfilBase64Image.value}); clip-path: circle(50% at 50% 50%);"
             >
+              <pixel-canvas
+                data-gap="1"
+                data-speed="100"
+                data-colors="#525252, #1f1f1f, #000000"
+              ></pixel-canvas>
               <input
                 type="file"
                 @change=${this.handleFileChange}
@@ -236,39 +241,117 @@ export class MyElement extends SignalWatcher(LitElement) {
           </div>
 
           <div class="formEdit">
+            <style>
+              ::details-content {
+                interpolate-size: allow-keywords;
+                transition: all 0.5s ease, content-visibility 0.5s ease allow-discrete;
+                height: 0;
+                overflow: clip;
+                padding: 0px;
+              }
+
+              [open]::details-content {
+                height: auto;
+              }
+            </style>
             ${Object.entries(informacionCv.value).map(([key, value]) => {
               // console.log(value)
               return html`
-                <details name="accordion" open>
+                <details class="padre" name="accordion" open>
                   <summary>${key}</summary>
-                  <div style="padding: 5px; border-radius: 5px; box-shadow: inset 13px 10px 15px -3px rgb(0 0 0 / 0.1),inset  16px 11px 6px -4px rgb(0 0 0 / 0.1);">
-
-                  ${Array.isArray(value)
-                    ? value.map((value1, key1) => {
-                        if (value1 instanceof Object) {
+                  <div
+                    style="padding: 5px; border-radius: 5px; box-shadow: inset 13px 10px 15px -3px rgb(0 0 0 / 0.1),inset  16px 11px 6px -4px rgb(0 0 0 / 0.1);"
+                  >
+                    ${Array.isArray(value)
+                      ? value.map((value1, key1) => {
+                          if (value1 instanceof Object) {
+                            return html`
+                              <details class="hijo" name="subAccordion">
+                                <summary>${key1 + 1}</summary>
+                                ${Object.entries(value1).map(
+                                  ([key2, value2]) => {
+                                    return html`
+                                      <label class="labelEdit">
+                                        <span>${key2}</span>
+                                        <input
+                                          .value=${value2 as string}
+                                          @input=${(e: Event) => {
+                                            const target =
+                                              e.target as HTMLInputElement;
+                                            const aux =
+                                              informacionCv.value as any;
+                                            aux[key][key1][key2] = target.value;
+                                            informacionCv.value = { ...aux };
+                                          }}
+                                        />
+                                      </label>
+                                    `;
+                                  }
+                                )}
+                              </details>
+                            `;
+                          } else {
+                            return html`
+                              <label
+                                class="labelEdit"
+                                style="display: flex; flex-direction: row; align-items: center;"
+                              >
+                                <span style="margin-right: 5px; width: 18px;"
+                                  >${key1 + 1}</span
+                                >
+                                <input
+                                  .value=${value1 as string}
+                                  @input=${(e: Event) => {
+                                    const target = e.target as HTMLInputElement;
+                                    const aux = informacionCv.value as any;
+                                    aux[key][key1] = target.value;
+                                    informacionCv.value = { ...aux };
+                                  }}
+                                />
+                                <style>
+                                  .x {
+                                    height: 20px;
+                                    width: 20px;
+                                    cursor: pointer;
+                                    margin-left: 5px;
+                                    svg {
+                                      height: 100%;
+                                      width: 100%;
+                                      color: red !important;
+                                    }
+                                  }
+                                </style>
+                                <div
+                                  title="Eliminar"
+                                  class="x"
+                                  @click=${() => {
+                                    const aux = informacionCv.value as any;
+                                    aux[key].splice(key1, 1);
+                                    informacionCv.value = { ...aux };
+                                  }}
+                                >
+                                  ${createElement(CircleX)}
+                                </div>
+                              </label>
+                            `;
+                          }
+                        })
+                      : Object.entries(value).map(([key1, value1]) => {
                           return html`
-                            <div>${key1 + 1}</div>
-                            ${Object.entries(value1).map(([key2, value2]) => {
-                              return html`
-                                <label class="labelEdit">
-                                  <span>${key2}</span>
-                                  <input .value=${value2 as string} />
-                                </label>
-                              `;
-                            })}
+                            <label class="labelEdit">
+                              <span>${key1}</span>
+                              <input
+                                .value=${value1 as string}
+                                @input=${(e: Event) => {
+                                  const target = e.target as HTMLInputElement;
+                                  const aux = informacionCv.value as any;
+                                  aux[key][key1] = target.value;
+                                  informacionCv.value = { ...aux };
+                                }}
+                              />
+                            </label>
                           `;
-                        } else {
-                          return html` <span>${value1}</span> `;
-                        }
-                      })
-                    : Object.entries(value).map(([key1, value1]) => {
-                        return html`
-                          <label class="labelEdit">
-                            <span>${key1}</span>
-                            <input .value=${value1 as string} />
-                          </label>
-                        `;
-                      })}
+                        })}
                   </div>
                 </details>
               `;
@@ -290,17 +373,7 @@ export class MyElement extends SignalWatcher(LitElement) {
       width: 30%;
     }
 
-    .aside {
-      height: 100%;
-      width: 100%;
-      background-color: #fff;
-      box-shadow: 13px 10px 15px -3px rgb(0 0 0 / 0.1),
-        16px 11px 6px -4px rgb(0 0 0 / 0.1);
-      /* z-index: 20; */
-      background-image: url("/img/bgAside.jpg");
-      background-size: cover;
-      background-repeat: no-repeat;
-
+    .aside:hover {
       .fondo::-webkit-scrollbar {
         width: 10px;
       }
@@ -317,12 +390,37 @@ export class MyElement extends SignalWatcher(LitElement) {
         background-color: #4c6181;
         cursor: pointer;
       }
+    }
+
+    .aside {
+      height: 100%;
+      width: 100%;
+      background-color: #fff;
+      box-shadow: 13px 10px 15px -3px rgb(0 0 0 / 0.1),
+        16px 11px 6px -4px rgb(0 0 0 / 0.1);
+      /* z-index: 20; */
+      background-image: url("/img/bgAside.jpg");
+      background-size: cover;
+      background-repeat: no-repeat;
+
+      .fondo::-webkit-scrollbar {
+        width: 10px;
+      }
+      .fondo::-webkit-scrollbar-track {
+        background: #d1d7e100;
+      }
+      .fondo::-webkit-scrollbar-thumb {
+        background-color: #8e9fb900;
+        border: 3px solid #d1d7e100;
+      }
+      .fondo::-webkit-scrollbar-thumb:hover {
+        background-color: #4c618100;
+      }
 
       .fondo {
         height: 100%;
         width: 100%;
-        background-color: #ffffffca;
-
+        background-color: #ffffffe8;
         display: flex;
         align-items: center;
         flex-direction: column;
@@ -331,8 +429,8 @@ export class MyElement extends SignalWatcher(LitElement) {
       }
 
       .inputImg {
-        position: relative;
-        z-index: 10;
+        /* position: relative;
+        z-index: 10; */
         height: 150px;
         width: 150px;
         margin: 20px 0;
@@ -363,8 +461,6 @@ export class MyElement extends SignalWatcher(LitElement) {
       button,
       a,
       label {
-        position: relative;
-        z-index: 10;
         cursor: pointer;
         background-color: #f5f7ff;
         border: 1px solid #c9cfe7;
@@ -397,34 +493,6 @@ export class MyElement extends SignalWatcher(LitElement) {
         width: 100%;
         display: flex;
         justify-content: space-evenly;
-      }
-      textarea {
-        width: 220px;
-        height: 200px;
-        border: 1px solid #c9cfe7;
-        outline: none;
-        border-radius: 4px;
-        color: #3b4157;
-        resize: none;
-        field-sizing: content;
-        padding: 10px;
-        box-shadow: 0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;
-      }
-      textarea::-webkit-scrollbar {
-        width: 10px;
-      }
-      textarea::-webkit-scrollbar-track {
-        background: #b6c9e7;
-        cursor: pointer;
-      }
-      textarea::-webkit-scrollbar-thumb {
-        background-color: #6e82a1;
-        border-radius: 10px;
-        border: 3px solid #b6c9e7;
-      }
-      textarea::-webkit-scrollbar-thumb:hover {
-        background-color: #4c6181;
-        cursor: pointer;
       }
 
       .formEdit {
@@ -459,18 +527,6 @@ export class MyElement extends SignalWatcher(LitElement) {
           }
         }
 
-        ::details-content {
-          interpolate-size: allow-keywords;
-          transition: all 0.5s ease, content-visibility 0.5s ease allow-discrete;
-          height: 0;
-          overflow: clip;
-          padding: 0px;
-        }
-
-        [open]::details-content {
-          height: auto;
-        }
-
         .titulo {
           font-weight: bold;
         }
@@ -483,6 +539,7 @@ export class MyElement extends SignalWatcher(LitElement) {
           border-bottom: 2px solid #c2c6fd00;
           background-color: #ffffffd9;
           transition: 0.5s;
+
           &:hover {
             border-bottom: 2px solid #878cc3;
           }
