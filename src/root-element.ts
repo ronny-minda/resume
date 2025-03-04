@@ -48,7 +48,7 @@ export class MyElement extends SignalWatcher(LitElement) {
     footer {
       height: 24px;
       width: 100vw;
-      background-color: #ffffff;
+      background-color: #efefef;
       position: absolute;
       z-index: 9;
       font-size: 12px;

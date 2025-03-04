@@ -34,7 +34,7 @@
 }
 @font-face {
   font-family: "DMSerifDisplay-Regular";
-  src: url("/fonts/DM_Serif_Display/DMSerifDisplay-Regular.ttf") format("truetype");
+  src: url("../public/fonts/DM_Sans/DMSans-VariableFont_opsz_wght.ttf") format("truetype");
 }
 @font-face {
   font-family: "tan-pearl";
@@ -158,15 +158,14 @@
   padding: 0;
   box-sizing: border-box;
 }
-
-a {
+/* a {
   font-weight: 500;
   color: #646cff;
   text-decoration: inherit;
 }
 a:hover {
   color: #535bf2;
-}
+} */
 
 body {
   margin: 0;
@@ -174,6 +173,7 @@ body {
   /* place-items: center; */
   min-width: 320px;
   min-height: 100vh;
+  background-color: #efefef;
 }
 
 /* @media (prefers-color-scheme: light) {

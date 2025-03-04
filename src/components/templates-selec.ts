@@ -23,6 +23,10 @@ export class MyElement extends SignalWatcher(LitElement) {
                 display: inline-block;
                 padding: 0 22px;
 
+                a {
+                  color: #0000ee;
+                }
+
                 .lin {
                   font-size: 12px;
                   text-align: center;
@@ -80,26 +84,30 @@ export class MyElement extends SignalWatcher(LitElement) {
 
             <div class="cv" id="cv">
               <div style="margin-top: 36px"></div>
-              <h1 class="ti">Miguel Ángel Durán</h1>
+              <h1 class="ti">${informacionCv.value.perfil.nombre}</h1>
 
               <div class="lin">
-                Barcelona, España ·
-                <a href="http://">linkedin.com/in/midudev</a> ·
-                <a href="tel:+">+34 688 99 99 88</a> ·
-                <a class="no" href="mailto:">midudev@gmail.com</a>
+                ${informacionCv.value.contacto.direccion} ·
+                <a href="${informacionCv.value.contacto.web}"
+                  >${informacionCv.value.contacto.web}</a
+                >
+                ·
+                <a class="no" href="tel:${informacionCv.value.contacto.telefono}"
+                  >${informacionCv.value.contacto.telefono}</a
+                >
+                ·
+                <a
+                  class="no"
+                  href="mailto:${informacionCv.value.contacto.email}"
+                  >${informacionCv.value.contacto.email}</a
+                >
               </div>
 
               <div style="margin-top: -1px"></div>
               <div class="raya"></div>
               <div style="margin-top: 6px"></div>
 
-              <div class="p">
-                Más de 15 años de experiencia como Desarrollador de Software.
-                Lideré el desarrollo FrontEnd en Adevinta, logrando un 40% de
-                mejora en la entrega de productos, un 25% en rendimiento web y
-                una plataforma unificada. Como Divulgador, tengo el canal de
-                programación más visto de Twitch en español.
-              </div>
+              <div class="p">${informacionCv.value.perfil.descripcion}</div>
 
               <div style="margin-top: 12px"></div>
               <div class="ti2">EXPERIENCIA PROFESIONAL</div>
@@ -108,88 +116,32 @@ export class MyElement extends SignalWatcher(LitElement) {
               <div class="raya"></div>
               <div style="margin-top: 9px"></div>
 
-              <div class="ti3">
-                <div>Adevinta</div>
-                <div>Barcelona,España</div>
-              </div>
-              <div style="margin-top: -4px"></div>
-              <div class="ti4">
-                <div>Lead FrontEnd Architect</div>
-                <i>Agosto 2017–Septiembre 2022</i>
-              </div>
+              ${informacionCv.value.experiencia.map((value) => {
+                const {
+                  empresa,
+                  titulo,
+                  duracionInicio,
+                  duracionFin,
+                  descripcion,
+                } = value;
+                return html`
+                  <div class="ti3">
+                    <div>${empresa}</div>
+                    <div>Guayaquil</div>
+                  </div>
+                  <div style="margin-top: -4px"></div>
+                  <div class="ti4">
+                    <div>${titulo}</div>
+                    <i>${duracionInicio}–${duracionFin}</i>
+                  </div>
 
-              <div style="margin-top: 5px"></div>
-              <ul>
-                <li>
-                  Desarrollé una plataforma unificada de componentes y
-                  herramientas para los diferentes productos de la empresa para
-                  converger técnicamente y acelerar la entrega de producto.
-                </li>
-                <li>
-                  Implementar prácticas de CI/CD para mejorar la eficiencia en
-                  la entrega de software, reduciendo errores y tiempos de
-                  entrega bajando los tiempos de despliegue más de un 80%.
-                </li>
-                <li>
-                  Lideré la mejora del rendimiento web de productos como
-                  Fotocasa e InfoJobs mentorizando con mejores prácticas,
-                  creando dashboards de DataDog y diseñando estrategias.
-                </li>
-                <li>
-                  Construí la herramienta de gestión de cookies de forma
-                  transversal para todos los productos para cumplir con las
-                  leyes de consentimiento de permisos de los usuarios.
-                </li>
-                <li>
-                  Aporté soluciones pioneras como usar Ship/Show/Ask como
-                  estrategia de trabajo en GitHub, el uso de Rust para acelerar
-                  las compilaciones, paralelizar trabajos en CI para el ahorro
-                  de tiempo y costes además de explorar soluciones en AWS para
-                  una mejorar escalabilidad.
-                </li>
-              </ul>
-              <div style="margin-top: 6px"></div>
-
-              <div class="ti3">
-                <div>Adevinta</div>
-                <div>Barcelona,España</div>
-              </div>
-              <div style="margin-top: -4px"></div>
-              <div class="ti4">
-                <div>Lead FrontEnd Architect</div>
-                <i>Agosto 2017–Septiembre 2022</i>
-              </div>
-
-              <div style="margin-top: 5px"></div>
-              <ul>
-                <li>Desarrollé una plataforma unifi.</li>
-                <li>Implementar prácticas de CI/CD 80%.</li>
-                <li>
-                  Lideré la mejora del rendimiento eré la mejora del
-                  rendimientoeré la mejora del rendimientoeré la mejora del
-                  rendimientoeré la mejora del rendimientoeré la mejora del
-                  rendimientoeré la mejora del rendimiento
-                </li>
-              </ul>
-              <div style="margin-top: 6px"></div>
-
-              <div class="ti3">
-                <div>Adevinta</div>
-                <div>Barcelona,España</div>
-              </div>
-              <div style="margin-top: -4px"></div>
-              <div class="ti4">
-                <div>Lead FrontEnd Architect</div>
-                <i>Agosto 2017–Septiembre 2022</i>
-              </div>
-
-              <div style="margin-top: 5px"></div>
-              <ul>
-                <li>Desarrollé una plataforma unifi.</li>
-                <li>Implementar prácticas de CI/CD 80%.</li>
-                <li>Lideré la mejora del rendimiento</li>
-              </ul>
-              <div style="margin-top: 6px"></div>
+                  <div style="margin-top: 5px"></div>
+                  <ul>
+                    ${descripcion.map((value2) => html`<li>${value2}</li>`)}
+                  </ul>
+                  <div style="margin-top: 6px"></div>
+                `;
+              })}
 
               <div style="margin-top: 13px"></div>
               <div class="ti2">EDUCACIÓN</div>
@@ -198,41 +150,30 @@ export class MyElement extends SignalWatcher(LitElement) {
               <div class="raya"></div>
               <div style="margin-top: 9px"></div>
 
-              <div class="ti3">
-                <div>EDUCACIÓN UNIVERSITAT OBERTA de CATALUNYA</div>
-                <div>Ingeniería de Informática</div>
-              </div>
-              <div style="margin-top: -4px"></div>
-              <div class="ti4">
-                <div>Ingeniería de Informática</div>
-                <div>May 2007</div>
-              </div>
-              <div style="margin-top: -4px"></div>
-              <div class="ti4">
-                <div>
-                  Honores: Matrícula de Honor en la asignatura de Programación y
-                  el PFC
-                </div>
-              </div>
-              <div style="margin-top: 8px;"></div>
+              ${
+                informacionCv.value.educacion.map((value) => {
+                  const { institucion, titulo, fechaInicio, descripcion } = value
+                  return (html`                  
+                    <div class="ti3">
+                      <div>${ institucion }</div>
+                      <div>${ titulo }</div>
+                    </div>
+                    <div style="margin-top: -4px"></div>
+                    <div class="ti4">
+                      <!-- <div>Ingeniería de Informática</div> -->
+                      <div>${ fechaInicio }</div>
+                    </div>
+                    <div style="margin-top: -4px"></div>
+                    <div class="ti4">
+                      <div>
+                        ${ descripcion }
+                      </div>
+                    </div>
+                    <div style="margin-top: 8px;"></div>
+                  `)
+                })
+              }
 
-              <div class="ti3">
-                <div>EDUCACIÓN UNIVERSITAT OBERTA de CATALUNYA</div>
-                <div>Ingeniería de Informática</div>
-              </div>
-              <div style="margin-top: -4px"></div>
-              <div class="ti4">
-                <div>Ingeniería de Informática</div>
-                <div>May 2007</div>
-              </div>
-              <div style="margin-top: -4px"></div>
-              <div class="ti4">
-                <div>
-                  Honores: Matrícula de Honor en la asignatura de Programación y
-                  el PFC
-                </div>
-              </div>
-              <div style="margin-top: 8px;"></div>
 
               <div style="margin-top: 13px"></div>
               <div class="ti2">SKILLS ADICIONALES</div>
@@ -241,12 +182,9 @@ export class MyElement extends SignalWatcher(LitElement) {
               <div class="raya"></div>
               <div style="margin-top: 9px"></div>
 
+              
               <ul>
-                <li>
-                  Creador de contenido de programación en redes sociales con más
-                  de 2 millones de seguidores en total
-                </li>
-                <li>Nativo en Español y Catalán. Fluido en Inglés.</li>
+                ${ informacionCv.value.experticia.map((value) => html`<li>${value}</li>`) }
               </ul>
             </div>
           `
@@ -374,6 +312,7 @@ export class MyElement extends SignalWatcher(LitElement) {
                       background-image: url(${perfilBase64Image.value});
                       background-repeat: no-repeat;
                       background-size: cover;
+                      background-position: center;
                     }
                   }
 
@@ -540,9 +479,9 @@ export class MyElement extends SignalWatcher(LitElement) {
 
                 <div class="titulo">Expertise</div>
                 <div style="margin-top: 13px"></div>
-                ${informacionCv.value.experticia.map(
-                  (value) => html`<li>${value}</li>`
-                )}
+                <ul style="margin-left: 14px;">
+                  ${informacionCv.value.experticia.map((value) => html`<li>${value}</li>`)}
+                </ul>
               </div>
               <div class="dere">
                 <div style="margin-top: 221px"></div>
@@ -650,6 +589,35 @@ export class MyElement extends SignalWatcher(LitElement) {
                     border: 1px solid #000;
                     transform: translateX(-50%) translateY(-50%);
                   }
+                  
+                }
+                .noi {
+                  position: relative;
+                  &::before {
+                    position: absolute;
+                    content: "";
+                    display: inline-block;
+                    top: 50%;
+                    left: 0;
+                    height: 150px;
+                    width: 6px;
+                    background-color: #fff;
+                    transform: translateX(-50%) translateY(-0%);
+                  }
+                }
+                .noi2 {
+                  position: relative;
+                  &::before {
+                    position: absolute;
+                    content: "";
+                    display: inline-block;
+                    top: 50%;
+                    right: -7px;
+                    height: 317px;
+                    width: 6px;
+                    background-color: #fff;
+                    transform: translateX(-50%) translateY(-0%);
+                  }
                 }
 
                 .iz {
@@ -673,6 +641,11 @@ export class MyElement extends SignalWatcher(LitElement) {
                       height: 224px;
                       width: 136px;
                       background-color: black;
+                      background-image: url(${perfilBase64Image.value});
+                      background-repeat: no-repeat;
+                      background-size: cover;
+                      background-position: center;
+                      filter: grayscale(1);
                     }
                   }
 
@@ -737,11 +710,13 @@ export class MyElement extends SignalWatcher(LitElement) {
                     padding-left: 18px;
                     display: flex;
                     flex-wrap: wrap;
+                    width: 124%;
 
                     .lin {
                       display: flex;
                       align-items: center;
                       color: #000;
+                      width: 175px;
 
                       .map-pin {
                         svg {
@@ -817,6 +792,7 @@ export class MyElement extends SignalWatcher(LitElement) {
                     font-size: 11px;
                     th {
                       font-family: Raleway;
+                      text-align: start;
                       /* font-weight: 700; */
                     }
                     td {
@@ -839,127 +815,123 @@ export class MyElement extends SignalWatcher(LitElement) {
                 <div style="margin-top: 46px"></div>
 
                 <div class="ti tiiz">DATOS ACADÉMICOS</div>
-                <div style="margin-top: 14px"></div>
-                <div class="ti2">Universidad del mar</div>
-                <div style="margin-top: -5px"></div>
-                <div class="p">Estudios en actividades</div>
-                <div style="margin-top: -5px"></div>
-                <div class="p">Sep 2018 - Jul 2021</div>
 
-                <div style="margin-top: 14px"></div>
-                <div class="ti2">Universidad del mar</div>
-                <div style="margin-top: -5px"></div>
-                <div class="p">Estudios en actividades</div>
-                <div style="margin-top: -5px"></div>
-                <div class="p">Sep 2018 - Jul 2021</div>
-
-                <div style="margin-top: 14px"></div>
-                <div class="ti2">Universidad del mar</div>
-                <div style="margin-top: -5px"></div>
-                <div class="p">Estudios en actividades</div>
-                <div style="margin-top: -5px"></div>
-                <div class="p">Sep 2018 - Jul 2021</div>
+                ${
+                  informacionCv.value.educacion.map((value) => {
+                    const { institucion, titulo, fechaInicio, fechaFin } = value
+                    return (html`
+                      <div style="margin-top: 14px"></div>
+                      <div class="ti2">${ institucion }</div>
+                      <div style="margin-top: -5px"></div>
+                      <div class="p">${ titulo }</div>
+                      <div style="margin-top: -5px"></div>
+                      <div class="p">${ fechaInicio } - ${ fechaFin }</div>
+                    `)
+                  })
+                }
 
                 <div style="margin-top: 29px"></div>
 
-                <div class="ti tiiz">HABILIDADES</div>
+                <div class="ti tiiz ${informaionSesible.value?"":"noi2"}">HABILIDADES</div>
+                
                 <div style="margin-top: 10px"></div>
-                <li>Buena comunicación</li>
-                <li>Gestión de</li>
-                <li>Resolución de problemas</li>
-                <li>Dominio del</li>
-                <li>Espíritu comercial</li>
-                <li>Agilidad con</li>
+                ${ informacionCv.value.experticia.map((value) => html`<li>${value}</li>`) }
+   
               </div>
               <div class="dere">
                 <div style="margin-top: 61px"></div>
-                <h1 class="tidere">Elena Fuentes</h1>
+                <h1 class="tidere">${informacionCv.value.perfil.nombre.split(" ")[0]} ${informacionCv.value.perfil.nombre.split(" ")[2]}</h1>
                 <div style="margin-top: -3px"></div>
-                <h2>AGENTE COMERCIAL</h2>
+                <h2>${informacionCv.value.perfil.titulo}</h2>
 
                 <div style="margin-top: 18px"></div>
                 <div class="ti tidere">SOBRE MÍ</div>
                 <div style="margin-top: 7px"></div>
                 <div class="p">
-                  Apasionada de las actividades comerciales, me defino por ser
-                  una persona con ganas de aprender y una gran líder de grandes
-                  equipos. Tengo una amplia experiencia en la captación y
-                  tratamiento de grandes clientes.
+                  ${informacionCv.value.perfil.descripcion}
                 </div>
 
                 <div style="margin-top: 18px"></div>
                 <div class="ico">
-                  <a href="" class="lin">
-                    <div class="i globe"><i data-lucide="globe"></i></div>
-                    <span>hola@unsitiogenial.es</span></a
+                  <a href="${informacionCv.value.contacto.web}" class="lin">
+                    <div class="i globe">${createElement(Globe)}</div>
+                    <span>${informacionCv.value.contacto.web}</span></a
                   >
-                  <a href="mailto:" class="lin">
-                    <div class="i mail"><i data-lucide="mail"></i></div>
-                    <span>hola@unsitiogenial.es</span></a
+                  <a href="mailto:${informacionCv.value.contacto.email}" class="lin">
+                    <div class="i mail">${createElement(Mail)}</div>
+                    <span>${informacionCv.value.contacto.email}</span></a
                   >
-                  <a href="tel:" class="lin">
-                    <div class="i"><i data-lucide="phone"></i></div>
-                    <span>hola@unsitiogenial.es</span></a
+                  <a href="tel:${informacionCv.value.contacto.telefono}" class="lin">
+                    <div class="i">${createElement(Phone)}</div>
+                    <span>${informacionCv.value.contacto.telefono}</span></a
                   >
                   <div href="" class="lin">
-                    <div class="i map-pin"><i data-lucide="map-pin"></i></div>
-                    <span>hola@unsitiogenial.es</span>
+                    <div class="i map-pin">${createElement(MapPin)}</div>
+                    <span>${informacionCv.value.contacto.direccion}</span>
                   </div>
                 </div>
 
-                <div style="margin-top: 46px"></div>
-                <div class="ti tidere">EXPERIENCIA LABORAL</div>
-                <div style="margin-top: 7px"></div>
-                <div class="ti2">Agente comercial</div>
-                <div style="margin-top: -3px"></div>
-                <div class="p">
-                  Inmobiliaria, S.L. | Enero 2017 - Abril 2019
-                </div>
-                <div style="margin-top: 3px"></div>
-                <li>Visitas a clientes.</li>
-                <li>Captación de nuevos inmuebles.</li>
-                <li>Elaboración de planes de marketing.</li>
-                <li>Realización de presupuestos.</li>
-
-                <div style="margin-top: 7px"></div>
-                <div class="ti2">Agente comercial</div>
-                <div style="margin-top: -3px"></div>
-                <div class="p">
-                  Inmobiliaria, S.L. | Enero 2017 - Abril 2019
-                </div>
-                <div style="margin-top: 3px"></div>
-                <li>Visitas a clientes.</li>
-                <li>Captación de nuevos inmuebles.</li>
-                <li>Elaboración de planes de marketing.</li>
-
-                <div style="margin-top: 7px"></div>
-                <div class="ti2">Agente comercial</div>
-                <div style="margin-top: -3px"></div>
-                <div class="p">
-                  Inmobiliaria, S.L. | Enero 2017 - Abril 2019
-                </div>
-                <div style="margin-top: 3px"></div>
-                <li>Visitas a clientes.</li>
-                <li>Captación de nuevos inmuebles.</li>
-                <li>Elaboración de planes de marketing.</li>
-
                 <div style="margin-top: 26px"></div>
-                <div class="ti tidere">INFORMACION PERSONAL</div>
+                <div class="ti tidere">EXPERIENCIA LABORAL</div>
+
+                ${
+                  informacionCv.value.experiencia.map((value) => {
+                    const { titulo, empresa, duracionInicio, duracionFin, descripcion } = value
+
+                    return (html`
+                      <div style="margin-top: 7px"></div>
+                      <div class="ti2">${ titulo }</div>
+                      <div style="margin-top: -3px"></div>
+                      <div class="p">
+                        ${empresa} | ${duracionInicio} - ${duracionFin}
+                      </div>
+                      <div style="margin-top: 3px"></div>
+                      <ul style="padding-left: 35px;">
+                        ${
+                          descripcion.map((value2) => html`<li style="padding-left: 0;">${value2}</li>`)
+                        }
+                      </ul>
+                    `)
+                  })
+                }
+
+              ${
+                informaionSesible.value?html`
+                
+                <div style="margin-top: 26px"></div>
+                <div class="ti tidere noi">INFORMACION PERSONAL</div>
                 <div style="margin-top: 10px"></div>
-                <table>
-                  <tr>
-                    <th>Nombre:</th>
-                    <td>Contact</td>
-                  </tr>
-                  <tr>
-                    <th>Nombre:</th>
-                    <td>Contact</td>
-                  </tr>
-                  <tr>
-                    <th>Nombre:</th>
-                    <td>Contact</td>
-                  </tr>
-                </table>
+                
+                  <table>
+                    
+                    <tr>
+                      <th>Cedula:</th>
+                      <td>${informacionCv.value.datosPersonales.cedula}</td>
+                    </tr>
+                    <tr>
+                      <th>Edad:</th>
+                      <td>${informacionCv.value.datosPersonales.edad}</td>
+                    </tr>
+                    <tr>
+                      <th>Estado Civil:</th>
+                      <td>${informacionCv.value.datosPersonales.estadoCivil}</td>
+                    </tr>
+                    <tr>
+                      <th>Fecha Nacimiento:</th>
+                      <td>${informacionCv.value.datosPersonales.fechaNacimiento}</td>
+                    </tr>
+                    <tr>
+                      <th>Lugar Nacimiento:</th>
+                      <td>${informacionCv.value.datosPersonales.lugarNacimiento}</td>
+                    </tr>
+                    <tr>
+                      <th>Nacionalidad:</th>
+                      <td>${informacionCv.value.datosPersonales.nacionalidad}</td>
+                    </tr>
+                    
+                  </table>
+                `:""
+                }
               </div>
             </div>
           `
@@ -1005,15 +977,22 @@ export class MyElement extends SignalWatcher(LitElement) {
                   position: relative;
                   padding: 0 20px 0 30px;
                   z-index: 1;
+                  /* clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); */
 
                   .imgPerfil {
                     height: 239px;
                     width: 170px;
-                    background-color: #ff0000;
+                    background-color: #0005;
                     position: absolute;
                     top: 31px;
                     left: 30px;
                     z-index: -2;
+
+                    background-image: url(${perfilBase64Image.value});
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    background-position: center;
+                    filter: grayscale(1);
                   }
 
                   .border {
@@ -1027,8 +1006,9 @@ export class MyElement extends SignalWatcher(LitElement) {
                   }
 
                   .ico {
-                    display: flex;
+                    display: inline-flex;
                     align-items: center;
+                    margin-left: -25px;
 
                     .iico {
                       height: 30px;
@@ -1052,6 +1032,8 @@ export class MyElement extends SignalWatcher(LitElement) {
                       font-weight: normal;
                       font-size: 11px;
                       margin-left: 5px;
+                      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+                      width: 148px;
                     }
                   }
                 }
@@ -1087,115 +1069,114 @@ export class MyElement extends SignalWatcher(LitElement) {
                 <div style="margin-top: 297px"></div>
                 <div class="ti">Sobre mí</div>
                 <div style="margin-top: 4px"></div>
-                <div class="p">
-                  Apasionada de las actividades comerciales, me defino por ser
-                  una persona con ganas de aprender y una gran líder de grandes
-                  equipos.
-                </div>
+                <div class="p">${informacionCv.value.perfil.descripcion}</div>
+
                 <div style="margin-top: 24px"></div>
                 <div class="ti">Contacto</div>
                 <div style="margin-top: 13px"></div>
 
-                <a href="tel:" class="ico">
-                  <div class="iico phone"><i data-lucide="phone"></i></div>
-                  <span>0993105654</span>
+                <a href="tel:${informacionCv.value.contacto.telefono}" class="ico">
+                  <div class="iico phone">${createElement(Phone)}</div>
+                  <span>${informacionCv.value.contacto.telefono}</span>
                 </a>
-                <a href="" class="ico">
-                  <div class="iico globe"><i data-lucide="globe"></i></div>
-                  <span>hola@unsit</span></a
+                <a href="${informacionCv.value.contacto.web}" class="ico">
+                  <div class="iico globe">${createElement(Globe)}</div>
+                  <span>${informacionCv.value.contacto.web}</span></a
                 >
-                <a href="mailto:" class="ico">
-                  <div class="iico mail"><i data-lucide="mail"></i></div>
-                  <span>0993105654</span>
+                <a href="mailto:${informacionCv.value.contacto.email}" class="ico">
+                  <div class="iico mail">${createElement(Mail)}</div>
+                  <span>${informacionCv.value.contacto.email}</span>
                 </a>
-                <div href="tel:" class="ico">
-                  <div class="iico map-pin"><i data-lucide="map-pin"></i></div>
-                  <span>0993105654</span>
+                <div class="ico">
+                  <div class="iico map-pin">${createElement(MapPin)}</div>
+                  <span>${informacionCv.value.contacto.direccion}</span>
                 </div>
 
                 <div style="margin-top: 54px"></div>
                 <div class="ti">Más información</div>
                 <div style="margin-top: 9px"></div>
-                <li>Carné de conducir.</li>
-                <li>Vehículo propio.</li>
-                <li>Disponibilidad total.</li>
+
+                ${informacionCv.value.experticia.map((value) => html`<li>${value}</li>`)}
+                
               </div>
               <div class="dere">
-                <h1>Elena</h1>
+                <h1>${informacionCv.value.perfil.nombre.split(" ")[0]}</h1>
                 <div style="margin-top: -7px"></div>
-                <h1>Fuentes</h1>
-                <h2>AGENTE COMERCIAL</h2>
+                <h1>${informacionCv.value.perfil.nombre.split(" ")[2]}</h1>
+                <h2>${informacionCv.value.perfil.titulo}</h2>
 
-                <div style="margin-top: 70px"></div>
+                <div style="margin-top: 50px"></div>
                 <div class="ti">Experiencia laboral</div>
 
-                <div style="margin-top: 6px"></div>
-                <div class="ti2">Agente comercial</div>
-                <div style="margin-top: -5px"></div>
-                <div class="p">
-                  Inmobiliaria, S.L. | Enero 2017 - Abril 2019
-                </div>
-                <div style="margin-top: 3px"></div>
-                <li>Visitas a clientes.</li>
-                <div style="margin-top: -1px"></div>
-                <li>Captación de nuevos inmuebles.</li>
-                <div style="margin-top: -1px"></div>
-                <li>Elaboración de planes de marketing.</li>
-                <div style="margin-top: -1px"></div>
-                <li>Realización de presupuestos.</li>
-                <div style="margin-top: 14px"></div>
-
-                <div class="ti2">Agente comercial</div>
-                <div style="margin-top: -5px"></div>
-                <div class="p">
-                  Inmobiliaria, S.L. | Enero 2017 - Abril 2019
-                </div>
-                <div style="margin-top: 3px"></div>
-                <li>Visitas a clientes.</li>
-                <div style="margin-top: -1px"></div>
-                <li>Captación de nuevos inmuebles.</li>
-                <div style="margin-top: -1px"></div>
-                <li>Elaboración de planes de marketing.</li>
-                <div style="margin-top: -1px"></div>
-                <li>Realización de presupuestos.</li>
+                ${
+                  informacionCv.value.experiencia.map((value) => {
+                    const { titulo, empresa, duracionInicio, duracionFin, descripcion } = value
+                    return (html`
+                      <div style="margin-top: 6px"></div>
+                      <div class="ti2">${titulo}</div>
+                      <div style="margin-top: -5px"></div>
+                      <div class="p">
+                        ${empresa} | ${duracionInicio} - ${duracionFin}
+                      </div>
+                      <div style="margin-top: 3px"></div>
+                      ${descripcion.map((value2) => html`<li>${value2}</li>
+                      <div style="margin-top: -1px"></div>`)}
+                      
+                      <div style="margin-top: 14px"></div>
+                    `)
+                  })
+                }
 
                 <div style="margin-top: 21px"></div>
                 <div class="ti">Datos académicos</div>
                 <div style="margin-top: 11px"></div>
 
-                <div class="ti2">Universidad del mar</div>
-                <div style="margin-top: -5px"></div>
-                <div class="p">Estudios en economía | Actual</div>
-                <div style="margin-top: 12px"></div>
+                ${ informacionCv.value.educacion.map((value2) => {
+                  const { institucion, titulo, fechaInicio, fechaFin } = value2
+                  return (html`
+                    <div class="ti2">${institucion}</div>
+                    <div style="margin-top: -5px"></div>
+                    <div class="p">${titulo} | ${fechaInicio} - ${fechaFin}</div>
+                    <div style="margin-top: 12px"></div>
+                  `)
+                }) }
 
-                <div class="ti2">Universidad del mar</div>
-                <div style="margin-top: -5px"></div>
-                <div class="p">Estudios en economía | Actual</div>
-                <div style="margin-top: 12px"></div>
+                 ${
+                  informaionSesible.value?html`
+                    <div style="margin-top: 20px"></div>
+                    <div class="ti">Información personal</div>
+    
+                    <div style="margin-top: 9px"></div>
 
-                <div class="ti2">Universidad del mar</div>
-                <div style="margin-top: -5px"></div>
-                <div class="p">Estudios en economía | Actual</div>
-                <div style="margin-top: 12px"></div>
+                    <table>
+                      <tr>
+                        <th style="text-align: start;" class="ti2">Cedula:</th>
+                        <td class="p">${informacionCv.value.datosPersonales.cedula}</td>
+                      </tr>
+                      <tr>
+                        <th style="text-align: start;" class="ti2">Edad:</th>
+                        <td class="p">${informacionCv.value.datosPersonales.edad}</td>
+                      </tr>
+                      <tr>
+                        <th style="text-align: start;" class="ti2">Estado Civil:</th>
+                        <td class="p">${informacionCv.value.datosPersonales.estadoCivil}</td>
+                      </tr>
+                      <tr>
+                        <th style="text-align: start;" class="ti2">Fecha Nacimiento:</th>
+                        <td class="p">${informacionCv.value.datosPersonales.fechaNacimiento}</td>
+                      </tr>
+                      <tr>
+                        <th style="text-align: start;" class="ti2">Lugar Nacimiento:</th>
+                        <td class="p">${informacionCv.value.datosPersonales.lugarNacimiento}</td>
+                      </tr>
+                      <tr>
+                        <th style="text-align: start;" class="ti2">Nacionalidad:</th>
+                        <td class="p">${informacionCv.value.datosPersonales.nacionalidad}</td>
+                      </tr>
+                    </table>
+                  `:""
+                 }
 
-                <div style="margin-top: 34px"></div>
-                <div class="ti">Información personal</div>
-
-                <div style="margin-top: 9px"></div>
-                <table>
-                  <tr>
-                    <th class="ti2">Nombre:</th>
-                    <td class="p">Contact</td>
-                  </tr>
-                  <tr>
-                    <th class="ti2">Nombre:</th>
-                    <td class="p">Contact</td>
-                  </tr>
-                  <tr>
-                    <th class="ti2">Nombre:</th>
-                    <td class="p">Contact</td>
-                  </tr>
-                </table>
               </div>
             </div>
           `
@@ -1226,7 +1207,6 @@ export class MyElement extends SignalWatcher(LitElement) {
                   font-size: 10px;
                   font-weight: normal;
                   width: 100%;
-                  padding-left: 5px;
                 }
                 .p {
                   font-family: Rubik;
@@ -1264,6 +1244,10 @@ export class MyElement extends SignalWatcher(LitElement) {
                     width: 134px;
                     border-radius: 50%;
                     background-color: #c3b19d;
+                    background-image: url(${perfilBase64Image.value});
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    background-position: center;
                   }
                 }
                 .dere {
@@ -1359,128 +1343,115 @@ export class MyElement extends SignalWatcher(LitElement) {
                 <div class="ti">Sobre mí</div>
                 <div style="margin-top: 9px"></div>
                 <div class="p">
-                  Apasionada de las actividades comerciales, me defino por ser
-                  una persona con ganas de aprender y una gran líder de grandes
-                  equipos. Desde que empecé mi carrera en el mundo de los
-                  negocios, he descubierto que mi pasión es el desarrollo y
-                  crecimiento de empresas. Me encanta estar al frente de equipos
-                  motivados y trabajar en conjunto para alcanzar objetivos
-                  ambiciosos.
+                  ${informacionCv.value.perfil.descripcion}
                 </div>
 
                 <div style="margin-top: 23px"></div>
                 <div class="ti">Datos académicos</div>
                 <div style="margin-top: 11px"></div>
 
-                <div class="ti2">Universidad del mar</div>
-                <div class="p">Estudios en comercio</div>
-                <div class="p">Septiembre 2015 - Julio 2017</div>
-                <div style="margin-top: 12px"></div>
+                ${
+                  informacionCv.value.educacion.map((value) => {
+                    const { institucion, titulo, fechaInicio, fechaFin } = value
+                    return (html`
+                      <div class="ti2">${institucion}</div>
+                      <div class="p">${titulo}</div>
+                      <div class="p">${fechaInicio} - ${fechaFin}</div>
+                      <div style="margin-top: 12px"></div>
+                    `)
+                  })
+                }
 
-                <div class="ti2">Universidad del mar</div>
-                <div class="p">Estudios en comercio</div>
-                <div class="p">Septiembre 2015 - Julio 2017</div>
-                <div style="margin-top: 12px"></div>
-
-                <div class="ti2">Universidad del mar</div>
-                <div class="p">Estudios en comercio</div>
-                <div class="p">Septiembre 2015 - Julio 2017</div>
-                <div style="margin-top: 12px"></div>
               </div>
 
               <div class="dere">
                 <div style="margin-top: 63px"></div>
-                <h1>Alba Castro</h1>
+                <h1>${informacionCv.value.perfil.nombre.split(" ")[0]} ${informacionCv.value.perfil.nombre.split(" ")[2]}</h1>
                 <div style="margin-top: -4px"></div>
-                <h2>/ AGENTE COMERCIAL</h2>
+                <h2>/ ${informacionCv.value.perfil.titulo}</h2>
 
                 <div style="margin-top: 37px"></div>
-                <a href="" class="lin ico">
-                  <div class="iico globe"><i data-lucide="globe"></i></div>
-                  <span>hola@unsitiogenial.es</span></a
+                <a href="${informacionCv.value.contacto.web}" class="lin ico">
+                  <div class="iico globe">${createElement(Globe)}</div>
+                  <span>${informacionCv.value.contacto.web}</span></a
                 >
-                <a href="tel:" class="ico">
-                  <div class="iico phone"><i data-lucide="phone"></i></div>
-                  <span>0993105654</span>
+                <a href="tel:${informacionCv.value.contacto.telefono}" class="ico">
+                  <div class="iico phone">${createElement(Phone)}</div>
+                  <span>${informacionCv.value.contacto.telefono}</span>
                 </a>
-                <a href="mailto:" class="ico">
-                  <div class="iico mail"><i data-lucide="mail"></i></div>
-                  <span>0993105654</span>
+                <a href="mailto:${informacionCv.value.contacto.email}" class="ico">
+                  <div class="iico mail">${createElement(Mail)}</div>
+                  <span>${informacionCv.value.contacto.email}</span>
                 </a>
-                <div href="tel:" class="ico">
-                  <div class="iico map-pin"><i data-lucide="map-pin"></i></div>
-                  <span>0993105654</span>
+                <div class="ico">
+                  <div class="iico map-pin">${createElement(MapPin)}</div>
+                  <span>${informacionCv.value.contacto.direccion}</span>
                 </div>
 
                 <div style="margin-top: 58px"></div>
                 <div class="ti">Experiencia laboral</div>
 
-                <div style="margin-top: 6px"></div>
-                <div class="ti2">Agente comercial</div>
-                <div style="margin-top: -4px"></div>
-                <div class="p">
-                  Inmobiliaria, S.L. | Enero 2017 - Abril 2019
-                </div>
-                <div style="margin-top: 3px"></div>
-                <li>Visitas a clientes.</li>
-                <div style="margin-top: -1px"></div>
-                <li>Captación de nuevos inmuebles.</li>
-                <div style="margin-top: -1px"></div>
-                <li>Elaboración de planes de marketing.</li>
-                <div style="margin-top: -1px"></div>
-                <li>Realización de presupuestos.</li>
-                <div style="margin-top: 14px"></div>
+                ${
+                  informacionCv.value.experiencia.map((value) => {
+                    const { titulo, empresa, duracionInicio, duracionFin, descripcion } = value
 
-                <div style="margin-top: 6px"></div>
-                <div class="ti2">Agente comercial</div>
-                <div style="margin-top: -4px"></div>
-                <div class="p">
-                  Inmobiliaria, S.L. | Enero 2017 - Abril 2019
-                </div>
-                <div style="margin-top: 3px"></div>
-                <li>Visitas a clientes.</li>
-                <div style="margin-top: -1px"></div>
-                <li>Captación de nuevos inmuebles.</li>
-                <div style="margin-top: -1px"></div>
-                <li>Elaboración de planes de marketing.</li>
-                <div style="margin-top: -1px"></div>
-                <li>Realización de presupuestos.</li>
-                <div style="margin-top: 14px"></div>
+                    return (html`
+                      <div style="margin-top: 6px"></div>
+                      <div class="ti2">${titulo}</div>
+                      <div style="margin-top: -4px"></div>
+                      <div class="p">
+                        ${empresa} | ${duracionInicio} - ${duracionFin}
+                      </div>
+                      <div style="margin-top: 3px"></div>
 
-                <div style="margin-top: 6px"></div>
-                <div class="ti2">Agente comercial</div>
-                <div style="margin-top: -4px"></div>
-                <div class="p">
-                  Inmobiliaria, S.L. | Enero 2017 - Abril 2019
-                </div>
-                <div style="margin-top: 3px"></div>
-                <li>Visitas a clientes.</li>
-                <div style="margin-top: -1px"></div>
-                <li>Captación de nuevos inmuebles.</li>
-                <div style="margin-top: -1px"></div>
-                <li>Elaboración de planes de marketing.</li>
-                <div style="margin-top: -1px"></div>
-                <li>Realización de presupuestos.</li>
-                <div style="margin-top: 14px"></div>
+                      <ul style="padding-left: 13px;">
+                        ${
+                          descripcion.map((value2) => html`<li>${value2}</li>
+                        <div style="margin-top: -1px"></div>`)
+                        }
+                      </ul>
+                      
+                      <div style="margin-top: 14px"></div>
+                    `)
+                  })
+                }
+
+                ${
+                informaionSesible.value?html`
 
                 <div style="margin-top: 25px"></div>
                 <div class="ti">Información personal</div>
 
                 <div style="margin-top: 6px"></div>
-                <table>
-                  <tr>
-                    <th class="ti2">Nombre:</th>
-                    <td class="p">Contact</td>
-                  </tr>
-                  <tr>
-                    <th class="ti2">Nombre:</th>
-                    <td class="p">Contact</td>
-                  </tr>
-                  <tr>
-                    <th class="ti2">Nombre:</th>
-                    <td class="p">Contact</td>
-                  </tr>
-                </table>
+                  <table>
+                    <tr>
+                      <th style="text-align: start;" class="ti2">Cedula:</th>
+                      <td class="p">${informacionCv.value.datosPersonales.cedula}</td>
+                    </tr>
+                    <tr>
+                      <th style="text-align: start;" class="ti2">Edad:</th>
+                      <td class="p">${informacionCv.value.datosPersonales.edad}</td>
+                    </tr>
+                    <tr>
+                      <th style="text-align: start;" class="ti2">Estado Civil:</th>
+                      <td class="p">${informacionCv.value.datosPersonales.estadoCivil}</td>
+                    </tr>
+                    <tr>
+                      <th style="text-align: start;" class="ti2">Fecha Nacimiento:</th>
+                      <td class="p">${informacionCv.value.datosPersonales.fechaNacimiento}</td>
+                    </tr>
+                    <tr>
+                      <th style="text-align: start;" class="ti2">Lugar Nacimiento:</th>
+                      <td class="p">${informacionCv.value.datosPersonales.lugarNacimiento}</td>
+                    </tr>
+                    <tr>
+                      <th style="text-align: start;" class="ti2">Nacionalidad:</th>
+                      <td class="p">${informacionCv.value.datosPersonales.nacionalidad}</td>
+                    </tr>
+                  </table>
+                `:""
+                }
+
               </div>
             </div>
           `
@@ -1521,6 +1492,11 @@ export class MyElement extends SignalWatcher(LitElement) {
                     border-radius: 50%;
                     background-color: blue;
                     border: 3px solid #fff;
+
+                    background-image: url(${perfilBase64Image.value});
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    background-position: center;
                   }
 
                   .conteInfo {
@@ -1693,14 +1669,11 @@ export class MyElement extends SignalWatcher(LitElement) {
                 <div class="deta"></div>
                 <div class="imgPerfil"></div>
                 <div class="conteInfo">
-                  <h1>BRUNO LAGO</h1>
-                  <h2>DISEÑADOR GRÁFICO</h2>
+                  <h1>${informacionCv.value.perfil.nombre.split(" ")[0]} ${informacionCv.value.perfil.nombre.split(" ")[2]}</h1>
+                  <h2>${informacionCv.value.perfil.titulo}</h2>
                   <div class="raya"></div>
                   <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam quis nostrud exercitation
-                    ullamco laboris nisi.
+                    ${informacionCv.value.perfil.descripcion}
                   </p>
                 </div>
               </div>
@@ -1710,129 +1683,111 @@ export class MyElement extends SignalWatcher(LitElement) {
                   <div style="margin-top: 24px"></div>
                   <div class="ti">FORMACIÓN</div>
 
-                  <div style="margin-top: 19px"></div>
-                  <div class="ti2">DISEÑO GRÁFICO</div>
-                  <div style="margin-top: -3px"></div>
-                  <div class="ti2">(2001 - 2005)</div>
-                  <div style="margin-top: 5px"></div>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua.
-                  </p>
-                  <div style="margin-top: 24px"></div>
+                  ${ informacionCv.value.educacion.map((value2) => {
+                  const { institucion, titulo, fechaInicio, fechaFin, descripcion } = value2
+                  return (html`
+                    <div style="margin-top: 19px"></div>
+                    <div class="ti2">${titulo}</div>
+                    <div style="margin-top: -3px"></div>
+                    <div class="ti2">${institucion}</div>
+                    <div style="margin-top: -3px"></div>
+                    <div class="ti2">(${fechaInicio} - ${fechaFin})</div>
+                    <div style="margin-top: 5px"></div>
+                    <p>
+                      ${descripcion}
+                    </p>
+                    <div style="margin-top: 24px"></div>
+                  `)
+                }) }
 
-                  <div style="margin-top: 19px"></div>
-                  <div class="ti2">DISEÑO GRÁFICO</div>
-                  <div style="margin-top: -3px"></div>
-                  <div class="ti2">(2001 - 2005)</div>
-                  <div style="margin-top: 5px"></div>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua.
-                  </p>
-                  <div style="margin-top: 24px"></div>
-
-                  <div style="margin-top: 19px"></div>
-                  <div class="ti2">DISEÑO GRÁFICO</div>
-                  <div style="margin-top: -3px"></div>
-                  <div class="ti2">(2001 - 2005)</div>
-                  <div style="margin-top: 5px"></div>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua.
-                  </p>
-                  <div style="margin-top: 24px"></div>
 
                   <div style="margin-top: 24px"></div>
                   <div class="ti">HERRAMIENTAS</div>
                   <div style="margin-top: 10px"></div>
+                  
+                  ${informacionCv.value.experticia.map((value) => html`<p>${value}</p>`)}
 
-                  <p>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit
-                  </p>
-                  <p>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit
-                  </p>
-                  <p>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit
-                  </p>
+                  ${
+                    informaionSesible.value?html`
+                    
+                    <div style="margin-top: 24px"></div>
+                    <div class="ti">INFORMACIÓN</div>
+                    <div style="margin-top: 10px"></div>
+                    
+                    <table>
+                        <tr>
+                          <th style="text-align: start;">Cedula:</th>
+                          <td>${informacionCv.value.datosPersonales.cedula}</td>
+                        </tr>
+                        <tr>
+                          <th style="text-align: start;">Edad:</th>
+                          <td>${informacionCv.value.datosPersonales.edad}</td>
+                        </tr>
+                        <tr>
+                          <th style="text-align: start;">Estado Civil:</th>
+                          <td>${informacionCv.value.datosPersonales.estadoCivil}</td>
+                        </tr>
+                        <tr>
+                          <th style="text-align: start;">Fecha Nacimiento:</th>
+                          <td>${informacionCv.value.datosPersonales.fechaNacimiento}</td>
+                        </tr>
+                        <tr>
+                          <th style="text-align: start;">Lugar Nacimiento:</th>
+                          <td>${informacionCv.value.datosPersonales.lugarNacimiento}</td>
+                        </tr>
+                        <tr>
+                          <th style="text-align: start;">Nacionalidad:</th>
+                          <td>${informacionCv.value.datosPersonales.nacionalidad}</td>
+                        </tr>
+                      </table>
+                    `:''
+                  }
+
                 </div>
                 <div class="a2 b">
                   <div style="margin-top: 24px"></div>
                   <div class="ti">EXPERIENCIA</div>
 
-                  <div style="margin-top: 19px"></div>
-                  <div class="ti2">DISEÑO GRÁFICO</div>
-                  <div style="margin-top: -3px"></div>
-                  <div class="ti2">(2001 - 2005)</div>
-                  <div style="margin-top: 5px"></div>
-                  <p>Lorem ipsum dolor</p>
-                  <p>Lorem ipsum dolor</p>
-                  <div style="margin-top: 18px"></div>
+                  ${
+                  informacionCv.value.experiencia.map((value) => {
+                    const { titulo, empresa, duracionInicio, duracionFin, descripcion } = value
+                    return (html`
+                      <div style="margin-top: 19px"></div>
+                      <div class="ti2">${titulo}</div>
+                      <div style="margin-top: -3px"></div>
+                      <div class="ti2">(${duracionInicio} - ${duracionFin})</div>
+                      <div style="margin-top: 5px"></div>
+                      ${descripcion.map((value2) => html`<p>${value2}</p>`)}
+                      
+                      <div style="margin-top: 18px"></div>
+                    `)
+                  })
+                }
 
-                  <div style="margin-top: 19px"></div>
-                  <div class="ti2">DISEÑO GRÁFICO</div>
-                  <div style="margin-top: -3px"></div>
-                  <div class="ti2">(2001 - 2005)</div>
-                  <div style="margin-top: 5px"></div>
-                  <p>Lorem ipsum dolor</p>
-                  <p>Lorem ipsum dolor</p>
-                  <div style="margin-top: 18px"></div>
-
-                  <div style="margin-top: 19px"></div>
-                  <div class="ti2">DISEÑO GRÁFICO</div>
-                  <div style="margin-top: -3px"></div>
-                  <div class="ti2">(2001 - 2005)</div>
-                  <div style="margin-top: 5px"></div>
-                  <p>Lorem ipsum dolor</p>
-                  <p>Lorem ipsum dolor</p>
-                  <div style="margin-top: 18px"></div>
-
-                  <div style="margin-top: 24px"></div>
-                  <div class="ti">INFORMACIÓN0</div>
-
-                  <table>
-                    <tr>
-                      <th>Nombre:</th>
-                      <td>Contact</td>
-                    </tr>
-                    <tr>
-                      <th>Nombre:</th>
-                      <td>Contact</td>
-                    </tr>
-                    <tr>
-                      <th>Nombre:</th>
-                      <td>Contact</td>
-                    </tr>
-                  </table>
-
-                  <div style="margin-top: 49px"></div>
+                  <div style="margin-top: 20px"></div>
                   <div class="icono">
                     <div class="oo">
-                      <a href="" class="lin ico">
+                      <a href="${informacionCv.value.contacto.web}" class="lin ico">
                         <div class="iico globe">
-                          <i data-lucide="globe"></i>
+                          ${createElement(Globe)}
                         </div>
-                        <span>hola@unsitiogenial.es</span></a
+                        <span>${informacionCv.value.contacto.web}</span></a
                       >
-                      <a href="tel:" class="ico">
+                      <a href="tel:${informacionCv.value.contacto.telefono}" class="ico">
                         <div class="iico phone">
-                          <i data-lucide="phone"></i>
+                          ${createElement(Phone)}
                         </div>
-                        <span>0993105654</span>
+                        <span>${informacionCv.value.contacto.telefono}</span>
                       </a>
-                      <a href="mailto:" class="ico">
-                        <div class="iico mail"><i data-lucide="mail"></i></div>
-                        <span>0993105654</span>
+                      <a href="mailto:${informacionCv.value.contacto.email}" class="ico">
+                        <div class="iico mail">${createElement(Mail)}</div>
+                        <span>${informacionCv.value.contacto.email}</span>
                       </a>
-                      <div href="tel:" class="ico">
+                      <div class="ico">
                         <div class="iico map-pin">
-                          <i data-lucide="map-pin"></i>
+                          ${createElement(MapPin)}
                         </div>
-                        <span>0993105654</span>
+                        <span>${informacionCv.value.contacto.direccion}</span>
                       </div>
                     </div>
                   </div>
@@ -1911,6 +1866,11 @@ export class MyElement extends SignalWatcher(LitElement) {
                       width: 204px;
                       border-radius: 50%;
                       background-color: red;
+
+                      background-image: url(${perfilBase64Image.value});
+                      background-repeat: no-repeat;
+                      background-size: cover;
+                      background-position: center;
                     }
                     .o {
                       font-family: hatton-Medium;
@@ -1963,6 +1923,8 @@ export class MyElement extends SignalWatcher(LitElement) {
                 .dere {
                   height: 100%;
                   flex: 1;
+                  padding-right: 20px;
+
                   h1 {
                     font-family: hatton-Medium;
                     font-size: 35px;
@@ -2031,21 +1993,18 @@ export class MyElement extends SignalWatcher(LitElement) {
                   <div style="margin-top: 25px"></div>
                   <div class="o">Mi perfil</div>
                   <div class="oo">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat
+                    ${informacionCv.value.perfil.descripcion}
                   </div>
                 </div>
 
-                <div style="margin-top: 79px"></div>
+                <div style="margin-top: 40px"></div>
                 <div class="raya"></div>
                 <div style="margin-top: 12px"></div>
                 <div class="ti">EXPERTISE:</div>
                 <div style="margin-top: 1px"></div>
-                <li>Carnet de conwducir</li>
-                <li>Coche propio</li>
-                <li>Disponibilidad para viajar</li>
+                <ul style="margin-left: 14px;">
+                  ${informacionCv.value.experticia.map((value) => html`<li>${value}</li>`)}
+                </ul>
 
                 <div style="margin-top: 21px"></div>
                 <div class="raya"></div>
@@ -2054,95 +2013,105 @@ export class MyElement extends SignalWatcher(LitElement) {
                 <div style="margin-top: 1px"></div>
 
                 <div class="icono">
-                  <a href="tel:" class="ico">
-                    <div class="iico phone"><i data-lucide="phone"></i></div>
-                    <span>0993105654</span>
+                  <a href="tel:${informacionCv.value.contacto.telefono}" class="ico">
+                    <div class="iico phone">${createElement(Phone)}<i data-lucide="phone"></i></div>
+                    <span>${informacionCv.value.contacto.telefono}</span>
                   </a>
-                  <a href="" class="ico">
-                    <div class="iico globe"><i data-lucide="globe"></i></div>
-                    <span>hola@unsit</span></a
+                  <a href="${informacionCv.value.contacto.web}" class="ico">
+                    <div class="iico globe">${createElement(Globe)}<i data-lucide="globe"></i></div>
+                    <span>${informacionCv.value.contacto.web}</span></a
                   >
-                  <a href="mailto:" class="ico">
-                    <div class="iico mail"><i data-lucide="mail"></i></div>
-                    <span>0993105654</span>
+                  <a href="mailto:${informacionCv.value.contacto.email}" class="ico">
+                    <div class="iico mail">${createElement(Mail)}<i data-lucide="mail"></i></div>
+                    <span>${informacionCv.value.contacto.email}</span>
                   </a>
-                  <div href="tel:" class="ico">
+                  <div class="ico">
                     <div class="iico map-pin">
-                      <i data-lucide="map-pin"></i>
+                      ${createElement(MapPin)}<i data-lucide="map-pin"></i>
                     </div>
-                    <span>0993105654</span>
+                    <span>${informacionCv.value.contacto.direccion}</span>
                   </div>
                 </div>
               </div>
 
               <div class="dere">
                 <div style="margin-top: 58px"></div>
-                <h1>Lola Sánchez</h1>
+                <h1>${informacionCv.value.perfil.nombre.split(" ")[0]} ${informacionCv.value.perfil.nombre.split(" ")[2]}</h1>
                 <div style="margin-top: -3px"></div>
-                <h2>DISEÑADORA</h2>
+                <h2>${informacionCv.value.perfil.titulo}</h2>
 
                 <div style="margin-top: 8px"></div>
                 <div class="conteY"><div class="raya"></div></div>
                 <div style="margin-top: 22px"></div>
 
                 <div class="ti u">Experiencia laboral</div>
-                <div style="margin-top: 11px"></div>
-                <div class="ti2 iu">DISEÑADORA GRAFICA</div>
-                <div class="ti2 iu">Soto y Ochoa (Enero 2012 - Julio 2021)</div>
-                <li class="ii">Jefa de equipo de diseñadores gráficos</li>
-                <li class="ii">Diseño de plantillas</li>
-                <li class="ii">Formaciones al equipo</li>
 
-                <div style="margin-top: 11px"></div>
-                <div class="ti2 iu">DISEÑADORA GRAFICA</div>
-                <div class="ti2 iu">Soto y Ochoa (Enero 2012 - Julio 2021)</div>
-                <li class="ii">Jefa de equipo de diseñadores gráficos</li>
-                <li class="ii">Diseño de plantillas</li>
-                <li class="ii">Formaciones al equipo</li>
-
-                <div style="margin-top: 11px"></div>
-                <div class="ti2 iu">DISEÑADORA GRAFICA</div>
-                <div class="ti2 iu">Soto y Ochoa (Enero 2012 - Julio 2021)</div>
-                <li class="ii">Jefa de equipo de diseñadores gráficos</li>
-                <li class="ii">Diseño de plantillas</li>
-                <li class="ii">Formaciones al equipo</li>
+                ${
+                  informacionCv.value.experiencia.map((value) => {
+                    const { titulo, empresa, duracionInicio, duracionFin, descripcion } = value
+                    return (html`
+                      <div style="margin-top: 11px"></div>
+                      <div class="ti2 iu">${titulo}</div>
+                      <div class="ti2 iu">${empresa} (${duracionInicio} - ${duracionFin})</div>
+                      ${descripcion.map((value2) => html`<li class="ii">${value2}</li>`)}
+                    `)
+                  })
+                }
 
                 <div style="margin-top: 18px"></div>
                 <div class="conteY"><div class="raya"></div></div>
                 <div style="margin-top: 22px"></div>
 
                 <div class="ti u">Formación</div>
-                <div style="margin-top: 11px"></div>
-                <div class="ti2 iu">MASTER EN MARKETING DIGITAL</div>
-                <div class="ti2 iu">(2012 - 2021)</div>
-                <li class="ii iio">Jefa de equipo de diseñadores gráficos</li>
 
-                <div style="margin-top: 11px"></div>
-                <div class="ti2 iu">MASTER EN MARKETING DIGITAL</div>
-                <div class="ti2 iu">(2012 - 2021)</div>
-                <li class="ii iio">Jefa de equipo de diseñadores gráficos</li>
+                ${ informacionCv.value.educacion.map((value2) => {
+                  const { institucion, titulo, fechaInicio, fechaFin, descripcion } = value2
+                  return (html`
+                    <div style="margin-top: 11px"></div>
+                    <div class="ti2 iu">${titulo}</div>
+                    <div class="ti2 iu">${institucion}</div>
+                    <div class="ti2 iu">(${fechaInicio} - ${fechaFin})</div>
+                    <li class="ii iio">${descripcion}</li>
+                  `)
+                }) }
 
-                <div style="margin-top: 18px"></div>
-                <div class="conteY"><div class="raya"></div></div>
-                <div style="margin-top: 22px"></div>
+                ${
+                    informaionSesible.value?html`
+                      <div style="margin-top: 18px"></div>
+                      <div class="conteY"><div class="raya"></div></div>
+                      <div style="margin-top: 22px"></div>
 
-                <div class="ti u">Información</div>
-                <div style="margin-top: 11px"></div>
+                      <div class="ti u">Información</div>
+                      <div style="margin-top: 11px"></div>
 
-                <table>
-                  <tr>
-                    <th>Nombre:</th>
-                    <td>Contact</td>
-                  </tr>
-                  <tr>
-                    <th>Nombre:</th>
-                    <td>Contact</td>
-                  </tr>
-                  <tr>
-                    <th>Nombre:</th>
-                    <td>Contact</td>
-                  </tr>
-                </table>
+                      <table>
+                        <tr>
+                          <th style="text-align: start;">Cedula:</th>
+                          <td>${informacionCv.value.datosPersonales.cedula}</td>
+                        </tr>
+                        <tr>
+                          <th style="text-align: start;">Edad:</th>
+                          <td>${informacionCv.value.datosPersonales.edad}</td>
+                        </tr>
+                        <tr>
+                          <th style="text-align: start;">Estado Civil:</th>
+                          <td>${informacionCv.value.datosPersonales.estadoCivil}</td>
+                        </tr>
+                        <tr>
+                          <th style="text-align: start;">Fecha Nacimiento:</th>
+                          <td>${informacionCv.value.datosPersonales.fechaNacimiento}</td>
+                        </tr>
+                        <tr>
+                          <th style="text-align: start;">Lugar Nacimiento:</th>
+                          <td>${informacionCv.value.datosPersonales.lugarNacimiento}</td>
+                        </tr>
+                        <tr>
+                          <th style="text-align: start;">Nacionalidad:</th>
+                          <td>${informacionCv.value.datosPersonales.nacionalidad}</td>
+                        </tr>
+                      </table>
+                    `:''
+                  }
               </div>
             </div>
           `
@@ -2200,6 +2169,11 @@ export class MyElement extends SignalWatcher(LitElement) {
                     top: 43px;
                     left: 39px;
                     border: 6px solid #fff;
+
+                    background-image: url(${perfilBase64Image.value});
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    background-position: center;
                   }
 
                   .info {
@@ -2274,7 +2248,7 @@ export class MyElement extends SignalWatcher(LitElement) {
                               width: 100%;
                               fill: #031d52;
                               stroke-width: 2;
-                              stroke: #fff;
+                              stroke: #e3e4e8;
                             }
                           }
 
@@ -2350,9 +2324,9 @@ export class MyElement extends SignalWatcher(LitElement) {
                 <div class="imgPerfil"></div>
 
                 <div class="info">
-                  <h1>Alberto Navarro</h1>
+                  <h1>${informacionCv.value.perfil.nombre.split(" ")[0]} ${informacionCv.value.perfil.nombre.split(" ")[2]}</h1>
                   <div style="margin-top: -6px"></div>
-                  <h2>ASESOR FINANCIERO</h2>
+                  <h2>${informacionCv.value.perfil.titulo}</h2>
                 </div>
               </div>
               <div class="conteDes">
@@ -2360,47 +2334,42 @@ export class MyElement extends SignalWatcher(LitElement) {
                   <div style="margin-top: 78px"></div>
                   <div class="ti">FORMACIÓN</div>
 
-                  <div class="ti2">UNIVERSIDAD BORCELLE</div>
-                  <div class="ti2">(2003 - 2008)</div>
-                  <div class="p">Doble grado en Derecho y Economía.</div>
-                  <div style="margin-top: 10px"></div>
-
-                  <div class="ti2">UNIVERSIDAD BORCELLE</div>
-                  <div class="ti2">(2003 - 2008)</div>
-                  <div class="p">Doble grado en Derecho y Economía.</div>
-                  <div style="margin-top: 10px"></div>
-
-                  <div class="ti2">UNIVERSIDAD BORCELLE</div>
-                  <div class="ti2">(2003 - 2008)</div>
-                  <div class="p">Doble grado en Derecho y Economía.</div>
-                  <div style="margin-top: 10px"></div>
+                  ${ informacionCv.value.educacion.map((value2) => {
+                    const { institucion, titulo, fechaInicio, fechaFin } = value2
+                    return (html`
+                      <div class="ti2">${institucion}</div>
+                      <div class="ti2">(${fechaInicio} - ${fechaFin})</div>
+                      <div class="p">${titulo}</div>
+                      <div style="margin-top: 10px"></div>
+                    `)
+                  })}
 
                   <div style="margin-top: 25px"></div>
                   <div class="ti">CONTACTO</div>
 
                   <div class="icono">
                     <div class="oo">
-                      <a href="" class="lin ico">
+                      <a href="${informacionCv.value.contacto.web}" class="lin ico">
                         <div class="iico globe">
-                          <i data-lucide="globe"></i>
+                          ${createElement(Globe)}
                         </div>
-                        <span>hola@unsitiogenial.es</span></a
+                        <span>${informacionCv.value.contacto.web}</span></a
                       >
-                      <a href="tel:" class="ico">
+                      <a href="tel:${informacionCv.value.contacto.telefono}" class="ico">
                         <div class="iico phone">
-                          <i data-lucide="phone"></i>
+                          ${createElement(Phone)}
                         </div>
-                        <span>0993105654</span>
+                        <span>${informacionCv.value.contacto.telefono}</span>
                       </a>
-                      <a href="mailto:" class="ico">
-                        <div class="iico mail"><i data-lucide="mail"></i></div>
-                        <span>0993105654</span>
+                      <a href="mailto:${informacionCv.value.contacto.email}" class="ico">
+                        <div class="iico mail">${createElement(Mail)}</div>
+                        <span>${informacionCv.value.contacto.email}</span>
                       </a>
-                      <div href="tel:" class="ico">
+                      <div class="ico">
                         <div class="iico map-pin">
-                          <i data-lucide="map-pin"></i>
+                          ${createElement(MapPin)}
                         </div>
-                        <span>0993105654</span>
+                        <span>${informacionCv.value.contacto.direccion}</span>
                       </div>
                     </div>
                   </div>
@@ -2408,65 +2377,66 @@ export class MyElement extends SignalWatcher(LitElement) {
                   <div style="margin-top: 16px"></div>
                   <div class="ti">EXPERTISE</div>
 
-                  <li>Carnet de conducir</li>
-                  <li>Coche propio</li>
-                  <li>Disponibilidad para viajar</li>
+                  <ul style='margin-left: 14px;'>
+                    ${informacionCv.value.experticia.map((value) => html`<li>${value}</li>`)}
+                  </ul>
+
+
                 </div>
                 <div class="dere uu">
                   <div class="ti">MI PERFIL</div>
                   <div class="p">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut en
+                    ${informacionCv.value.perfil.descripcion}
                   </div>
 
                   <div style="margin-top: 16px"></div>
                   <div class="ti">EXPERIENCIA</div>
 
-                  <div class="ti2">ASESOR FISCAL</div>
-                  <div class="ti2">Soto y Ochoa (Enero 2012 - Julio 2021)</div>
-                  <div class="p">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua.
-                  </div>
-                  <div style="margin-top: 10px"></div>
+                  ${
+                  informacionCv.value.experiencia.map((value) => {
+                    const { titulo, empresa, duracionInicio, duracionFin, descripcion } = value
+                    return (html`                      
+                      <div class="ti2">${titulo}</div>
+                      <div class="ti2">${empresa} (${duracionInicio} - ${duracionFin})</div>
+                      ${descripcion.map((value2) => html`<div class="p">${value2}</div>`)}
+                      
+                      <div style="margin-top: 10px"></div>
+                    `)
+                  })
+                }
 
-                  <div class="ti2">ASESOR FISCAL</div>
-                  <div class="ti2">Soto y Ochoa (Enero 2012 - Julio 2021)</div>
-                  <div class="p">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua.
-                  </div>
-                  <div style="margin-top: 10px"></div>
-
-                  <div class="ti2">ASESOR FISCAL</div>
-                  <div class="ti2">Soto y Ochoa (Enero 2012 - Julio 2021)</div>
-                  <div class="p">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua.
-                  </div>
-                  <div style="margin-top: 10px"></div>
-
-                  <div style="margin-top: 16px"></div>
-                  <div class="ti">INFORMACIÓN</div>
-
-                  <table>
-                    <tr>
-                      <th>Nombre:</th>
-                      <td>Contact</td>
-                    </tr>
-                    <tr>
-                      <th>Nombre:</th>
-                      <td>Contact</td>
-                    </tr>
-                    <tr>
-                      <th>Nombre:</th>
-                      <td>Contact</td>
-                    </tr>
-                  </table>
+                  ${
+                    informaionSesible.value?html`
+                      <div style="margin-top: 16px"></div>
+                      <div class="ti">INFORMACIÓN</div>
+                      <table>
+                        <tr>
+                          <th style="text-align: start;">Cedula:</th>
+                          <td>${informacionCv.value.datosPersonales.cedula}</td>
+                        </tr>
+                        <tr>
+                          <th style="text-align: start;">Edad:</th>
+                          <td>${informacionCv.value.datosPersonales.edad}</td>
+                        </tr>
+                        <tr>
+                          <th style="text-align: start;">Estado Civil:</th>
+                          <td>${informacionCv.value.datosPersonales.estadoCivil}</td>
+                        </tr>
+                        <tr>
+                          <th style="text-align: start;">Fecha Nacimiento:</th>
+                          <td>${informacionCv.value.datosPersonales.fechaNacimiento}</td>
+                        </tr>
+                        <tr>
+                          <th style="text-align: start;">Lugar Nacimiento:</th>
+                          <td>${informacionCv.value.datosPersonales.lugarNacimiento}</td>
+                        </tr>
+                        <tr>
+                          <th style="text-align: start;">Nacionalidad:</th>
+                          <td>${informacionCv.value.datosPersonales.nacionalidad}</td>
+                        </tr>
+                      </table>
+                    `:''
+                  }
 
                   <div class="raya"></div>
                 </div>
@@ -2588,6 +2558,11 @@ export class MyElement extends SignalWatcher(LitElement) {
                       height: 173px;
                       width: 173px;
                       border: 4px solid #ffffff;
+
+                      background-image: url(${perfilBase64Image.value});
+                      background-repeat: no-repeat;
+                      background-size: cover;
+                      background-position: center;
                     }
                   }
 
@@ -2705,9 +2680,9 @@ export class MyElement extends SignalWatcher(LitElement) {
             <div class="cv" id="cv">
               <div class="conteInfo">
                 <div class="conteee">
-                  <h1>Pedro Fernández</h1>
+                  <h1>${informacionCv.value.perfil.nombre.split(" ")[0]} ${informacionCv.value.perfil.nombre.split(" ")[2]}</h1>
                   <div style="margin-top: -11px"></div>
-                  <h3>Product Designer</h3>
+                  <h3>${informacionCv.value.perfil.titulo}</h3>
                 </div>
               </div>
               <div class="iz">
@@ -2721,33 +2696,33 @@ export class MyElement extends SignalWatcher(LitElement) {
                 <div style="margin-top: 13px"></div>
 
                 <div style="margin-top: 13px"></div>
-                <a href="tel:0993105654" class="lin">
+                <a href="tel:${informacionCv.value.contacto.telefono}" class="lin">
                   <div>
-                    <div class="ico phone"><i data-lucide="phone"></i></div>
+                    <div class="ico phone">${createElement(Phone)}</div>
                   </div>
-                  <span>0993105654</span>
+                  <span>${informacionCv.value.contacto.telefono}</span>
                 </a>
                 <div class="lin">
                   <div>
                     <div class="ico map-pin">
-                      <i data-lucide="map-pin"></i>
+                      ${createElement(MapPin)}</i>
                     </div>
                   </div>
-                  <span>Calle Cualquiera 123, Cualquier Lugar</span>
+                  <span>${informacionCv.value.contacto.direccion}</span>
                 </div>
-                <a href="mailto:" class="lin">
+                <a href="mailto:${informacionCv.value.contacto.email}" class="lin">
                   <div>
-                    <div class="ico"><i data-lucide="mail"></i></div>
+                    <div class="ico">${createElement(Mail)}</div>
                   </div>
-                  <span>hola@unsitiogenial.es</span>
+                  <span>${informacionCv.value.contacto.email}</span>
                 </a>
-                <a href="http://" class="lin">
+                <a href="${informacionCv.value.contacto.web}" class="lin">
                   <div>
                     <div class="ico">
-                      <i data-lucide="globe"></i>
+                      ${createElement(Globe)}
                     </div>
                   </div>
-                  <span>ronnyminda.com</span>
+                  <span>${informacionCv.value.contacto.web}</span>
                 </a>
 
                 <div style="margin-top: 13px"></div>
@@ -2757,12 +2732,9 @@ export class MyElement extends SignalWatcher(LitElement) {
                 <div class="titulo">HABILIDADES</div>
                 <div style="margin-top: 13px"></div>
 
-                <li>Liderazgo</li>
-                <li>Comunicación asertiva</li>
-                <li>Gestión de activos</li>
-                <li>Resolución de problemas</li>
-                <li>Elaboración de reportes</li>
-                <li>Trabajo en equipo</li>
+                <ul style="margin-left: 14px;">
+                  ${informacionCv.value.experticia.map((value) => html`<li>${value}</li>`)}
+                </ul>
 
                 <div style="margin-top: 27px"></div>
                 <div class="raya"></div>
@@ -2773,19 +2745,19 @@ export class MyElement extends SignalWatcher(LitElement) {
                 <div style="margin-top: 13px"></div>
 
                 <ul>
-                  <li>
-                    <div style="margin-top: 12px"></div>
-                    <div class="ti">Carrera en Administración</div>
-                    <div class="pa">Universidad Alta Pinta</div>
-                    <div class="pa">2010-2014</div>
-                  </li>
 
-                  <li>
-                    <div style="margin-top: 12px"></div>
-                    <div class="ti">Carrera en Administración</div>
-                    <div class="pa">Universidad Alta Pinta</div>
-                    <div class="pa">2010-2014</div>
-                  </li>
+                  ${ informacionCv.value.educacion.map((value2) => {
+                  const { institucion, titulo, fechaInicio, fechaFin, descripcion } = value2
+                  return (html`
+                    <li>
+                      <div style="margin-top: 12px"></div>
+                      <div class="ti">${titulo}</div>
+                      <div class="pa">${institucion}</div>
+                      <div class="pa">${fechaInicio}-${fechaFin}</div>
+                    </li>
+                  `)
+                }) }
+
                 </ul>
               </div>
               <div class="dere">
@@ -2794,9 +2766,7 @@ export class MyElement extends SignalWatcher(LitElement) {
 
                 <div style="margin-top: 13px;"></div>
                 <div class="p">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Nulla facilisi morbi tempus iaculis urna id volutpat lacus.
+                  ${informacionCv.value.perfil.descripcion}
                 </div>
 
                 <div style="margin-top: 17px"></div>
@@ -2805,36 +2775,20 @@ export class MyElement extends SignalWatcher(LitElement) {
 
                 <div class="ti">EXPERIENCIA LABORAL</div>
 
+
                 <div class="conteEx">
-                  <div style="margin-top: 12px"></div>
-                  <div class="tip tidere">Arowwai Industries</div>
-                  <div class="tip">Sydney - Australia</div>
-                  <div class="tip">2020 - 2022</div>
-                  <div class="p">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Vestibulum sit amet quam rhoncus, egestas dui eget,
-                    malesuada justo. Ut aliquam augue.
-                  </div>
-
-                  <div style="margin-top: 12px"></div>
-                  <div class="tip tidere">Arowwai Industries</div>
-                  <div class="tip">Sydney - Australia</div>
-                  <div class="tip">2020 - 2022</div>
-                  <div class="p">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Vestibulum sit amet quam rhoncus, egestas dui eget,
-                    malesuada justo. Ut aliquam augue.
-                  </div>
-
-                  <div style="margin-top: 12px"></div>
-                  <div class="tip tidere">Arowwai Industries</div>
-                  <div class="tip">Sydney - Australia</div>
-                  <div class="tip">2020 - 2022</div>
-                  <div class="p">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Vestibulum sit amet quam rhoncus, egestas dui eget,
-                    malesuada justo. Ut aliquam augue.
-                  </div>
+                  ${
+                    informacionCv.value.experiencia.map((value) => {
+                      const { titulo, empresa, duracionInicio, duracionFin, descripcion } = value
+                      return (html`
+                        <div style="margin-top: 12px"></div>
+                        <div class="tip tidere">${titulo}</div>
+                        <div class="tip">${empresa} - Guayaquil</div>
+                        <div class="tip">${duracionInicio} - ${duracionFin}</div>
+                        ${descripcion.map((value2) => html`<div class="p">${value2}</div>`)}
+                      `)
+                    })
+                  }
                 </div>
               </div>
             </div>
@@ -2901,6 +2855,11 @@ export class MyElement extends SignalWatcher(LitElement) {
                     left: 56px;
                     border-radius: 50%;
                     border: 8px solid #cfcfcf;
+
+                    background-image: url(${perfilBase64Image.value});
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    background-position: center;
                   }
 
                   .info {
@@ -3045,11 +3004,11 @@ export class MyElement extends SignalWatcher(LitElement) {
                 <div class="imgPerfil"></div>
 
                 <div class="info">
-                  <h1>Lisandro</h1>
+                  <h1>${informacionCv.value.perfil.nombre.split(" ")[0]}</h1>
                   <div style="margin-top: -7px"></div>
-                  <h1>Pérez</h1>
+                  <h1>${informacionCv.value.perfil.nombre.split(" ")[2]}</h1>
                   <div style="margin-top: 5px"></div>
-                  <h2>LIC. EN CONTABILIDAD</h2>
+                  <h2>${informacionCv.value.perfil.titulo}</h2>
                 </div>
               </div>
               <div class="conteDes">
@@ -3060,27 +3019,27 @@ export class MyElement extends SignalWatcher(LitElement) {
 
                   <div class="icono">
                     <div class="oo">
-                      <a href="" class="lin ico">
+                      <a href="${informacionCv.value.contacto.web}" class="lin ico">
                         <div class="iico globe">
-                          <i data-lucide="globe"></i>
+                          ${createElement(Globe)}<i data-lucide="globe"></i>
                         </div>
-                        <span>hola@unsitiogenial.es</span></a
+                        <span>${informacionCv.value.contacto.web}</span></a
                       >
-                      <a href="tel:" class="ico">
+                      <a href="tel:${informacionCv.value.contacto.telefono}" class="ico">
                         <div class="iico phone">
-                          <i data-lucide="phone"></i>
+                          ${createElement(Phone)}<i data-lucide="phone"></i>
                         </div>
-                        <span>0993105654</span>
+                        <span>${informacionCv.value.contacto.telefono}</span>
                       </a>
-                      <a href="mailto:" class="ico">
-                        <div class="iico mail"><i data-lucide="mail"></i></div>
-                        <span>0993105654</span>
+                      <a href="mailto:${informacionCv.value.contacto.email}" class="ico">
+                        <div class="iico mail">${createElement(Mail)}<i data-lucide="mail"></i></div>
+                        <span>${informacionCv.value.contacto.email}</span>
                       </a>
-                      <div href="tel:" class="ico">
+                      <div class="ico">
                         <div class="iico map-pin">
-                          <i data-lucide="map-pin"></i>
+                          ${createElement(MapPin)}<i data-lucide="map-pin"></i>
                         </div>
-                        <span>0993105654</span>
+                        <span>${informacionCv.value.contacto.direccion}</span>
                       </div>
                     </div>
                   </div>
@@ -3089,34 +3048,27 @@ export class MyElement extends SignalWatcher(LitElement) {
                   <div class="ti">HABILIDADES</div>
                   <div class="raya"></div>
 
-                  <li>Liderazgo</li>
-                  <li>Comunicación asertiva</li>
-                  <li>Gestión de activos</li>
-                  <li>Resolución de problemas</li>
-                  <li>Elaboración de reportes</li>
-                  <li>Trabajo en equipo</li>
+                  <ul style="margin-left: 14px;">
+                    ${informacionCv.value.experticia.map((value) => html`<li>${value}</li>`)}
+                  </ul>
 
                   <div style="margin-top: 25px"></div>
                   <div class="ti">EDUCACIÓN</div>
                   <div class="raya"></div>
-
-                  <li style="font-family: Lato-Bold">
-                    Licenciatura en Contabilidad
-                  </li>
-                  <div style="margin-left: 20px" class="p">
-                    Universidad Alta Pinta
-                  </div>
-                  <div style="margin-left: 20px" class="p">2010-2014</div>
-
-                  <div style="margin-top: 10px"></div>
-
-                  <li style="font-family: Lato-Bold">
-                    Licenciatura en Contabilidad
-                  </li>
-                  <div style="margin-left: 20px" class="p">
-                    Universidad Alta Pinta
-                  </div>
-                  <div style="margin-left: 20px" class="p">2010-2014</div>
+                  
+                  ${ informacionCv.value.educacion.map((value2) => {
+                  const { institucion, titulo, fechaInicio, fechaFin } = value2
+                  return (html`
+                    <li style="font-family: Lato-Bold">
+                      ${titulo}
+                    </li>
+                    <div style="margin-left: 20px" class="p">
+                      ${institucion}
+                    </div>
+                    <div style="margin-left: 20px" class="p">${fechaInicio}-${fechaFin}</div>
+                    <div style="margin-top: 10px"></div>
+                  `)
+                }) }
                 </div>
                 <div class="dere uu">
                   <div style="margin-top: 32px"></div>
@@ -3124,55 +3076,33 @@ export class MyElement extends SignalWatcher(LitElement) {
                   <div class="raya"></div>
 
                   <div class="p">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut en
+                    ${informacionCv.value.perfil.descripcion}
                   </div>
 
                   <div style="margin-top: 25px"></div>
                   <div class="ti">EXPERIENCIA LABORAL</div>
                   <div class="raya"></div>
 
-                  <li style="font-family: Lato-Bold">Área de contabilidad</li>
-                  <div style="margin-top: 5px"></div>
-                  <div style="margin-left: 20px" class="p">
-                    Empresa Borcelle
-                  </div>
-                  <div style="margin-left: 20px" class="p">2010-2012</div>
-                  <div style="margin-top: 5px"></div>
-                  <div style="margin-left: 20px" class="p">
-                    Eu augue ut lectus arcu bibendum at varius vel pharetra vel
-                    turpis nunc eget lorem dolor sed viverra ipsum nunc.
-                  </div>
-                  <div style="margin-top: 15px"></div>
+                  ${
+                  informacionCv.value.experiencia.map((value) => {
+                    const { titulo, empresa, duracionInicio, duracionFin, descripcion } = value
+                    return (html`
+                      <ul style="margin-left: 14px;">
+                        <li style="font-family: Lato-Bold">${titulo}</li>
+                      </ul>
+                      <div style="margin-top: 5px"></div>
+                      <div style="margin-left: 20px" class="p">
+                        ${empresa}
+                      </div>
+                      <div style="margin-left: 20px" class="p">${duracionInicio}-${duracionFin}</div>
+                      <div style="margin-top: 5px"></div>
+                      ${descripcion.map((value2) => html`<div style="margin-left: 20px" class="p">${value2}</div>`)}
+                      <div style="margin-top: 15px"></div>
+                    `)
+                  })
+                }
 
-                  <li style="font-family: Lato-Bold">Área de contabilidad</li>
-                  <div style="margin-top: 5px"></div>
-                  <div style="margin-left: 20px" class="p">
-                    Empresa Borcelle
-                  </div>
-                  <div style="margin-left: 20px" class="p">2010-2012</div>
-                  <div style="margin-top: 5px"></div>
-                  <div style="margin-left: 20px" class="p">
-                    Eu augue ut lectus arcu bibendum at varius vel pharetra vel
-                    turpis nunc eget lorem dolor sed viverra ipsum nunc.
-                  </div>
-                  <div style="margin-top: 15px"></div>
-
-                  <li style="font-family: Lato-Bold">Área de contabilidad</li>
-                  <div style="margin-top: 5px"></div>
-                  <div style="margin-left: 20px" class="p">
-                    Empresa Borcelle
-                  </div>
-                  <div style="margin-left: 20px" class="p">2010-2012</div>
-                  <div style="margin-top: 5px"></div>
-                  <div style="margin-left: 20px" class="p">
-                    Eu augue ut lectus arcu bibendum at varius vel pharetra vel
-                    turpis nunc eget lorem dolor sed viverra ipsum nunc.
-                  </div>
-                  <div style="margin-top: 15px"></div>
-
-                  <div style="margin-top: 25px"></div>
+                  <!-- <div style="margin-top: 25px"></div>
                   <div class="ti">INFORMACIÓN</div>
                   <div class="raya"></div>
 
@@ -3189,7 +3119,7 @@ export class MyElement extends SignalWatcher(LitElement) {
                       <th>Nombre:</th>
                       <td>Contact</td>
                     </tr>
-                  </table>
+                  </table> -->
                 </div>
               </div>
             </div>
@@ -3304,6 +3234,11 @@ export class MyElement extends SignalWatcher(LitElement) {
                       height: 213px;
                       width: 179px;
                       border: 2px solid #ae866a;
+
+                      background-image: url(${perfilBase64Image.value});
+                      background-repeat: no-repeat;
+                      background-size: cover;
+                      background-position: center;
                     }
                   }
 
@@ -3397,72 +3332,64 @@ export class MyElement extends SignalWatcher(LitElement) {
             <div class="cv" id="cv">
               <div class="dere">
                 <div style="margin-top: 38px"></div>
-                <h1>Maite</h1>
+                <h1>${informacionCv.value.perfil.nombre.split(" ")[0]}</h1>
                 <div style="margin-top: -40px"></div>
-                <h2>ALLENDE</h2>
+                <h2>${informacionCv.value.perfil.nombre.split(" ")[2]}</h2>
                 <!-- <div style="margin-top: 5px"></div> -->
                 <div class="raya"></div>
-                <h3>DISEÑADORA Y ARQUITECTA</h3>
+                <h3>${informacionCv.value.perfil.titulo}</h3>
                 <div style="margin-top: 52px"></div>
                 <div class="titulo">EXPERIENCIA</div>
 
-                <div style="margin-top: 18px"></div>
-                <div class="ti">DISEÑADORA Y JEFA DE EQUIPO</div>
-                <div class="ti">Ensigna</div>
-                <div style="margin-top: 2px"></div>
-                <div class="pa">2020 - Presente</div>
-                <div style="margin-top: 2px"></div>
-                <div class="pa" style="line-height: 18px">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam quis nostrud exercitation ullamco
-                  laboris nisi.
-                </div>
+                ${
+                  informacionCv.value.experiencia.map((value) => {
+                    const { titulo, empresa, duracionInicio, duracionFin, descripcion } = value
+                    return (html`
+                      <div style="margin-top: 18px"></div>
+                      <div class="ti">${titulo}</div>
+                      <div class="ti">${empresa}</div>
+                      <div style="margin-top: 2px"></div>
+                      <div class="pa">${duracionInicio} - ${duracionFin}</div>
+                      <div style="margin-top: 2px"></div>
+                      ${descripcion.map((value2) => html`<div class="pa" style="line-height: 18px">${value2}</div>`)}
+                    `)
+                  })
+                }
 
-                <div style="margin-top: 18px"></div>
-                <div class="ti">DISEÑADORA Y JEFA DE EQUIPO</div>
-                <div class="ti">Ensigna</div>
-                <div style="margin-top: 2px"></div>
-                <div class="pa">2020 - Presente</div>
-                <div style="margin-top: 2px"></div>
-                <div class="pa" style="line-height: 18px">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam quis nostrud exercitation ullamco
-                  laboris nisi.
-                </div>
+                ${
+                    informaionSesible.value?html`
+                      <div style="margin-top: 30px"></div>
+                      <div class="titulo">IMFORMACIÓN PERSONAL</div>
+                      <div style="margin-top: 10px"></div>
 
-                <div style="margin-top: 18px"></div>
-                <div class="ti">DISEÑADORA Y JEFA DE EQUIPO</div>
-                <div class="ti">Ensigna</div>
-                <div style="margin-top: 2px"></div>
-                <div class="pa">2020 - Presente</div>
-                <div style="margin-top: 2px"></div>
-                <div class="pa" style="line-height: 18px">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam quis nostrud exercitation ullamco
-                  laboris nisi.
-                </div>
-
-                <div style="margin-top: 30px"></div>
-                <div class="titulo">IMFORMACIÓN PERSONAL</div>
-                <div style="margin-top: 10px"></div>
-
-                <table>
-                  <tr>
-                    <th>Nombre:</th>
-                    <td>Contact</td>
-                  </tr>
-                  <tr>
-                    <th>Nombre:</th>
-                    <td>Contact</td>
-                  </tr>
-                  <tr>
-                    <th>Nombre:</th>
-                    <td>Contact</td>
-                  </tr>
-                </table>
+                      <table>
+                        <tr>
+                          <th style="text-align: start;">Cedula:</th>
+                          <td>${informacionCv.value.datosPersonales.cedula}</td>
+                        </tr>
+                        <tr>
+                          <th style="text-align: start;">Edad:</th>
+                          <td>${informacionCv.value.datosPersonales.edad}</td>
+                        </tr>
+                        <tr>
+                          <th style="text-align: start;">Estado Civil:</th>
+                          <td>${informacionCv.value.datosPersonales.estadoCivil}</td>
+                        </tr>
+                        <tr>
+                          <th style="text-align: start;">Fecha Nacimiento:</th>
+                          <td>${informacionCv.value.datosPersonales.fechaNacimiento}</td>
+                        </tr>
+                        <tr>
+                          <th style="text-align: start;">Lugar Nacimiento:</th>
+                          <td>${informacionCv.value.datosPersonales.lugarNacimiento}</td>
+                        </tr>
+                        <tr>
+                          <th style="text-align: start;">Nacionalidad:</th>
+                          <td>${informacionCv.value.datosPersonales.nacionalidad}</td>
+                        </tr>
+                      </table>
+                    `:''
+                  }
               </div>
               <div class="iz">
                 <div style="margin-top: 32px"></div>
@@ -3474,10 +3401,7 @@ export class MyElement extends SignalWatcher(LitElement) {
 
                 <div style="margin-top: 10px"></div>
                 <div class="pa">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam quis nostrud exercitation ullamco
-                  laboris nisi.
+                  ${informacionCv.value.perfil.descripcion}
                 </div>
 
                 <div style="margin-top: 35px"></div>
@@ -3485,52 +3409,44 @@ export class MyElement extends SignalWatcher(LitElement) {
                 <div style="margin-top: 10px"></div>
 
                 <div class="lin">
-                  <div class="ico"><i data-lucide="map-pin"></i></div>
-                  <span>Calle Cualquiera 123, Cualquier Lugar</span>
+                  <div class="ico">${createElement(MapPin)}<i data-lucide="map-pin"></i></div>
+                  <span>${informacionCv.value.contacto.direccion}</span>
                 </div>
-                <a href="tel:0993105654" class="lin">
-                  <div class="ico"><i data-lucide="smartphone"></i></div>
-                  <span>0993105654</span>
+                <a href="tel:${informacionCv.value.contacto.telefono}" class="lin">
+                  <div class="ico">${createElement(Smartphone)}<i data-lucide="smartphone"></i></div>
+                  <span>${informacionCv.value.contacto.telefono}</span>
                 </a>
-                <a href="http://" class="lin">
-                  <div class="ico"><i data-lucide="globe"></i></div>
-                  <span>ronnyminda.com</span>
+                <a href="${informacionCv.value.contacto.web}" class="lin">
+                  <div class="ico">${createElement(Globe)}<i data-lucide="globe"></i></div>
+                  <span>${informacionCv.value.contacto.web}</span>
                 </a>
-                <a href="mailto:" class="lin">
-                  <div class="ico"><i data-lucide="mail"></i></div>
-                  <span>hola@unsitiogenial.es</span>
+                <a href="mailto:${informacionCv.value.contacto.email}" class="lin">
+                  <div class="ico">${createElement(Mail)}<i data-lucide="mail"></i></div>
+                  <span>${informacionCv.value.contacto.email}</span>
                 </a>
-
-                <div style="margin-top: 35px"></div>
-                <div class="titulo">EXPERTISE</div>
-
-                <div style="margin-top: 10px"></div>
-
-                <li>Software de edición</li>
-                <li>Software de arquitectura</li>
-                <li>Edición fotográfica</li>
-                <li>Edición de vídeo</li>
 
                 <div style="margin-top: 35px"></div>
                 <div class="titulo">FORMACIÓN</div>
 
                 <div style="margin-top: 10px"></div>
 
-                <div class="ti">GRADO EN DISEÑO GRÁFICO</div>
-                <div class="pa">Universidad Borcelle</div>
-                <div class="pa">2010 - 2012</div>
-                <div style="margin-top: 7px"></div>
+                ${ informacionCv.value.educacion.map((value2) => {
+                  const { institucion, titulo, fechaInicio, fechaFin, descripcion } = value2
+                  return (html`                   
+                    <div class="ti">${titulo}</div>
+                    <div class="pa">${institucion}</div>
+                    <div class="pa">${fechaInicio} - ${fechaFin}</div>
+                    <div style="margin-top: 7px"></div>
+                  `)
+                }) }                
 
-                <div class="ti">GRADO EN DISEÑO GRÁFICO</div>
-                <div class="pa">Universidad Borcelle</div>
-                <div class="pa">2010 - 2012</div>
-                <div style="margin-top: 7px"></div>
               </div>
             </div>
           `
         : ""}
       ${seleccionado.value === 13
-        ? html`<style>
+        ? html`
+        <style>
               .cv {
                 height: 848px;
                 width: 600px;
@@ -3771,7 +3687,8 @@ export class MyElement extends SignalWatcher(LitElement) {
                   `;
                 })}
               </div>
-            </div>`
+            </div>
+            `
         : ""}
       ${seleccionado.value === 14
         ? html`
@@ -3840,6 +3757,11 @@ export class MyElement extends SignalWatcher(LitElement) {
                       left: 50%;
                       border-radius: 50%;
                       border: 1px solid #000;
+
+                      background-image: url(${perfilBase64Image.value});
+                      background-repeat: no-repeat;
+                      background-size: cover;
+                      background-position: center;
                     }
 
                     h1 {
@@ -3941,9 +3863,9 @@ export class MyElement extends SignalWatcher(LitElement) {
                 <div style="margin-top: 80px"></div>
                 <div class="conteImg">
                   <div class="imgPerfil"></div>
-                  <h1>JORDI DALMAU</h1>
+                  <h1>${informacionCv.value.perfil.nombre.split(" ")[0]} ${informacionCv.value.perfil.nombre.split(" ")[2]}</h1>
                   <div style="margin-top: -5px"></div>
-                  <h2>Fotógrafo</h2>
+                  <h2>${informacionCv.value.perfil.titulo}</h2>
                   <div style="margin-top: 10px"></div>
                 </div>
 
@@ -3951,9 +3873,7 @@ export class MyElement extends SignalWatcher(LitElement) {
                 <div class="ti">PERFIL</div>
                 <div style="margin-top: 6px"></div>
                 <div class="p">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-                  accumsan nisl sit amet faucibus accumsan. Aliquam fringilla
-                  erat non est blandit.
+                  ${informacionCv.value.perfil.descripcion}
                 </div>
 
                 <div style="margin-top: 21px"></div>
@@ -3961,42 +3881,34 @@ export class MyElement extends SignalWatcher(LitElement) {
 
                 <div class="icono">
                   <div class="oo">
-                    <a href="" class="lin ico">
-                      <div class="iico globe"><i data-lucide="globe"></i></div>
-                      <span>hola@unsitiogenial.es</span></a
+                    <a href="${informacionCv.value.contacto.web}" class="lin ico">
+                      <div class="iico globe">${createElement(Globe)}<i data-lucide="globe"></i></div>
+                      <span>${informacionCv.value.contacto.web}</span></a
                     >
-                    <a href="tel:" class="ico">
-                      <div class="iico phone"><i data-lucide="phone"></i></div>
-                      <span>0993105654</span>
+                    <a href="tel:${informacionCv.value.contacto.telefono}" class="ico">
+                      <div class="iico phone">${createElement(Phone)}<i data-lucide="phone"></i></div>
+                      <span>${informacionCv.value.contacto.telefono}</span>
                     </a>
-                    <a href="mailto:" class="ico">
-                      <div class="iico mail"><i data-lucide="mail"></i></div>
-                      <span>0993105654</span>
+                    <a href="mailto:${informacionCv.value.contacto.email}" class="ico">
+                      <div class="iico mail">${createElement(Mail)}<i data-lucide="mail"></i></div>
+                      <span>${informacionCv.value.contacto.email}</span>
                     </a>
-                    <div href="tel:" class="ico" style="border-bottom: none">
+                    <div class="ico" style="border-bottom: none">
                       <div class="iico map-pin">
-                        <i data-lucide="map-pin"></i>
+                        ${createElement(MapPin)}<i data-lucide="map-pin"></i>
                       </div>
-                      <span>0993105654</span>
+                      <span>${informacionCv.value.contacto.direccion}</span>
                     </div>
                   </div>
                 </div>
 
                 <div style="margin-top: 21px"></div>
-                <div class="ti">INFORMACIÓN</div>
-
-                <div style="margin-top: 5px"></div>
-                <li>Carnet de conducir</li>
-                <li>Coche propio</li>
-                <li>Disponibilidad para viajar</li>
-
-                <div style="margin-top: 21px"></div>
                 <div class="ti">HABILIDADES</div>
 
                 <div style="margin-top: 5px"></div>
-                <li>Carnet de conducir</li>
-                <li>Coche propio</li>
-                <li>Disponibilidad para viajar</li>
+                <ul style="margin-left: 14px;">
+                  ${informacionCv.value.experticia.map((value) => html`<li>${value}</li>`)}
+                </ul>
               </div>
 
               <div class="dere">
@@ -4006,98 +3918,91 @@ export class MyElement extends SignalWatcher(LitElement) {
                 <div class="ti">FORMACIÓN</div>
 
                 <div style="margin-top: 18px"></div>
-                <div
-                  class="ti2"
-                  style="font-family: Inter-VariableFont; font-weight: bold"
-                >
-                  GRADO EN MARKETING (2004 - 2008)
-                </div>
-                <div
-                  class="ti2"
-                  style="font-family: Inter-Italic-VariableFont; font-weight: bold"
-                >
-                  Universidad Borcelle
-                </div>
-                <div class="ti2" style="font-family: Inter-Italic-VariableFont">
-                  Grado en marketing.
-                </div>
 
-                <div style="margin-top: 5px"></div>
-                <div
-                  class="ti2"
-                  style="font-family: Inter-VariableFont; font-weight: bold"
-                >
-                  GRADO EN MARKETING (2004 - 2008)
-                </div>
-                <div
-                  class="ti2"
-                  style="font-family: Inter-Italic-VariableFont; font-weight: bold"
-                >
-                  Universidad Borcelle
-                </div>
-                <div class="ti2" style="font-family: Inter-Italic-VariableFont">
-                  Grado en marketing.
-                </div>
+                ${ informacionCv.value.educacion.map((value2) => {
+                  const { institucion, titulo, fechaInicio, fechaFin, descripcion } = value2
+                  return (html`
+                    <div
+                      class="ti2"
+                      style="font-family: Inter-VariableFont; font-weight: bold"
+                    >
+                      ${titulo} (${fechaInicio} - ${fechaFin})
+                    </div>
+                    <div
+                      class="ti2"
+                      style="font-family: Inter-Italic-VariableFont; font-weight: bold"
+                    >
+                      ${institucion}
+                    </div>
+                    <div class="ti2" style="font-family: Inter-Italic-VariableFont">
+                      ${descripcion}
+                    </div>
+                    <div style="margin-top: 5px"></div>
+                  `)
+                }) }
 
                 <div style="margin-top: 21px"></div>
                 <div class="ti">EXPERIENCIA</div>
 
                 <div style="margin-top: 10px"></div>
-                <div
-                  class="ti2"
-                  style="font-family: Inter-VariableFont; font-weight: bold"
-                >
-                  ENSIGNA (2012-2021)
-                </div>
-                <li
-                  class="ti2"
-                  style="font-family: Inter-Italic-VariableFont; font-weight: bold"
-                >
-                  Fotografía de Moda
-                </li>
-                <div class="ti2" style="font-family: Inter-VariableFont">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-                  accumsan nisl sit amet faucibus accumsan. Aliquam fringilla
-                  erat non est blandit.
-                </div>
 
-                <div style="margin-top: 21px"></div>
-                <div
-                  class="ti2"
-                  style="font-family: Inter-VariableFont; font-weight: bold"
-                >
-                  ENSIGNA (2012-2021)
-                </div>
-                <li
-                  class="ti2"
-                  style="font-family: Inter-Italic-VariableFont; font-weight: bold"
-                >
-                  Fotografía de Moda
-                </li>
-                <div class="ti2" style="font-family: Inter-VariableFont">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-                  accumsan nisl sit amet faucibus accumsan. Aliquam fringilla
-                  erat non est blandit.
-                </div>
+                ${
+                  informacionCv.value.experiencia.map((value) => {
+                    const { titulo, empresa, duracionInicio, duracionFin, descripcion } = value
+                    return (html`
+                        <div
+                        class="ti2"
+                        style="font-family: Inter-VariableFont; font-weight: bold"
+                        >
+                          ${empresa} (${duracionInicio} - ${duracionFin})
+                        </div>
+                        <li
+                          class="ti2"
+                          style="font-family: Inter-Italic-VariableFont; font-weight: bold"
+                        >
+                        ${titulo}
+                      </li>
+                      ${descripcion.map((value2) => html`<div class="ti2" style="font-family: Inter-VariableFont">${value2}</div>`)}
+                      <div style="margin-top: 21px"></div>
+                    `)
+                  })
+                }
 
-                <div style="margin-top: 21px"></div>
-                <div
-                  class="ti2"
-                  style="font-family: Inter-VariableFont; font-weight: bold"
-                >
-                  ENSIGNA (2012-2021)
-                </div>
-                <li
-                  class="ti2"
-                  style="font-family: Inter-Italic-VariableFont; font-weight: bold"
-                >
-                  Fotografía de Moda
-                </li>
-                <div class="ti2" style="font-family: Inter-VariableFont">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-                  accumsan nisl sit amet faucibus accumsan. Aliquam fringilla
-                  erat non est blandit.
-                </div>
+                <!-- ${
+                    informaionSesible.value?html`
+                      <div style="margin-top: 21px"></div>
+                      <div class="ti">INFORMACIÓN</div>
+
+                      <div style="margin-top: 5px"></div>
+
+                      <table>
+                        <tr>
+                          <th style="text-align: start;">Cedula:</th>
+                          <td>${informacionCv.value.datosPersonales.cedula}</td>
+                        </tr>
+                        <tr>
+                          <th style="text-align: start;">Edad:</th>
+                          <td>${informacionCv.value.datosPersonales.edad}</td>
+                        </tr>
+                        <tr>
+                          <th style="text-align: start;">Estado Civil:</th>
+                          <td>${informacionCv.value.datosPersonales.estadoCivil}</td>
+                        </tr>
+                        <tr>
+                          <th style="text-align: start;">Fecha Nacimiento:</th>
+                          <td>${informacionCv.value.datosPersonales.fechaNacimiento}</td>
+                        </tr>
+                        <tr>
+                          <th style="text-align: start;">Lugar Nacimiento:</th>
+                          <td>${informacionCv.value.datosPersonales.lugarNacimiento}</td>
+                        </tr>
+                        <tr>
+                          <th style="text-align: start;">Nacionalidad:</th>
+                          <td>${informacionCv.value.datosPersonales.nacionalidad}</td>
+                        </tr>
+                      </table>
+                    `:''
+                  } -->
               </div>
             </div>
           `
@@ -4183,6 +4088,11 @@ export class MyElement extends SignalWatcher(LitElement) {
                     border-radius: 50%;
                     background-color: #c3b19d;
                     margin-right: 14px;
+
+                    background-image: url(${perfilBase64Image.value});
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    background-position: center;
                   }
 
                   .ico {
@@ -4190,6 +4100,7 @@ export class MyElement extends SignalWatcher(LitElement) {
                     align-items: center;
                     width: 100%;
                     margin-bottom: 10px;
+                    margin-left: -35px;
 
                     .iico {
                       height: 16px;
@@ -4233,6 +4144,7 @@ export class MyElement extends SignalWatcher(LitElement) {
                       font-weight: normal;
                       font-size: 11px;
                       margin-left: 6px;
+                      width: 137px;
                     }
                   }
 
@@ -4300,43 +4212,44 @@ export class MyElement extends SignalWatcher(LitElement) {
                   <div class="ii"></div>
                 </div>
 
-                <a href="" class="lin ico">
-                  <div class="iico globe"><i data-lucide="globe"></i></div>
-                  <span>hola@unsitiogenial.es</span></a
+                <a href="${informacionCv.value.contacto.web}" class="lin ico">
+                  <div class="iico globe">${createElement(Globe)}<i data-lucide="globe"></i></div>
+                  <span>${informacionCv.value.contacto.web}</span></a
                 >
-                <a href="tel:" class="ico">
-                  <div class="iico phone"><i data-lucide="phone"></i></div>
-                  <span>0993105654</span>
+                <a href="tel:${informacionCv.value.contacto.telefono}" class="ico">
+                  <div class="iico phone">${createElement(Phone)}<i data-lucide="phone"></i></div>
+                  <span>${informacionCv.value.contacto.telefono}</span>
                 </a>
-                <a href="mailto:" class="ico">
-                  <div class="iico mail"><i data-lucide="mail"></i></div>
-                  <span>0993105654</span>
+                <a href="mailto:${informacionCv.value.contacto.email}" class="ico">
+                  <div class="iico mail">${createElement(Mail)}<i data-lucide="mail"></i></div>
+                  <span>${informacionCv.value.contacto.email}</span>
                 </a>
                 <div href="tel:" class="ico">
-                  <div class="iico map-pin"><i data-lucide="map-pin"></i></div>
-                  <span>0993105654</span>
+                  <div class="iico map-pin">${createElement(MapPin)}<i data-lucide="map-pin"></i></div>
+                  <span>${informacionCv.value.contacto.direccion}</span>
                 </div>
 
                 <div style="margin-top: 30px"></div>
-                <div class="ti">Información</div>
+                <div class="ti">Formación</div>
                 <div class="raya">
                   <div class="ii"></div>
                 </div>
 
-                <table>
-                  <tr>
-                    <th class="">Nombre:</th>
-                    <td class="p">Contact</td>
-                  </tr>
-                  <tr>
-                    <th class="">Nombre:</th>
-                    <td class="p">Contact</td>
-                  </tr>
-                  <tr>
-                    <th class="">Nombre:</th>
-                    <td class="p">Contact</td>
-                  </tr>
-                </table>
+                ${
+                  informacionCv.value.educacion.map((value) => {
+                    const { fechaInicio, fechaFin, titulo, institucion, descripcion } = value
+                    return (html`
+                      <div class="ti2">(${fechaInicio}-${fechaFin}) ${titulo}</div>
+                      <div class="contrP" style="width: 100%;">
+                        <div class="bb">${institucion}</div>
+                      </div>
+                      <div class="p">
+                        ${descripcion}
+                      </div>
+                      <div style="margin-bottom: 30px;"></div>
+                    `)
+                  })
+                }                   
 
                 <div style="margin-top: 30px"></div>
                 <div class="ti">Habilidades</div>
@@ -4344,18 +4257,17 @@ export class MyElement extends SignalWatcher(LitElement) {
                   <div class="ii"></div>
                 </div>
 
-                <li>Diseño Gráfico</li>
-                <li>Diseño UX</li>
-                <li>Diseño UI</li>
-                <li>Trabajo en Equipo</li>
+                <ul style="margin-left: 14px;">
+                  ${informacionCv.value.experticia.map((value) => html`<li>${value}</li>`)}
+                </ul>
               </div>
 
               <div class="dere">
                 <div style="margin-top: 23px"></div>
-                <h1>Claudia Alves</h1>
+                <h1>${informacionCv.value.perfil.nombre.split(" ")[0]} ${informacionCv.value.perfil.nombre.split(" ")[2]}</h1>
                 <div class="rayaa"></div>
                 <div style="margin-top: -4px"></div>
-                <h2>MANAGER DE IT</h2>
+                <h2>${informacionCv.value.perfil.titulo}</h2>
 
                 <div style="margin-top: 37px"></div>
 
@@ -4366,10 +4278,7 @@ export class MyElement extends SignalWatcher(LitElement) {
                 </div>
 
                 <div class="p">
-                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
-                  diam nonummy nibh euismod tincidunt ut laoreet dolore magna
-                  aliquam erat volutpat. Ut wisi enim ad minim veniam, quis
-                  nostrud exerci tation ullamcorper.
+                  ${informacionCv.value.perfil.descripcion}
                 </div>
 
                 <div style="margin-top: 38px"></div>
@@ -4378,64 +4287,21 @@ export class MyElement extends SignalWatcher(LitElement) {
                   <div class="ii"></div>
                 </div>
 
-                <div class="ti2">Manager del Departamento de IT</div>
-                <div class="contrP">
-                  <div class="bb">Borcelle Agency</div>
-                  <div class="pp">2019 - 2021</div>
-                </div>
-                <div class="p">
-                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
-                  diam nonummy.
-                </div>
-                <div style="margin-bottom: 30px;"></div>
+                ${
+                  informacionCv.value.experiencia.map((value) => {
+                    const { titulo, empresa, duracionInicio, duracionFin, descripcion } = value
+                    return (html`
+                      <div class="ti2">${titulo}</div>
+                      <div class="contrP">
+                        <div class="bb">${empresa}</div>
+                        <div class="pp">${duracionInicio} - ${duracionFin}</div>
+                      </div>
+                      ${descripcion.map((value2) => html`<div class="p">${value2}</div>`)}
+                      <div style="margin-bottom: 30px;"></div>
+                    `)
+                  })
+                }
 
-                <div class="ti2">Manager del Departamento de IT</div>
-                <div class="contrP">
-                  <div class="bb">Borcelle Agency</div>
-                  <div class="pp">2019 - 2021</div>
-                </div>
-                <div class="p">
-                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
-                  diam nonummy.
-                </div>
-                <div style="margin-bottom: 30px;"></div>
-
-                <div class="ti2">Manager del Departamento de IT</div>
-                <div class="contrP">
-                  <div class="bb">Borcelle Agency</div>
-                  <div class="pp">2019 - 2021</div>
-                </div>
-                <div class="p">
-                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
-                  diam nonummy.
-                </div>
-                <div style="margin-bottom: 30px;"></div>
-
-                <div style="margin-top: 38px"></div>
-                <div class="ti">Formación</div>
-                <div class="raya">
-                  <div class="ii"></div>
-                </div>
-
-                <div class="ti2">(2018-2020) Máster en Diseño UX/UI</div>
-                <div class="contrP">
-                  <div class="bb">Borcelle Agency</div>
-                </div>
-                <div class="p">
-                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
-                  diam nonummy.
-                </div>
-                <div style="margin-bottom: 30px;"></div>
-
-                <div class="ti2">(2018-2020) Máster en Diseño UX/UI</div>
-                <div class="contrP">
-                  <div class="bb">Borcelle Agency</div>
-                </div>
-                <div class="p">
-                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
-                  diam nonummy.
-                </div>
-                <div style="margin-bottom: 30px;"></div>
               </div>
             </div>
           `
@@ -4449,6 +4315,7 @@ export class MyElement extends SignalWatcher(LitElement) {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      text-decoration: none;
     }
 
     /* :host {

@@ -28,6 +28,7 @@ import {
   informaionSesible,
   loaderDescarga,
   template,
+  seleccionado,
 } from "../store/ui";
 import { SignalWatcher } from "@lit-labs/preact-signals";
 import axios from "axios";
@@ -124,6 +125,8 @@ export class MyElement extends SignalWatcher(LitElement) {
         informacionCv,
         informacionDestino,
         perfilBase64Image,
+        seleccionado,
+        informaionSesible,
       };
       const response = await axios.post("http://localhost:3000/api/cv", data, {
         responseType: "blob",
@@ -204,7 +207,9 @@ export class MyElement extends SignalWatcher(LitElement) {
             ${createElement(Code2)}
           </button>
           <div class="contene">
-            <label title="Información Sensible">
+            <label title="Información Sensible"
+              style=${informaionSesible.value ? "background-color: #658bf3; border: 2px solid #5d82e7;": ""}
+            >
               ${informaionSesible.value
                 ? createElement(SquareCheckBig)
                 : createElement(Square)}
@@ -375,19 +380,19 @@ export class MyElement extends SignalWatcher(LitElement) {
 
     .aside:hover {
       .fondo::-webkit-scrollbar {
-        width: 10px;
+        width: 7px;
       }
       .fondo::-webkit-scrollbar-track {
-        background: #d1d7e1;
+        background: #efefef;
         cursor: pointer;
       }
       .fondo::-webkit-scrollbar-thumb {
-        background-color: #8e9fb9;
+        background-color: #8e9fb994;
         border-radius: 10px;
-        border: 3px solid #d1d7e1;
+        border: 2px solid #efefef;
       }
       .fondo::-webkit-scrollbar-thumb:hover {
-        background-color: #4c6181;
+        background-color: #efefef;
         cursor: pointer;
       }
     }
@@ -395,16 +400,16 @@ export class MyElement extends SignalWatcher(LitElement) {
     .aside {
       height: 100%;
       width: 100%;
-      background-color: #fff;
+      /* background-color: #fff; */
       box-shadow: 13px 10px 15px -3px rgb(0 0 0 / 0.1),
         16px 11px 6px -4px rgb(0 0 0 / 0.1);
       /* z-index: 20; */
-      background-image: url("/img/bgAside.jpg");
+      /* background-image: url("/img/bgAside.jpg"); */
       background-size: cover;
       background-repeat: no-repeat;
 
       .fondo::-webkit-scrollbar {
-        width: 10px;
+        width: 7px;
       }
       .fondo::-webkit-scrollbar-track {
         background: #d1d7e100;
@@ -420,7 +425,7 @@ export class MyElement extends SignalWatcher(LitElement) {
       .fondo {
         height: 100%;
         width: 100%;
-        background-color: #ffffffe8;
+        background-color: #efefef;
         display: flex;
         align-items: center;
         flex-direction: column;
@@ -462,31 +467,32 @@ export class MyElement extends SignalWatcher(LitElement) {
       a,
       label {
         cursor: pointer;
-        background-color: #f5f7ff;
-        border: 1px solid #c9cfe7;
+        background-color: #c3c2c2;
+        border: 2px solid #bbbaba;
         outline: none;
         border-radius: 4px;
         padding: 3px;
         height: 30px;
         width: 30px;
-        box-shadow: 0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;
+        /* box-shadow: 0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a; */
         display: inline-block;
+        transition: 0.2s;
+
+        &:hover {
+          background-color: #658bf3;
+          border: 2px solid #5d82e7;
+        }
+        &:active {
+          background-color: #658bf3;
+          border: 2px solid #5d82e7;
+        }
 
         svg {
           height: 100%;
           width: 100%;
-          color: #535b77;
+          color: #efefef;
         }
-        &:hover {
-          svg {
-            color: #8992af;
-          }
-        }
-        &:active {
-          svg {
-            color: #535b77;
-          }
-        }
+        
       }
       .contene {
         margin: 20px 0;
@@ -512,6 +518,8 @@ export class MyElement extends SignalWatcher(LitElement) {
           justify-content: space-between;
           padding: 5px 0;
           color: #27292f;
+          padding: 10px 0;
+
           &::marker {
             content: "";
           }

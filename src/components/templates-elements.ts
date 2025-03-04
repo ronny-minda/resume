@@ -60,14 +60,15 @@ export class MyElement extends SignalWatcher(LitElement) {
       /* backdrop-filter: blur(1px); */
     }
     .templateContenedor {
-      border-radius: 5px;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
       box-shadow: 0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;
       position: fixed;
       bottom: 0;
       left: 0;
       height: auto;
       width: 100%;
-      background-color: #f5f7ff;
+      background-color: #efefef;
       z-index: 9999;
       padding: 15px;
       display: flex;
