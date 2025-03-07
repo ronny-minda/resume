@@ -137,9 +137,6 @@ export class MyElement extends SignalWatcher(LitElement) {
       padding: 0;
       box-sizing: border-box;
     }
-
-    :host {
-
-    }
+    
   `;
 }

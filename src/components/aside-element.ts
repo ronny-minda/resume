@@ -159,6 +159,23 @@ export class MyElement extends SignalWatcher(LitElement) {
     }
   }
 
+  private async sendMail() {
+    console.log('enviando...');
+
+    const data = {
+      informacionCv,
+      informacionDestino,
+      perfilBase64Image,
+      seleccionado,
+      informaionSesible,
+    };
+
+    const response = await axios.post("http://localhost:3000/api/cv_send", data);
+
+    console.log('response');
+    console.log(response);
+  }
+
   private copy() {
     navigator.clipboard
       .writeText(JSON.stringify(informacionCv.value))
@@ -238,11 +255,17 @@ export class MyElement extends SignalWatcher(LitElement) {
               ${createElement(Download)}
             </button>
 
-            <a
+            <button title="Enviar" @click=${() => this.sendMail()}>
+              ${createElement(Send)}
+            </button>
+
+            
+
+            <!-- <a
               href=${`mailto:${informacionDestino.value.correoDestino}?subject=${informacionDestino.value.asuntoDestino}&body=${informacionDestino.value.mensajeDestino}`}
             >
               ${createElement(Send)}
-            </a>
+            </a> -->
           </div>
 
           <div class="formEdit">

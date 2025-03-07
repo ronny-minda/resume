@@ -92,7 +92,9 @@ export class MyElement extends SignalWatcher(LitElement) {
                   >${informacionCv.value.contacto.web}</a
                 >
                 ·
-                <a class="no" href="tel:${informacionCv.value.contacto.telefono}"
+                <a
+                  class="no"
+                  href="tel:${informacionCv.value.contacto.telefono}"
                   >${informacionCv.value.contacto.telefono}</a
                 >
                 ·
@@ -150,30 +152,25 @@ export class MyElement extends SignalWatcher(LitElement) {
               <div class="raya"></div>
               <div style="margin-top: 9px"></div>
 
-              ${
-                informacionCv.value.educacion.map((value) => {
-                  const { institucion, titulo, fechaInicio, descripcion } = value
-                  return (html`                  
-                    <div class="ti3">
-                      <div>${ institucion }</div>
-                      <div>${ titulo }</div>
-                    </div>
-                    <div style="margin-top: -4px"></div>
-                    <div class="ti4">
-                      <!-- <div>Ingeniería de Informática</div> -->
-                      <div>${ fechaInicio }</div>
-                    </div>
-                    <div style="margin-top: -4px"></div>
-                    <div class="ti4">
-                      <div>
-                        ${ descripcion }
-                      </div>
-                    </div>
-                    <div style="margin-top: 8px;"></div>
-                  `)
-                })
-              }
-
+              ${informacionCv.value.educacion.map((value) => {
+                const { institucion, titulo, fechaInicio, descripcion } = value;
+                return html`
+                  <div class="ti3">
+                    <div>${institucion}</div>
+                    <div>${titulo}</div>
+                  </div>
+                  <div style="margin-top: -4px"></div>
+                  <div class="ti4">
+                    <!-- <div>Ingeniería de Informática</div> -->
+                    <div>${fechaInicio}</div>
+                  </div>
+                  <div style="margin-top: -4px"></div>
+                  <div class="ti4">
+                    <div>${descripcion}</div>
+                  </div>
+                  <div style="margin-top: 8px;"></div>
+                `;
+              })}
 
               <div style="margin-top: 13px"></div>
               <div class="ti2">SKILLS ADICIONALES</div>
@@ -182,9 +179,10 @@ export class MyElement extends SignalWatcher(LitElement) {
               <div class="raya"></div>
               <div style="margin-top: 9px"></div>
 
-              
               <ul>
-                ${ informacionCv.value.experticia.map((value) => html`<li>${value}</li>`) }
+                ${informacionCv.value.experticia.map(
+                  (value) => html`<li>${value}</li>`
+                )}
               </ul>
             </div>
           `
@@ -480,7 +478,9 @@ export class MyElement extends SignalWatcher(LitElement) {
                 <div class="titulo">Expertise</div>
                 <div style="margin-top: 13px"></div>
                 <ul style="margin-left: 14px;">
-                  ${informacionCv.value.experticia.map((value) => html`<li>${value}</li>`)}
+                  ${informacionCv.value.experticia.map(
+                    (value) => html`<li>${value}</li>`
+                  )}
                 </ul>
               </div>
               <div class="dere">
@@ -589,7 +589,6 @@ export class MyElement extends SignalWatcher(LitElement) {
                     border: 1px solid #000;
                     transform: translateX(-50%) translateY(-50%);
                   }
-                  
                 }
                 .noi {
                   position: relative;
@@ -816,40 +815,42 @@ export class MyElement extends SignalWatcher(LitElement) {
 
                 <div class="ti tiiz">DATOS ACADÉMICOS</div>
 
-                ${
-                  informacionCv.value.educacion.map((value) => {
-                    const { institucion, titulo, fechaInicio, fechaFin } = value
-                    return (html`
-                      <div style="margin-top: 14px"></div>
-                      <div class="ti2">${ institucion }</div>
-                      <div style="margin-top: -5px"></div>
-                      <div class="p">${ titulo }</div>
-                      <div style="margin-top: -5px"></div>
-                      <div class="p">${ fechaInicio } - ${ fechaFin }</div>
-                    `)
-                  })
-                }
+                ${informacionCv.value.educacion.map((value) => {
+                  const { institucion, titulo, fechaInicio, fechaFin } = value;
+                  return html`
+                    <div style="margin-top: 14px"></div>
+                    <div class="ti2">${institucion}</div>
+                    <div style="margin-top: -5px"></div>
+                    <div class="p">${titulo}</div>
+                    <div style="margin-top: -5px"></div>
+                    <div class="p">${fechaInicio} - ${fechaFin}</div>
+                  `;
+                })}
 
                 <div style="margin-top: 29px"></div>
 
-                <div class="ti tiiz ${informaionSesible.value?"":"noi2"}">HABILIDADES</div>
-                
+                <div class="ti tiiz ${informaionSesible.value ? "" : "noi2"}">
+                  HABILIDADES
+                </div>
+
                 <div style="margin-top: 10px"></div>
-                ${ informacionCv.value.experticia.map((value) => html`<li>${value}</li>`) }
-   
+                ${informacionCv.value.experticia.map(
+                  (value) => html`<li>${value}</li>`
+                )}
               </div>
               <div class="dere">
                 <div style="margin-top: 61px"></div>
-                <h1 class="tidere">${informacionCv.value.perfil.nombre.split(" ")[0]} ${informacionCv.value.perfil.nombre.split(" ")[2]}</h1>
+                <h1 class="tidere">
+                  ${informacionCv.value.perfil.nombre.split(" ")[0]}
+                  ${informacionCv.value.perfil.nombre.split(" ")[2]}
+                </h1>
                 <div style="margin-top: -3px"></div>
                 <h2>${informacionCv.value.perfil.titulo}</h2>
 
                 <div style="margin-top: 18px"></div>
                 <div class="ti tidere">SOBRE MÍ</div>
                 <div style="margin-top: 7px"></div>
-                <div class="p">
-                  ${informacionCv.value.perfil.descripcion}
-                </div>
+                <div class="p">${informacionCv.value.perfil.descripcion}</div>
 
                 <div style="margin-top: 18px"></div>
                 <div class="ico">
@@ -857,11 +858,17 @@ export class MyElement extends SignalWatcher(LitElement) {
                     <div class="i globe">${createElement(Globe)}</div>
                     <span>${informacionCv.value.contacto.web}</span></a
                   >
-                  <a href="mailto:${informacionCv.value.contacto.email}" class="lin">
+                  <a
+                    href="mailto:${informacionCv.value.contacto.email}"
+                    class="lin"
+                  >
                     <div class="i mail">${createElement(Mail)}</div>
                     <span>${informacionCv.value.contacto.email}</span></a
                   >
-                  <a href="tel:${informacionCv.value.contacto.telefono}" class="lin">
+                  <a
+                    href="tel:${informacionCv.value.contacto.telefono}"
+                    class="lin"
+                  >
                     <div class="i">${createElement(Phone)}</div>
                     <span>${informacionCv.value.contacto.telefono}</span></a
                   >
@@ -874,64 +881,75 @@ export class MyElement extends SignalWatcher(LitElement) {
                 <div style="margin-top: 26px"></div>
                 <div class="ti tidere">EXPERIENCIA LABORAL</div>
 
-                ${
-                  informacionCv.value.experiencia.map((value) => {
-                    const { titulo, empresa, duracionInicio, duracionFin, descripcion } = value
+                ${informacionCv.value.experiencia.map((value) => {
+                  const {
+                    titulo,
+                    empresa,
+                    duracionInicio,
+                    duracionFin,
+                    descripcion,
+                  } = value;
 
-                    return (html`
-                      <div style="margin-top: 7px"></div>
-                      <div class="ti2">${ titulo }</div>
-                      <div style="margin-top: -3px"></div>
-                      <div class="p">
-                        ${empresa} | ${duracionInicio} - ${duracionFin}
-                      </div>
-                      <div style="margin-top: 3px"></div>
-                      <ul style="padding-left: 35px;">
-                        ${
-                          descripcion.map((value2) => html`<li style="padding-left: 0;">${value2}</li>`)
-                        }
-                      </ul>
-                    `)
-                  })
-                }
+                  return html`
+                    <div style="margin-top: 7px"></div>
+                    <div class="ti2">${titulo}</div>
+                    <div style="margin-top: -3px"></div>
+                    <div class="p">
+                      ${empresa} | ${duracionInicio} - ${duracionFin}
+                    </div>
+                    <div style="margin-top: 3px"></div>
+                    <ul style="padding-left: 35px;">
+                      ${descripcion.map(
+                        (value2) =>
+                          html`<li style="padding-left: 0;">${value2}</li>`
+                      )}
+                    </ul>
+                  `;
+                })}
+                ${informaionSesible.value
+                  ? html`
+                      <div style="margin-top: 26px"></div>
+                      <div class="ti tidere noi">INFORMACION PERSONAL</div>
+                      <div style="margin-top: 10px"></div>
 
-              ${
-                informaionSesible.value?html`
-                
-                <div style="margin-top: 26px"></div>
-                <div class="ti tidere noi">INFORMACION PERSONAL</div>
-                <div style="margin-top: 10px"></div>
-                
-                  <table>
-                    
-                    <tr>
-                      <th>Cedula:</th>
-                      <td>${informacionCv.value.datosPersonales.cedula}</td>
-                    </tr>
-                    <tr>
-                      <th>Edad:</th>
-                      <td>${informacionCv.value.datosPersonales.edad}</td>
-                    </tr>
-                    <tr>
-                      <th>Estado Civil:</th>
-                      <td>${informacionCv.value.datosPersonales.estadoCivil}</td>
-                    </tr>
-                    <tr>
-                      <th>Fecha Nacimiento:</th>
-                      <td>${informacionCv.value.datosPersonales.fechaNacimiento}</td>
-                    </tr>
-                    <tr>
-                      <th>Lugar Nacimiento:</th>
-                      <td>${informacionCv.value.datosPersonales.lugarNacimiento}</td>
-                    </tr>
-                    <tr>
-                      <th>Nacionalidad:</th>
-                      <td>${informacionCv.value.datosPersonales.nacionalidad}</td>
-                    </tr>
-                    
-                  </table>
-                `:""
-                }
+                      <table>
+                        <tr>
+                          <th>Cedula:</th>
+                          <td>${informacionCv.value.datosPersonales.cedula}</td>
+                        </tr>
+                        <tr>
+                          <th>Edad:</th>
+                          <td>${informacionCv.value.datosPersonales.edad}</td>
+                        </tr>
+                        <tr>
+                          <th>Estado Civil:</th>
+                          <td>
+                            ${informacionCv.value.datosPersonales.estadoCivil}
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>Fecha Nacimiento:</th>
+                          <td>
+                            ${informacionCv.value.datosPersonales
+                              .fechaNacimiento}
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>Lugar Nacimiento:</th>
+                          <td>
+                            ${informacionCv.value.datosPersonales
+                              .lugarNacimiento}
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>Nacionalidad:</th>
+                          <td>
+                            ${informacionCv.value.datosPersonales.nacionalidad}
+                          </td>
+                        </tr>
+                      </table>
+                    `
+                  : ""}
               </div>
             </div>
           `
@@ -1075,7 +1093,10 @@ export class MyElement extends SignalWatcher(LitElement) {
                 <div class="ti">Contacto</div>
                 <div style="margin-top: 13px"></div>
 
-                <a href="tel:${informacionCv.value.contacto.telefono}" class="ico">
+                <a
+                  href="tel:${informacionCv.value.contacto.telefono}"
+                  class="ico"
+                >
                   <div class="iico phone">${createElement(Phone)}</div>
                   <span>${informacionCv.value.contacto.telefono}</span>
                 </a>
@@ -1083,7 +1104,10 @@ export class MyElement extends SignalWatcher(LitElement) {
                   <div class="iico globe">${createElement(Globe)}</div>
                   <span>${informacionCv.value.contacto.web}</span></a
                 >
-                <a href="mailto:${informacionCv.value.contacto.email}" class="ico">
+                <a
+                  href="mailto:${informacionCv.value.contacto.email}"
+                  class="ico"
+                >
                   <div class="iico mail">${createElement(Mail)}</div>
                   <span>${informacionCv.value.contacto.email}</span>
                 </a>
@@ -1096,8 +1120,9 @@ export class MyElement extends SignalWatcher(LitElement) {
                 <div class="ti">Más información</div>
                 <div style="margin-top: 9px"></div>
 
-                ${informacionCv.value.experticia.map((value) => html`<li>${value}</li>`)}
-                
+                ${informacionCv.value.experticia.map(
+                  (value) => html`<li>${value}</li>`
+                )}
               </div>
               <div class="dere">
                 <h1>${informacionCv.value.perfil.nombre.split(" ")[0]}</h1>
@@ -1108,75 +1133,105 @@ export class MyElement extends SignalWatcher(LitElement) {
                 <div style="margin-top: 50px"></div>
                 <div class="ti">Experiencia laboral</div>
 
-                ${
-                  informacionCv.value.experiencia.map((value) => {
-                    const { titulo, empresa, duracionInicio, duracionFin, descripcion } = value
-                    return (html`
-                      <div style="margin-top: 6px"></div>
-                      <div class="ti2">${titulo}</div>
-                      <div style="margin-top: -5px"></div>
-                      <div class="p">
-                        ${empresa} | ${duracionInicio} - ${duracionFin}
-                      </div>
-                      <div style="margin-top: 3px"></div>
-                      ${descripcion.map((value2) => html`<li>${value2}</li>
-                      <div style="margin-top: -1px"></div>`)}
-                      
-                      <div style="margin-top: 14px"></div>
-                    `)
-                  })
-                }
+                ${informacionCv.value.experiencia.map((value) => {
+                  const {
+                    titulo,
+                    empresa,
+                    duracionInicio,
+                    duracionFin,
+                    descripcion,
+                  } = value;
+                  return html`
+                    <div style="margin-top: 6px"></div>
+                    <div class="ti2">${titulo}</div>
+                    <div style="margin-top: -5px"></div>
+                    <div class="p">
+                      ${empresa} | ${duracionInicio} - ${duracionFin}
+                    </div>
+                    <div style="margin-top: 3px"></div>
+                    ${descripcion.map(
+                      (value2) => html`<li>${value2}</li>
+                        <div style="margin-top: -1px"></div>`
+                    )}
+
+                    <div style="margin-top: 14px"></div>
+                  `;
+                })}
 
                 <div style="margin-top: 21px"></div>
                 <div class="ti">Datos académicos</div>
                 <div style="margin-top: 11px"></div>
 
-                ${ informacionCv.value.educacion.map((value2) => {
-                  const { institucion, titulo, fechaInicio, fechaFin } = value2
-                  return (html`
+                ${informacionCv.value.educacion.map((value2) => {
+                  const { institucion, titulo, fechaInicio, fechaFin } = value2;
+                  return html`
                     <div class="ti2">${institucion}</div>
                     <div style="margin-top: -5px"></div>
-                    <div class="p">${titulo} | ${fechaInicio} - ${fechaFin}</div>
+                    <div class="p">
+                      ${titulo} | ${fechaInicio} - ${fechaFin}
+                    </div>
                     <div style="margin-top: 12px"></div>
-                  `)
-                }) }
+                  `;
+                })}
+                ${informaionSesible.value
+                  ? html`
+                      <div style="margin-top: 20px"></div>
+                      <div class="ti">Información personal</div>
 
-                 ${
-                  informaionSesible.value?html`
-                    <div style="margin-top: 20px"></div>
-                    <div class="ti">Información personal</div>
-    
-                    <div style="margin-top: 9px"></div>
+                      <div style="margin-top: 9px"></div>
 
-                    <table>
-                      <tr>
-                        <th style="text-align: start;" class="ti2">Cedula:</th>
-                        <td class="p">${informacionCv.value.datosPersonales.cedula}</td>
-                      </tr>
-                      <tr>
-                        <th style="text-align: start;" class="ti2">Edad:</th>
-                        <td class="p">${informacionCv.value.datosPersonales.edad}</td>
-                      </tr>
-                      <tr>
-                        <th style="text-align: start;" class="ti2">Estado Civil:</th>
-                        <td class="p">${informacionCv.value.datosPersonales.estadoCivil}</td>
-                      </tr>
-                      <tr>
-                        <th style="text-align: start;" class="ti2">Fecha Nacimiento:</th>
-                        <td class="p">${informacionCv.value.datosPersonales.fechaNacimiento}</td>
-                      </tr>
-                      <tr>
-                        <th style="text-align: start;" class="ti2">Lugar Nacimiento:</th>
-                        <td class="p">${informacionCv.value.datosPersonales.lugarNacimiento}</td>
-                      </tr>
-                      <tr>
-                        <th style="text-align: start;" class="ti2">Nacionalidad:</th>
-                        <td class="p">${informacionCv.value.datosPersonales.nacionalidad}</td>
-                      </tr>
-                    </table>
-                  `:""
-                 }
-
+                      <table>
+                        <tr>
+                          <th style="text-align: start;" class="ti2">
+                            Cedula:
+                          </th>
+                          <td class="p">
+                            ${informacionCv.value.datosPersonales.cedula}
+                          </td>
+                        </tr>
+                        <tr>
+                          <th style="text-align: start;" class="ti2">Edad:</th>
+                          <td class="p">
+                            ${informacionCv.value.datosPersonales.edad}
+                          </td>
+                        </tr>
+                        <tr>
+                          <th style="text-align: start;" class="ti2">
+                            Estado Civil:
+                          </th>
+                          <td class="p">
+                            ${informacionCv.value.datosPersonales.estadoCivil}
+                          </td>
+                        </tr>
+                        <tr>
+                          <th style="text-align: start;" class="ti2">
+                            Fecha Nacimiento:
+                          </th>
+                          <td class="p">
+                            ${informacionCv.value.datosPersonales
+                              .fechaNacimiento}
+                          </td>
+                        </tr>
+                        <tr>
+                          <th style="text-align: start;" class="ti2">
+                            Lugar Nacimiento:
+                          </th>
+                          <td class="p">
+                            ${informacionCv.value.datosPersonales
+                              .lugarNacimiento}
+                          </td>
+                        </tr>
+                        <tr>
+                          <th style="text-align: start;" class="ti2">
+                            Nacionalidad:
+                          </th>
+                          <td class="p">
+                            ${informacionCv.value.datosPersonales.nacionalidad}
+                          </td>
+                        </tr>
+                      </table>
+                    `
+                  : ""}
               </div>
             </div>
           `
@@ -1342,31 +1397,29 @@ export class MyElement extends SignalWatcher(LitElement) {
                 <div style="margin-top: 49px"></div>
                 <div class="ti">Sobre mí</div>
                 <div style="margin-top: 9px"></div>
-                <div class="p">
-                  ${informacionCv.value.perfil.descripcion}
-                </div>
+                <div class="p">${informacionCv.value.perfil.descripcion}</div>
 
                 <div style="margin-top: 23px"></div>
                 <div class="ti">Datos académicos</div>
                 <div style="margin-top: 11px"></div>
 
-                ${
-                  informacionCv.value.educacion.map((value) => {
-                    const { institucion, titulo, fechaInicio, fechaFin } = value
-                    return (html`
-                      <div class="ti2">${institucion}</div>
-                      <div class="p">${titulo}</div>
-                      <div class="p">${fechaInicio} - ${fechaFin}</div>
-                      <div style="margin-top: 12px"></div>
-                    `)
-                  })
-                }
-
+                ${informacionCv.value.educacion.map((value) => {
+                  const { institucion, titulo, fechaInicio, fechaFin } = value;
+                  return html`
+                    <div class="ti2">${institucion}</div>
+                    <div class="p">${titulo}</div>
+                    <div class="p">${fechaInicio} - ${fechaFin}</div>
+                    <div style="margin-top: 12px"></div>
+                  `;
+                })}
               </div>
 
               <div class="dere">
                 <div style="margin-top: 63px"></div>
-                <h1>${informacionCv.value.perfil.nombre.split(" ")[0]} ${informacionCv.value.perfil.nombre.split(" ")[2]}</h1>
+                <h1>
+                  ${informacionCv.value.perfil.nombre.split(" ")[0]}
+                  ${informacionCv.value.perfil.nombre.split(" ")[2]}
+                </h1>
                 <div style="margin-top: -4px"></div>
                 <h2>/ ${informacionCv.value.perfil.titulo}</h2>
 
@@ -1375,11 +1428,17 @@ export class MyElement extends SignalWatcher(LitElement) {
                   <div class="iico globe">${createElement(Globe)}</div>
                   <span>${informacionCv.value.contacto.web}</span></a
                 >
-                <a href="tel:${informacionCv.value.contacto.telefono}" class="ico">
+                <a
+                  href="tel:${informacionCv.value.contacto.telefono}"
+                  class="ico"
+                >
                   <div class="iico phone">${createElement(Phone)}</div>
                   <span>${informacionCv.value.contacto.telefono}</span>
                 </a>
-                <a href="mailto:${informacionCv.value.contacto.email}" class="ico">
+                <a
+                  href="mailto:${informacionCv.value.contacto.email}"
+                  class="ico"
+                >
                   <div class="iico mail">${createElement(Mail)}</div>
                   <span>${informacionCv.value.contacto.email}</span>
                 </a>
@@ -1391,67 +1450,92 @@ export class MyElement extends SignalWatcher(LitElement) {
                 <div style="margin-top: 58px"></div>
                 <div class="ti">Experiencia laboral</div>
 
-                ${
-                  informacionCv.value.experiencia.map((value) => {
-                    const { titulo, empresa, duracionInicio, duracionFin, descripcion } = value
+                ${informacionCv.value.experiencia.map((value) => {
+                  const {
+                    titulo,
+                    empresa,
+                    duracionInicio,
+                    duracionFin,
+                    descripcion,
+                  } = value;
 
-                    return (html`
+                  return html`
+                    <div style="margin-top: 6px"></div>
+                    <div class="ti2">${titulo}</div>
+                    <div style="margin-top: -4px"></div>
+                    <div class="p">
+                      ${empresa} | ${duracionInicio} - ${duracionFin}
+                    </div>
+                    <div style="margin-top: 3px"></div>
+
+                    <ul style="padding-left: 13px;">
+                      ${descripcion.map(
+                        (value2) => html`<li>${value2}</li>
+                          <div style="margin-top: -1px"></div>`
+                      )}
+                    </ul>
+
+                    <div style="margin-top: 14px"></div>
+                  `;
+                })}
+                ${informaionSesible.value
+                  ? html`
+                      <div style="margin-top: 25px"></div>
+                      <div class="ti">Información personal</div>
+
                       <div style="margin-top: 6px"></div>
-                      <div class="ti2">${titulo}</div>
-                      <div style="margin-top: -4px"></div>
-                      <div class="p">
-                        ${empresa} | ${duracionInicio} - ${duracionFin}
-                      </div>
-                      <div style="margin-top: 3px"></div>
-
-                      <ul style="padding-left: 13px;">
-                        ${
-                          descripcion.map((value2) => html`<li>${value2}</li>
-                        <div style="margin-top: -1px"></div>`)
-                        }
-                      </ul>
-                      
-                      <div style="margin-top: 14px"></div>
-                    `)
-                  })
-                }
-
-                ${
-                informaionSesible.value?html`
-
-                <div style="margin-top: 25px"></div>
-                <div class="ti">Información personal</div>
-
-                <div style="margin-top: 6px"></div>
-                  <table>
-                    <tr>
-                      <th style="text-align: start;" class="ti2">Cedula:</th>
-                      <td class="p">${informacionCv.value.datosPersonales.cedula}</td>
-                    </tr>
-                    <tr>
-                      <th style="text-align: start;" class="ti2">Edad:</th>
-                      <td class="p">${informacionCv.value.datosPersonales.edad}</td>
-                    </tr>
-                    <tr>
-                      <th style="text-align: start;" class="ti2">Estado Civil:</th>
-                      <td class="p">${informacionCv.value.datosPersonales.estadoCivil}</td>
-                    </tr>
-                    <tr>
-                      <th style="text-align: start;" class="ti2">Fecha Nacimiento:</th>
-                      <td class="p">${informacionCv.value.datosPersonales.fechaNacimiento}</td>
-                    </tr>
-                    <tr>
-                      <th style="text-align: start;" class="ti2">Lugar Nacimiento:</th>
-                      <td class="p">${informacionCv.value.datosPersonales.lugarNacimiento}</td>
-                    </tr>
-                    <tr>
-                      <th style="text-align: start;" class="ti2">Nacionalidad:</th>
-                      <td class="p">${informacionCv.value.datosPersonales.nacionalidad}</td>
-                    </tr>
-                  </table>
-                `:""
-                }
-
+                      <table>
+                        <tr>
+                          <th style="text-align: start;" class="ti2">
+                            Cedula:
+                          </th>
+                          <td class="p">
+                            ${informacionCv.value.datosPersonales.cedula}
+                          </td>
+                        </tr>
+                        <tr>
+                          <th style="text-align: start;" class="ti2">Edad:</th>
+                          <td class="p">
+                            ${informacionCv.value.datosPersonales.edad}
+                          </td>
+                        </tr>
+                        <tr>
+                          <th style="text-align: start;" class="ti2">
+                            Estado Civil:
+                          </th>
+                          <td class="p">
+                            ${informacionCv.value.datosPersonales.estadoCivil}
+                          </td>
+                        </tr>
+                        <tr>
+                          <th style="text-align: start;" class="ti2">
+                            Fecha Nacimiento:
+                          </th>
+                          <td class="p">
+                            ${informacionCv.value.datosPersonales
+                              .fechaNacimiento}
+                          </td>
+                        </tr>
+                        <tr>
+                          <th style="text-align: start;" class="ti2">
+                            Lugar Nacimiento:
+                          </th>
+                          <td class="p">
+                            ${informacionCv.value.datosPersonales
+                              .lugarNacimiento}
+                          </td>
+                        </tr>
+                        <tr>
+                          <th style="text-align: start;" class="ti2">
+                            Nacionalidad:
+                          </th>
+                          <td class="p">
+                            ${informacionCv.value.datosPersonales.nacionalidad}
+                          </td>
+                        </tr>
+                      </table>
+                    `
+                  : ""}
               </div>
             </div>
           `
@@ -1669,12 +1753,13 @@ export class MyElement extends SignalWatcher(LitElement) {
                 <div class="deta"></div>
                 <div class="imgPerfil"></div>
                 <div class="conteInfo">
-                  <h1>${informacionCv.value.perfil.nombre.split(" ")[0]} ${informacionCv.value.perfil.nombre.split(" ")[2]}</h1>
+                  <h1>
+                    ${informacionCv.value.perfil.nombre.split(" ")[0]}
+                    ${informacionCv.value.perfil.nombre.split(" ")[2]}
+                  </h1>
                   <h2>${informacionCv.value.perfil.titulo}</h2>
                   <div class="raya"></div>
-                  <p>
-                    ${informacionCv.value.perfil.descripcion}
-                  </p>
+                  <p>${informacionCv.value.perfil.descripcion}</p>
                 </div>
               </div>
 
@@ -1683,110 +1768,133 @@ export class MyElement extends SignalWatcher(LitElement) {
                   <div style="margin-top: 24px"></div>
                   <div class="ti">FORMACIÓN</div>
 
-                  ${ informacionCv.value.educacion.map((value2) => {
-                  const { institucion, titulo, fechaInicio, fechaFin, descripcion } = value2
-                  return (html`
-                    <div style="margin-top: 19px"></div>
-                    <div class="ti2">${titulo}</div>
-                    <div style="margin-top: -3px"></div>
-                    <div class="ti2">${institucion}</div>
-                    <div style="margin-top: -3px"></div>
-                    <div class="ti2">(${fechaInicio} - ${fechaFin})</div>
-                    <div style="margin-top: 5px"></div>
-                    <p>
-                      ${descripcion}
-                    </p>
-                    <div style="margin-top: 24px"></div>
-                  `)
-                }) }
-
+                  ${informacionCv.value.educacion.map((value2) => {
+                    const {
+                      institucion,
+                      titulo,
+                      fechaInicio,
+                      fechaFin,
+                      descripcion,
+                    } = value2;
+                    return html`
+                      <div style="margin-top: 19px"></div>
+                      <div class="ti2">${titulo}</div>
+                      <div style="margin-top: -3px"></div>
+                      <div class="ti2">${institucion}</div>
+                      <div style="margin-top: -3px"></div>
+                      <div class="ti2">(${fechaInicio} - ${fechaFin})</div>
+                      <div style="margin-top: 5px"></div>
+                      <p>${descripcion}</p>
+                      <div style="margin-top: 24px"></div>
+                    `;
+                  })}
 
                   <div style="margin-top: 24px"></div>
                   <div class="ti">HERRAMIENTAS</div>
                   <div style="margin-top: 10px"></div>
-                  
-                  ${informacionCv.value.experticia.map((value) => html`<p>${value}</p>`)}
 
-                  ${
-                    informaionSesible.value?html`
-                    
-                    <div style="margin-top: 24px"></div>
-                    <div class="ti">INFORMACIÓN</div>
-                    <div style="margin-top: 10px"></div>
-                    
-                    <table>
-                        <tr>
-                          <th style="text-align: start;">Cedula:</th>
-                          <td>${informacionCv.value.datosPersonales.cedula}</td>
-                        </tr>
-                        <tr>
-                          <th style="text-align: start;">Edad:</th>
-                          <td>${informacionCv.value.datosPersonales.edad}</td>
-                        </tr>
-                        <tr>
-                          <th style="text-align: start;">Estado Civil:</th>
-                          <td>${informacionCv.value.datosPersonales.estadoCivil}</td>
-                        </tr>
-                        <tr>
-                          <th style="text-align: start;">Fecha Nacimiento:</th>
-                          <td>${informacionCv.value.datosPersonales.fechaNacimiento}</td>
-                        </tr>
-                        <tr>
-                          <th style="text-align: start;">Lugar Nacimiento:</th>
-                          <td>${informacionCv.value.datosPersonales.lugarNacimiento}</td>
-                        </tr>
-                        <tr>
-                          <th style="text-align: start;">Nacionalidad:</th>
-                          <td>${informacionCv.value.datosPersonales.nacionalidad}</td>
-                        </tr>
-                      </table>
-                    `:''
-                  }
+                  ${informacionCv.value.experticia.map(
+                    (value) => html`<p>${value}</p>`
+                  )}
+                  ${informaionSesible.value
+                    ? html`
+                        <div style="margin-top: 24px"></div>
+                        <div class="ti">INFORMACIÓN</div>
+                        <div style="margin-top: 10px"></div>
 
+                        <table>
+                          <tr>
+                            <th style="text-align: start;">Cedula:</th>
+                            <td>
+                              ${informacionCv.value.datosPersonales.cedula}
+                            </td>
+                          </tr>
+                          <tr>
+                            <th style="text-align: start;">Edad:</th>
+                            <td>${informacionCv.value.datosPersonales.edad}</td>
+                          </tr>
+                          <tr>
+                            <th style="text-align: start;">Estado Civil:</th>
+                            <td>
+                              ${informacionCv.value.datosPersonales.estadoCivil}
+                            </td>
+                          </tr>
+                          <tr>
+                            <th style="text-align: start;">
+                              Fecha Nacimiento:
+                            </th>
+                            <td>
+                              ${informacionCv.value.datosPersonales
+                                .fechaNacimiento}
+                            </td>
+                          </tr>
+                          <tr>
+                            <th style="text-align: start;">
+                              Lugar Nacimiento:
+                            </th>
+                            <td>
+                              ${informacionCv.value.datosPersonales
+                                .lugarNacimiento}
+                            </td>
+                          </tr>
+                          <tr>
+                            <th style="text-align: start;">Nacionalidad:</th>
+                            <td>
+                              ${informacionCv.value.datosPersonales
+                                .nacionalidad}
+                            </td>
+                          </tr>
+                        </table>
+                      `
+                    : ""}
                 </div>
                 <div class="a2 b">
                   <div style="margin-top: 24px"></div>
                   <div class="ti">EXPERIENCIA</div>
 
-                  ${
-                  informacionCv.value.experiencia.map((value) => {
-                    const { titulo, empresa, duracionInicio, duracionFin, descripcion } = value
-                    return (html`
+                  ${informacionCv.value.experiencia.map((value) => {
+                    const { titulo, duracionInicio, duracionFin, descripcion } =
+                      value;
+                    return html`
                       <div style="margin-top: 19px"></div>
                       <div class="ti2">${titulo}</div>
                       <div style="margin-top: -3px"></div>
-                      <div class="ti2">(${duracionInicio} - ${duracionFin})</div>
+                      <div class="ti2">
+                        (${duracionInicio} - ${duracionFin})
+                      </div>
                       <div style="margin-top: 5px"></div>
                       ${descripcion.map((value2) => html`<p>${value2}</p>`)}
-                      
+
                       <div style="margin-top: 18px"></div>
-                    `)
-                  })
-                }
+                    `;
+                  })}
 
                   <div style="margin-top: 20px"></div>
                   <div class="icono">
                     <div class="oo">
-                      <a href="${informacionCv.value.contacto.web}" class="lin ico">
-                        <div class="iico globe">
-                          ${createElement(Globe)}
-                        </div>
+                      <a
+                        href="${informacionCv.value.contacto.web}"
+                        class="lin ico"
+                      >
+                        <div class="iico globe">${createElement(Globe)}</div>
                         <span>${informacionCv.value.contacto.web}</span></a
                       >
-                      <a href="tel:${informacionCv.value.contacto.telefono}" class="ico">
-                        <div class="iico phone">
-                          ${createElement(Phone)}
-                        </div>
+                      <a
+                        href="tel:${informacionCv.value.contacto.telefono}"
+                        class="ico"
+                      >
+                        <div class="iico phone">${createElement(Phone)}</div>
                         <span>${informacionCv.value.contacto.telefono}</span>
                       </a>
-                      <a href="mailto:${informacionCv.value.contacto.email}" class="ico">
+                      <a
+                        href="mailto:${informacionCv.value.contacto.email}"
+                        class="ico"
+                      >
                         <div class="iico mail">${createElement(Mail)}</div>
                         <span>${informacionCv.value.contacto.email}</span>
                       </a>
                       <div class="ico">
-                        <div class="iico map-pin">
-                          ${createElement(MapPin)}
-                        </div>
+                        <div class="iico map-pin">${createElement(MapPin)}</div>
                         <span>${informacionCv.value.contacto.direccion}</span>
                       </div>
                     </div>
@@ -2003,7 +2111,9 @@ export class MyElement extends SignalWatcher(LitElement) {
                 <div class="ti">EXPERTISE:</div>
                 <div style="margin-top: 1px"></div>
                 <ul style="margin-left: 14px;">
-                  ${informacionCv.value.experticia.map((value) => html`<li>${value}</li>`)}
+                  ${informacionCv.value.experticia.map(
+                    (value) => html`<li>${value}</li>`
+                  )}
                 </ul>
 
                 <div style="margin-top: 21px"></div>
@@ -2013,16 +2123,28 @@ export class MyElement extends SignalWatcher(LitElement) {
                 <div style="margin-top: 1px"></div>
 
                 <div class="icono">
-                  <a href="tel:${informacionCv.value.contacto.telefono}" class="ico">
-                    <div class="iico phone">${createElement(Phone)}<i data-lucide="phone"></i></div>
+                  <a
+                    href="tel:${informacionCv.value.contacto.telefono}"
+                    class="ico"
+                  >
+                    <div class="iico phone">
+                      ${createElement(Phone)}<i data-lucide="phone"></i>
+                    </div>
                     <span>${informacionCv.value.contacto.telefono}</span>
                   </a>
                   <a href="${informacionCv.value.contacto.web}" class="ico">
-                    <div class="iico globe">${createElement(Globe)}<i data-lucide="globe"></i></div>
+                    <div class="iico globe">
+                      ${createElement(Globe)}<i data-lucide="globe"></i>
+                    </div>
                     <span>${informacionCv.value.contacto.web}</span></a
                   >
-                  <a href="mailto:${informacionCv.value.contacto.email}" class="ico">
-                    <div class="iico mail">${createElement(Mail)}<i data-lucide="mail"></i></div>
+                  <a
+                    href="mailto:${informacionCv.value.contacto.email}"
+                    class="ico"
+                  >
+                    <div class="iico mail">
+                      ${createElement(Mail)}<i data-lucide="mail"></i>
+                    </div>
                     <span>${informacionCv.value.contacto.email}</span>
                   </a>
                   <div class="ico">
@@ -2036,7 +2158,10 @@ export class MyElement extends SignalWatcher(LitElement) {
 
               <div class="dere">
                 <div style="margin-top: 58px"></div>
-                <h1>${informacionCv.value.perfil.nombre.split(" ")[0]} ${informacionCv.value.perfil.nombre.split(" ")[2]}</h1>
+                <h1>
+                  ${informacionCv.value.perfil.nombre.split(" ")[0]}
+                  ${informacionCv.value.perfil.nombre.split(" ")[2]}
+                </h1>
                 <div style="margin-top: -3px"></div>
                 <h2>${informacionCv.value.perfil.titulo}</h2>
 
@@ -2046,17 +2171,25 @@ export class MyElement extends SignalWatcher(LitElement) {
 
                 <div class="ti u">Experiencia laboral</div>
 
-                ${
-                  informacionCv.value.experiencia.map((value) => {
-                    const { titulo, empresa, duracionInicio, duracionFin, descripcion } = value
-                    return (html`
-                      <div style="margin-top: 11px"></div>
-                      <div class="ti2 iu">${titulo}</div>
-                      <div class="ti2 iu">${empresa} (${duracionInicio} - ${duracionFin})</div>
-                      ${descripcion.map((value2) => html`<li class="ii">${value2}</li>`)}
-                    `)
-                  })
-                }
+                ${informacionCv.value.experiencia.map((value) => {
+                  const {
+                    titulo,
+                    empresa,
+                    duracionInicio,
+                    duracionFin,
+                    descripcion,
+                  } = value;
+                  return html`
+                    <div style="margin-top: 11px"></div>
+                    <div class="ti2 iu">${titulo}</div>
+                    <div class="ti2 iu">
+                      ${empresa} (${duracionInicio} - ${duracionFin})
+                    </div>
+                    ${descripcion.map(
+                      (value2) => html`<li class="ii">${value2}</li>`
+                    )}
+                  `;
+                })}
 
                 <div style="margin-top: 18px"></div>
                 <div class="conteY"><div class="raya"></div></div>
@@ -2064,19 +2197,24 @@ export class MyElement extends SignalWatcher(LitElement) {
 
                 <div class="ti u">Formación</div>
 
-                ${ informacionCv.value.educacion.map((value2) => {
-                  const { institucion, titulo, fechaInicio, fechaFin, descripcion } = value2
-                  return (html`
+                ${informacionCv.value.educacion.map((value2) => {
+                  const {
+                    institucion,
+                    titulo,
+                    fechaInicio,
+                    fechaFin,
+                    descripcion,
+                  } = value2;
+                  return html`
                     <div style="margin-top: 11px"></div>
                     <div class="ti2 iu">${titulo}</div>
                     <div class="ti2 iu">${institucion}</div>
                     <div class="ti2 iu">(${fechaInicio} - ${fechaFin})</div>
                     <li class="ii iio">${descripcion}</li>
-                  `)
-                }) }
-
-                ${
-                    informaionSesible.value?html`
+                  `;
+                })}
+                ${informaionSesible.value
+                  ? html`
                       <div style="margin-top: 18px"></div>
                       <div class="conteY"><div class="raya"></div></div>
                       <div style="margin-top: 22px"></div>
@@ -2095,23 +2233,33 @@ export class MyElement extends SignalWatcher(LitElement) {
                         </tr>
                         <tr>
                           <th style="text-align: start;">Estado Civil:</th>
-                          <td>${informacionCv.value.datosPersonales.estadoCivil}</td>
+                          <td>
+                            ${informacionCv.value.datosPersonales.estadoCivil}
+                          </td>
                         </tr>
                         <tr>
                           <th style="text-align: start;">Fecha Nacimiento:</th>
-                          <td>${informacionCv.value.datosPersonales.fechaNacimiento}</td>
+                          <td>
+                            ${informacionCv.value.datosPersonales
+                              .fechaNacimiento}
+                          </td>
                         </tr>
                         <tr>
                           <th style="text-align: start;">Lugar Nacimiento:</th>
-                          <td>${informacionCv.value.datosPersonales.lugarNacimiento}</td>
+                          <td>
+                            ${informacionCv.value.datosPersonales
+                              .lugarNacimiento}
+                          </td>
                         </tr>
                         <tr>
                           <th style="text-align: start;">Nacionalidad:</th>
-                          <td>${informacionCv.value.datosPersonales.nacionalidad}</td>
+                          <td>
+                            ${informacionCv.value.datosPersonales.nacionalidad}
+                          </td>
                         </tr>
                       </table>
-                    `:''
-                  }
+                    `
+                  : ""}
               </div>
             </div>
           `
@@ -2324,7 +2472,10 @@ export class MyElement extends SignalWatcher(LitElement) {
                 <div class="imgPerfil"></div>
 
                 <div class="info">
-                  <h1>${informacionCv.value.perfil.nombre.split(" ")[0]} ${informacionCv.value.perfil.nombre.split(" ")[2]}</h1>
+                  <h1>
+                    ${informacionCv.value.perfil.nombre.split(" ")[0]}
+                    ${informacionCv.value.perfil.nombre.split(" ")[2]}
+                  </h1>
                   <div style="margin-top: -6px"></div>
                   <h2>${informacionCv.value.perfil.titulo}</h2>
                 </div>
@@ -2334,14 +2485,15 @@ export class MyElement extends SignalWatcher(LitElement) {
                   <div style="margin-top: 78px"></div>
                   <div class="ti">FORMACIÓN</div>
 
-                  ${ informacionCv.value.educacion.map((value2) => {
-                    const { institucion, titulo, fechaInicio, fechaFin } = value2
-                    return (html`
+                  ${informacionCv.value.educacion.map((value2) => {
+                    const { institucion, titulo, fechaInicio, fechaFin } =
+                      value2;
+                    return html`
                       <div class="ti2">${institucion}</div>
                       <div class="ti2">(${fechaInicio} - ${fechaFin})</div>
                       <div class="p">${titulo}</div>
                       <div style="margin-top: 10px"></div>
-                    `)
+                    `;
                   })}
 
                   <div style="margin-top: 25px"></div>
@@ -2349,26 +2501,29 @@ export class MyElement extends SignalWatcher(LitElement) {
 
                   <div class="icono">
                     <div class="oo">
-                      <a href="${informacionCv.value.contacto.web}" class="lin ico">
-                        <div class="iico globe">
-                          ${createElement(Globe)}
-                        </div>
+                      <a
+                        href="${informacionCv.value.contacto.web}"
+                        class="lin ico"
+                      >
+                        <div class="iico globe">${createElement(Globe)}</div>
                         <span>${informacionCv.value.contacto.web}</span></a
                       >
-                      <a href="tel:${informacionCv.value.contacto.telefono}" class="ico">
-                        <div class="iico phone">
-                          ${createElement(Phone)}
-                        </div>
+                      <a
+                        href="tel:${informacionCv.value.contacto.telefono}"
+                        class="ico"
+                      >
+                        <div class="iico phone">${createElement(Phone)}</div>
                         <span>${informacionCv.value.contacto.telefono}</span>
                       </a>
-                      <a href="mailto:${informacionCv.value.contacto.email}" class="ico">
+                      <a
+                        href="mailto:${informacionCv.value.contacto.email}"
+                        class="ico"
+                      >
                         <div class="iico mail">${createElement(Mail)}</div>
                         <span>${informacionCv.value.contacto.email}</span>
                       </a>
                       <div class="ico">
-                        <div class="iico map-pin">
-                          ${createElement(MapPin)}
-                        </div>
+                        <div class="iico map-pin">${createElement(MapPin)}</div>
                         <span>${informacionCv.value.contacto.direccion}</span>
                       </div>
                     </div>
@@ -2377,66 +2532,88 @@ export class MyElement extends SignalWatcher(LitElement) {
                   <div style="margin-top: 16px"></div>
                   <div class="ti">EXPERTISE</div>
 
-                  <ul style='margin-left: 14px;'>
-                    ${informacionCv.value.experticia.map((value) => html`<li>${value}</li>`)}
+                  <ul style="margin-left: 14px;">
+                    ${informacionCv.value.experticia.map(
+                      (value) => html`<li>${value}</li>`
+                    )}
                   </ul>
-
-
                 </div>
                 <div class="dere uu">
                   <div class="ti">MI PERFIL</div>
-                  <div class="p">
-                    ${informacionCv.value.perfil.descripcion}
-                  </div>
+                  <div class="p">${informacionCv.value.perfil.descripcion}</div>
 
                   <div style="margin-top: 16px"></div>
                   <div class="ti">EXPERIENCIA</div>
 
-                  ${
-                  informacionCv.value.experiencia.map((value) => {
-                    const { titulo, empresa, duracionInicio, duracionFin, descripcion } = value
-                    return (html`                      
+                  ${informacionCv.value.experiencia.map((value) => {
+                    const {
+                      titulo,
+                      empresa,
+                      duracionInicio,
+                      duracionFin,
+                      descripcion,
+                    } = value;
+                    return html`
                       <div class="ti2">${titulo}</div>
-                      <div class="ti2">${empresa} (${duracionInicio} - ${duracionFin})</div>
-                      ${descripcion.map((value2) => html`<div class="p">${value2}</div>`)}
-                      
-                      <div style="margin-top: 10px"></div>
-                    `)
-                  })
-                }
+                      <div class="ti2">
+                        ${empresa} (${duracionInicio} - ${duracionFin})
+                      </div>
+                      ${descripcion.map(
+                        (value2) => html`<div class="p">${value2}</div>`
+                      )}
 
-                  ${
-                    informaionSesible.value?html`
-                      <div style="margin-top: 16px"></div>
-                      <div class="ti">INFORMACIÓN</div>
-                      <table>
-                        <tr>
-                          <th style="text-align: start;">Cedula:</th>
-                          <td>${informacionCv.value.datosPersonales.cedula}</td>
-                        </tr>
-                        <tr>
-                          <th style="text-align: start;">Edad:</th>
-                          <td>${informacionCv.value.datosPersonales.edad}</td>
-                        </tr>
-                        <tr>
-                          <th style="text-align: start;">Estado Civil:</th>
-                          <td>${informacionCv.value.datosPersonales.estadoCivil}</td>
-                        </tr>
-                        <tr>
-                          <th style="text-align: start;">Fecha Nacimiento:</th>
-                          <td>${informacionCv.value.datosPersonales.fechaNacimiento}</td>
-                        </tr>
-                        <tr>
-                          <th style="text-align: start;">Lugar Nacimiento:</th>
-                          <td>${informacionCv.value.datosPersonales.lugarNacimiento}</td>
-                        </tr>
-                        <tr>
-                          <th style="text-align: start;">Nacionalidad:</th>
-                          <td>${informacionCv.value.datosPersonales.nacionalidad}</td>
-                        </tr>
-                      </table>
-                    `:''
-                  }
+                      <div style="margin-top: 10px"></div>
+                    `;
+                  })}
+                  ${informaionSesible.value
+                    ? html`
+                        <div style="margin-top: 16px"></div>
+                        <div class="ti">INFORMACIÓN</div>
+                        <table>
+                          <tr>
+                            <th style="text-align: start;">Cedula:</th>
+                            <td>
+                              ${informacionCv.value.datosPersonales.cedula}
+                            </td>
+                          </tr>
+                          <tr>
+                            <th style="text-align: start;">Edad:</th>
+                            <td>${informacionCv.value.datosPersonales.edad}</td>
+                          </tr>
+                          <tr>
+                            <th style="text-align: start;">Estado Civil:</th>
+                            <td>
+                              ${informacionCv.value.datosPersonales.estadoCivil}
+                            </td>
+                          </tr>
+                          <tr>
+                            <th style="text-align: start;">
+                              Fecha Nacimiento:
+                            </th>
+                            <td>
+                              ${informacionCv.value.datosPersonales
+                                .fechaNacimiento}
+                            </td>
+                          </tr>
+                          <tr>
+                            <th style="text-align: start;">
+                              Lugar Nacimiento:
+                            </th>
+                            <td>
+                              ${informacionCv.value.datosPersonales
+                                .lugarNacimiento}
+                            </td>
+                          </tr>
+                          <tr>
+                            <th style="text-align: start;">Nacionalidad:</th>
+                            <td>
+                              ${informacionCv.value.datosPersonales
+                                .nacionalidad}
+                            </td>
+                          </tr>
+                        </table>
+                      `
+                    : ""}
 
                   <div class="raya"></div>
                 </div>
@@ -2680,7 +2857,9 @@ export class MyElement extends SignalWatcher(LitElement) {
             <div class="cv" id="cv">
               <div class="conteInfo">
                 <div class="conteee">
-                  <h1>${informacionCv.value.perfil.nombre.split(" ")[0]} ${informacionCv.value.perfil.nombre.split(" ")[2]}</h1>
+                  <h1>${informacionCv.value.perfil.nombre.split(" ")[0]} ${
+            informacionCv.value.perfil.nombre.split(" ")[2]
+          }</h1>
                   <div style="margin-top: -11px"></div>
                   <h3>${informacionCv.value.perfil.titulo}</h3>
                 </div>
@@ -2696,7 +2875,9 @@ export class MyElement extends SignalWatcher(LitElement) {
                 <div style="margin-top: 13px"></div>
 
                 <div style="margin-top: 13px"></div>
-                <a href="tel:${informacionCv.value.contacto.telefono}" class="lin">
+                <a href="tel:${
+                  informacionCv.value.contacto.telefono
+                }" class="lin">
                   <div>
                     <div class="ico phone">${createElement(Phone)}</div>
                   </div>
@@ -2710,7 +2891,9 @@ export class MyElement extends SignalWatcher(LitElement) {
                   </div>
                   <span>${informacionCv.value.contacto.direccion}</span>
                 </div>
-                <a href="mailto:${informacionCv.value.contacto.email}" class="lin">
+                <a href="mailto:${
+                  informacionCv.value.contacto.email
+                }" class="lin">
                   <div>
                     <div class="ico">${createElement(Mail)}</div>
                   </div>
@@ -2733,7 +2916,9 @@ export class MyElement extends SignalWatcher(LitElement) {
                 <div style="margin-top: 13px"></div>
 
                 <ul style="margin-left: 14px;">
-                  ${informacionCv.value.experticia.map((value) => html`<li>${value}</li>`)}
+                  ${informacionCv.value.experticia.map(
+                    (value) => html`<li>${value}</li>`
+                  )}
                 </ul>
 
                 <div style="margin-top: 27px"></div>
@@ -2746,17 +2931,18 @@ export class MyElement extends SignalWatcher(LitElement) {
 
                 <ul>
 
-                  ${ informacionCv.value.educacion.map((value2) => {
-                  const { institucion, titulo, fechaInicio, fechaFin, descripcion } = value2
-                  return (html`
-                    <li>
-                      <div style="margin-top: 12px"></div>
-                      <div class="ti">${titulo}</div>
-                      <div class="pa">${institucion}</div>
-                      <div class="pa">${fechaInicio}-${fechaFin}</div>
-                    </li>
-                  `)
-                }) }
+                  ${informacionCv.value.educacion.map((value2) => {
+                    const { institucion, titulo, fechaInicio, fechaFin } =
+                      value2;
+                    return html`
+                      <li>
+                        <div style="margin-top: 12px"></div>
+                        <div class="ti">${titulo}</div>
+                        <div class="pa">${institucion}</div>
+                        <div class="pa">${fechaInicio}-${fechaFin}</div>
+                      </li>
+                    `;
+                  })}
 
                 </ul>
               </div>
@@ -2777,18 +2963,24 @@ export class MyElement extends SignalWatcher(LitElement) {
 
 
                 <div class="conteEx">
-                  ${
-                    informacionCv.value.experiencia.map((value) => {
-                      const { titulo, empresa, duracionInicio, duracionFin, descripcion } = value
-                      return (html`
-                        <div style="margin-top: 12px"></div>
-                        <div class="tip tidere">${titulo}</div>
-                        <div class="tip">${empresa} - Guayaquil</div>
-                        <div class="tip">${duracionInicio} - ${duracionFin}</div>
-                        ${descripcion.map((value2) => html`<div class="p">${value2}</div>`)}
-                      `)
-                    })
-                  }
+                  ${informacionCv.value.experiencia.map((value) => {
+                    const {
+                      titulo,
+                      empresa,
+                      duracionInicio,
+                      duracionFin,
+                      descripcion,
+                    } = value;
+                    return html`
+                      <div style="margin-top: 12px"></div>
+                      <div class="tip tidere">${titulo}</div>
+                      <div class="tip">${empresa} - Guayaquil</div>
+                      <div class="tip">${duracionInicio} - ${duracionFin}</div>
+                      ${descripcion.map(
+                        (value2) => html`<div class="p">${value2}</div>`
+                      )}
+                    `;
+                  })}
                 </div>
               </div>
             </div>
@@ -3019,20 +3211,31 @@ export class MyElement extends SignalWatcher(LitElement) {
 
                   <div class="icono">
                     <div class="oo">
-                      <a href="${informacionCv.value.contacto.web}" class="lin ico">
+                      <a
+                        href="${informacionCv.value.contacto.web}"
+                        class="lin ico"
+                      >
                         <div class="iico globe">
                           ${createElement(Globe)}<i data-lucide="globe"></i>
                         </div>
                         <span>${informacionCv.value.contacto.web}</span></a
                       >
-                      <a href="tel:${informacionCv.value.contacto.telefono}" class="ico">
+                      <a
+                        href="tel:${informacionCv.value.contacto.telefono}"
+                        class="ico"
+                      >
                         <div class="iico phone">
                           ${createElement(Phone)}<i data-lucide="phone"></i>
                         </div>
                         <span>${informacionCv.value.contacto.telefono}</span>
                       </a>
-                      <a href="mailto:${informacionCv.value.contacto.email}" class="ico">
-                        <div class="iico mail">${createElement(Mail)}<i data-lucide="mail"></i></div>
+                      <a
+                        href="mailto:${informacionCv.value.contacto.email}"
+                        class="ico"
+                      >
+                        <div class="iico mail">
+                          ${createElement(Mail)}<i data-lucide="mail"></i>
+                        </div>
                         <span>${informacionCv.value.contacto.email}</span>
                       </a>
                       <div class="ico">
@@ -3049,58 +3252,68 @@ export class MyElement extends SignalWatcher(LitElement) {
                   <div class="raya"></div>
 
                   <ul style="margin-left: 14px;">
-                    ${informacionCv.value.experticia.map((value) => html`<li>${value}</li>`)}
+                    ${informacionCv.value.experticia.map(
+                      (value) => html`<li>${value}</li>`
+                    )}
                   </ul>
 
                   <div style="margin-top: 25px"></div>
                   <div class="ti">EDUCACIÓN</div>
                   <div class="raya"></div>
-                  
-                  ${ informacionCv.value.educacion.map((value2) => {
-                  const { institucion, titulo, fechaInicio, fechaFin } = value2
-                  return (html`
-                    <li style="font-family: Lato-Bold">
-                      ${titulo}
-                    </li>
-                    <div style="margin-left: 20px" class="p">
-                      ${institucion}
-                    </div>
-                    <div style="margin-left: 20px" class="p">${fechaInicio}-${fechaFin}</div>
-                    <div style="margin-top: 10px"></div>
-                  `)
-                }) }
+
+                  ${informacionCv.value.educacion.map((value2) => {
+                    const { institucion, titulo, fechaInicio, fechaFin } =
+                      value2;
+                    return html`
+                      <li style="font-family: Lato-Bold">${titulo}</li>
+                      <div style="margin-left: 20px" class="p">
+                        ${institucion}
+                      </div>
+                      <div style="margin-left: 20px" class="p">
+                        ${fechaInicio}-${fechaFin}
+                      </div>
+                      <div style="margin-top: 10px"></div>
+                    `;
+                  })}
                 </div>
                 <div class="dere uu">
                   <div style="margin-top: 32px"></div>
                   <div class="ti">ACERCA DE MÍ</div>
                   <div class="raya"></div>
 
-                  <div class="p">
-                    ${informacionCv.value.perfil.descripcion}
-                  </div>
+                  <div class="p">${informacionCv.value.perfil.descripcion}</div>
 
                   <div style="margin-top: 25px"></div>
                   <div class="ti">EXPERIENCIA LABORAL</div>
                   <div class="raya"></div>
 
-                  ${
-                  informacionCv.value.experiencia.map((value) => {
-                    const { titulo, empresa, duracionInicio, duracionFin, descripcion } = value
-                    return (html`
+                  ${informacionCv.value.experiencia.map((value) => {
+                    const {
+                      titulo,
+                      empresa,
+                      duracionInicio,
+                      duracionFin,
+                      descripcion,
+                    } = value;
+                    return html`
                       <ul style="margin-left: 14px;">
                         <li style="font-family: Lato-Bold">${titulo}</li>
                       </ul>
                       <div style="margin-top: 5px"></div>
+                      <div style="margin-left: 20px" class="p">${empresa}</div>
                       <div style="margin-left: 20px" class="p">
-                        ${empresa}
+                        ${duracionInicio}-${duracionFin}
                       </div>
-                      <div style="margin-left: 20px" class="p">${duracionInicio}-${duracionFin}</div>
                       <div style="margin-top: 5px"></div>
-                      ${descripcion.map((value2) => html`<div style="margin-left: 20px" class="p">${value2}</div>`)}
+                      ${descripcion.map(
+                        (value2) =>
+                          html`<div style="margin-left: 20px" class="p">
+                            ${value2}
+                          </div>`
+                      )}
                       <div style="margin-top: 15px"></div>
-                    `)
-                  })
-                }
+                    `;
+                  })}
 
                   <!-- <div style="margin-top: 25px"></div>
                   <div class="ti">INFORMACIÓN</div>
@@ -3341,23 +3554,31 @@ export class MyElement extends SignalWatcher(LitElement) {
                 <div style="margin-top: 52px"></div>
                 <div class="titulo">EXPERIENCIA</div>
 
-                ${
-                  informacionCv.value.experiencia.map((value) => {
-                    const { titulo, empresa, duracionInicio, duracionFin, descripcion } = value
-                    return (html`
-                      <div style="margin-top: 18px"></div>
-                      <div class="ti">${titulo}</div>
-                      <div class="ti">${empresa}</div>
-                      <div style="margin-top: 2px"></div>
-                      <div class="pa">${duracionInicio} - ${duracionFin}</div>
-                      <div style="margin-top: 2px"></div>
-                      ${descripcion.map((value2) => html`<div class="pa" style="line-height: 18px">${value2}</div>`)}
-                    `)
-                  })
-                }
-
-                ${
-                    informaionSesible.value?html`
+                ${informacionCv.value.experiencia.map((value) => {
+                  const {
+                    titulo,
+                    empresa,
+                    duracionInicio,
+                    duracionFin,
+                    descripcion,
+                  } = value;
+                  return html`
+                    <div style="margin-top: 18px"></div>
+                    <div class="ti">${titulo}</div>
+                    <div class="ti">${empresa}</div>
+                    <div style="margin-top: 2px"></div>
+                    <div class="pa">${duracionInicio} - ${duracionFin}</div>
+                    <div style="margin-top: 2px"></div>
+                    ${descripcion.map(
+                      (value2) =>
+                        html`<div class="pa" style="line-height: 18px">
+                          ${value2}
+                        </div>`
+                    )}
+                  `;
+                })}
+                ${informaionSesible.value
+                  ? html`
                       <div style="margin-top: 30px"></div>
                       <div class="titulo">IMFORMACIÓN PERSONAL</div>
                       <div style="margin-top: 10px"></div>
@@ -3373,23 +3594,33 @@ export class MyElement extends SignalWatcher(LitElement) {
                         </tr>
                         <tr>
                           <th style="text-align: start;">Estado Civil:</th>
-                          <td>${informacionCv.value.datosPersonales.estadoCivil}</td>
+                          <td>
+                            ${informacionCv.value.datosPersonales.estadoCivil}
+                          </td>
                         </tr>
                         <tr>
                           <th style="text-align: start;">Fecha Nacimiento:</th>
-                          <td>${informacionCv.value.datosPersonales.fechaNacimiento}</td>
+                          <td>
+                            ${informacionCv.value.datosPersonales
+                              .fechaNacimiento}
+                          </td>
                         </tr>
                         <tr>
                           <th style="text-align: start;">Lugar Nacimiento:</th>
-                          <td>${informacionCv.value.datosPersonales.lugarNacimiento}</td>
+                          <td>
+                            ${informacionCv.value.datosPersonales
+                              .lugarNacimiento}
+                          </td>
                         </tr>
                         <tr>
                           <th style="text-align: start;">Nacionalidad:</th>
-                          <td>${informacionCv.value.datosPersonales.nacionalidad}</td>
+                          <td>
+                            ${informacionCv.value.datosPersonales.nacionalidad}
+                          </td>
                         </tr>
                       </table>
-                    `:''
-                  }
+                    `
+                  : ""}
               </div>
               <div class="iz">
                 <div style="margin-top: 32px"></div>
@@ -3400,28 +3631,40 @@ export class MyElement extends SignalWatcher(LitElement) {
                 <div class="titulo">SOBRE MÍ</div>
 
                 <div style="margin-top: 10px"></div>
-                <div class="pa">
-                  ${informacionCv.value.perfil.descripcion}
-                </div>
+                <div class="pa">${informacionCv.value.perfil.descripcion}</div>
 
                 <div style="margin-top: 35px"></div>
                 <div class="titulo">CONTACTO</div>
                 <div style="margin-top: 10px"></div>
 
                 <div class="lin">
-                  <div class="ico">${createElement(MapPin)}<i data-lucide="map-pin"></i></div>
+                  <div class="ico">
+                    ${createElement(MapPin)}<i data-lucide="map-pin"></i>
+                  </div>
                   <span>${informacionCv.value.contacto.direccion}</span>
                 </div>
-                <a href="tel:${informacionCv.value.contacto.telefono}" class="lin">
-                  <div class="ico">${createElement(Smartphone)}<i data-lucide="smartphone"></i></div>
+                <a
+                  href="tel:${informacionCv.value.contacto.telefono}"
+                  class="lin"
+                >
+                  <div class="ico">
+                    ${createElement(Smartphone)}<i data-lucide="smartphone"></i>
+                  </div>
                   <span>${informacionCv.value.contacto.telefono}</span>
                 </a>
                 <a href="${informacionCv.value.contacto.web}" class="lin">
-                  <div class="ico">${createElement(Globe)}<i data-lucide="globe"></i></div>
+                  <div class="ico">
+                    ${createElement(Globe)}<i data-lucide="globe"></i>
+                  </div>
                   <span>${informacionCv.value.contacto.web}</span>
                 </a>
-                <a href="mailto:${informacionCv.value.contacto.email}" class="lin">
-                  <div class="ico">${createElement(Mail)}<i data-lucide="mail"></i></div>
+                <a
+                  href="mailto:${informacionCv.value.contacto.email}"
+                  class="lin"
+                >
+                  <div class="ico">
+                    ${createElement(Mail)}<i data-lucide="mail"></i>
+                  </div>
                   <span>${informacionCv.value.contacto.email}</span>
                 </a>
 
@@ -3430,23 +3673,22 @@ export class MyElement extends SignalWatcher(LitElement) {
 
                 <div style="margin-top: 10px"></div>
 
-                ${ informacionCv.value.educacion.map((value2) => {
-                  const { institucion, titulo, fechaInicio, fechaFin, descripcion } = value2
-                  return (html`                   
+                ${informacionCv.value.educacion.map((value2) => {
+                  const { institucion, titulo, fechaInicio, fechaFin } = value2;
+                  return html`
                     <div class="ti">${titulo}</div>
                     <div class="pa">${institucion}</div>
                     <div class="pa">${fechaInicio} - ${fechaFin}</div>
                     <div style="margin-top: 7px"></div>
-                  `)
-                }) }                
-
+                  `;
+                })}
               </div>
             </div>
           `
         : ""}
       ${seleccionado.value === 13
         ? html`
-        <style>
+            <style>
               .cv {
                 height: 848px;
                 width: 600px;
@@ -3688,7 +3930,7 @@ export class MyElement extends SignalWatcher(LitElement) {
                 })}
               </div>
             </div>
-            `
+          `
         : ""}
       ${seleccionado.value === 14
         ? html`
@@ -3863,7 +4105,10 @@ export class MyElement extends SignalWatcher(LitElement) {
                 <div style="margin-top: 80px"></div>
                 <div class="conteImg">
                   <div class="imgPerfil"></div>
-                  <h1>${informacionCv.value.perfil.nombre.split(" ")[0]} ${informacionCv.value.perfil.nombre.split(" ")[2]}</h1>
+                  <h1>
+                    ${informacionCv.value.perfil.nombre.split(" ")[0]}
+                    ${informacionCv.value.perfil.nombre.split(" ")[2]}
+                  </h1>
                   <div style="margin-top: -5px"></div>
                   <h2>${informacionCv.value.perfil.titulo}</h2>
                   <div style="margin-top: 10px"></div>
@@ -3872,25 +4117,38 @@ export class MyElement extends SignalWatcher(LitElement) {
                 <div style="margin-top: 15px"></div>
                 <div class="ti">PERFIL</div>
                 <div style="margin-top: 6px"></div>
-                <div class="p">
-                  ${informacionCv.value.perfil.descripcion}
-                </div>
+                <div class="p">${informacionCv.value.perfil.descripcion}</div>
 
                 <div style="margin-top: 21px"></div>
                 <div class="ti">CONTACTO</div>
 
                 <div class="icono">
                   <div class="oo">
-                    <a href="${informacionCv.value.contacto.web}" class="lin ico">
-                      <div class="iico globe">${createElement(Globe)}<i data-lucide="globe"></i></div>
+                    <a
+                      href="${informacionCv.value.contacto.web}"
+                      class="lin ico"
+                    >
+                      <div class="iico globe">
+                        ${createElement(Globe)}<i data-lucide="globe"></i>
+                      </div>
                       <span>${informacionCv.value.contacto.web}</span></a
                     >
-                    <a href="tel:${informacionCv.value.contacto.telefono}" class="ico">
-                      <div class="iico phone">${createElement(Phone)}<i data-lucide="phone"></i></div>
+                    <a
+                      href="tel:${informacionCv.value.contacto.telefono}"
+                      class="ico"
+                    >
+                      <div class="iico phone">
+                        ${createElement(Phone)}<i data-lucide="phone"></i>
+                      </div>
                       <span>${informacionCv.value.contacto.telefono}</span>
                     </a>
-                    <a href="mailto:${informacionCv.value.contacto.email}" class="ico">
-                      <div class="iico mail">${createElement(Mail)}<i data-lucide="mail"></i></div>
+                    <a
+                      href="mailto:${informacionCv.value.contacto.email}"
+                      class="ico"
+                    >
+                      <div class="iico mail">
+                        ${createElement(Mail)}<i data-lucide="mail"></i>
+                      </div>
                       <span>${informacionCv.value.contacto.email}</span>
                     </a>
                     <div class="ico" style="border-bottom: none">
@@ -3907,7 +4165,9 @@ export class MyElement extends SignalWatcher(LitElement) {
 
                 <div style="margin-top: 5px"></div>
                 <ul style="margin-left: 14px;">
-                  ${informacionCv.value.experticia.map((value) => html`<li>${value}</li>`)}
+                  ${informacionCv.value.experticia.map(
+                    (value) => html`<li>${value}</li>`
+                  )}
                 </ul>
               </div>
 
@@ -3919,9 +4179,15 @@ export class MyElement extends SignalWatcher(LitElement) {
 
                 <div style="margin-top: 18px"></div>
 
-                ${ informacionCv.value.educacion.map((value2) => {
-                  const { institucion, titulo, fechaInicio, fechaFin, descripcion } = value2
-                  return (html`
+                ${informacionCv.value.educacion.map((value2) => {
+                  const {
+                    institucion,
+                    titulo,
+                    fechaInicio,
+                    fechaFin,
+                    descripcion,
+                  } = value2;
+                  return html`
                     <div
                       class="ti2"
                       style="font-family: Inter-VariableFont; font-weight: bold"
@@ -3934,42 +4200,57 @@ export class MyElement extends SignalWatcher(LitElement) {
                     >
                       ${institucion}
                     </div>
-                    <div class="ti2" style="font-family: Inter-Italic-VariableFont">
+                    <div
+                      class="ti2"
+                      style="font-family: Inter-Italic-VariableFont"
+                    >
                       ${descripcion}
                     </div>
                     <div style="margin-top: 5px"></div>
-                  `)
-                }) }
+                  `;
+                })}
 
                 <div style="margin-top: 21px"></div>
                 <div class="ti">EXPERIENCIA</div>
 
                 <div style="margin-top: 10px"></div>
 
-                ${
-                  informacionCv.value.experiencia.map((value) => {
-                    const { titulo, empresa, duracionInicio, duracionFin, descripcion } = value
-                    return (html`
-                        <div
-                        class="ti2"
-                        style="font-family: Inter-VariableFont; font-weight: bold"
-                        >
-                          ${empresa} (${duracionInicio} - ${duracionFin})
-                        </div>
-                        <li
+                ${informacionCv.value.experiencia.map((value) => {
+                  const {
+                    titulo,
+                    empresa,
+                    duracionInicio,
+                    duracionFin,
+                    descripcion,
+                  } = value;
+                  return html`
+                    <div
+                      class="ti2"
+                      style="font-family: Inter-VariableFont; font-weight: bold"
+                    >
+                      ${empresa} (${duracionInicio} - ${duracionFin})
+                    </div>
+                    <li
+                      class="ti2"
+                      style="font-family: Inter-Italic-VariableFont; font-weight: bold"
+                    >
+                      ${titulo}
+                    </li>
+                    ${descripcion.map(
+                      (value2) =>
+                        html`<div
                           class="ti2"
-                          style="font-family: Inter-Italic-VariableFont; font-weight: bold"
+                          style="font-family: Inter-VariableFont"
                         >
-                        ${titulo}
-                      </li>
-                      ${descripcion.map((value2) => html`<div class="ti2" style="font-family: Inter-VariableFont">${value2}</div>`)}
-                      <div style="margin-top: 21px"></div>
-                    `)
-                  })
-                }
+                          ${value2}
+                        </div>`
+                    )}
+                    <div style="margin-top: 21px"></div>
+                  `;
+                })}
 
-                <!-- ${
-                    informaionSesible.value?html`
+                <!-- ${informaionSesible.value
+                  ? html`
                       <div style="margin-top: 21px"></div>
                       <div class="ti">INFORMACIÓN</div>
 
@@ -3986,23 +4267,33 @@ export class MyElement extends SignalWatcher(LitElement) {
                         </tr>
                         <tr>
                           <th style="text-align: start;">Estado Civil:</th>
-                          <td>${informacionCv.value.datosPersonales.estadoCivil}</td>
+                          <td>
+                            ${informacionCv.value.datosPersonales.estadoCivil}
+                          </td>
                         </tr>
                         <tr>
                           <th style="text-align: start;">Fecha Nacimiento:</th>
-                          <td>${informacionCv.value.datosPersonales.fechaNacimiento}</td>
+                          <td>
+                            ${informacionCv.value.datosPersonales
+                              .fechaNacimiento}
+                          </td>
                         </tr>
                         <tr>
                           <th style="text-align: start;">Lugar Nacimiento:</th>
-                          <td>${informacionCv.value.datosPersonales.lugarNacimiento}</td>
+                          <td>
+                            ${informacionCv.value.datosPersonales
+                              .lugarNacimiento}
+                          </td>
                         </tr>
                         <tr>
                           <th style="text-align: start;">Nacionalidad:</th>
-                          <td>${informacionCv.value.datosPersonales.nacionalidad}</td>
+                          <td>
+                            ${informacionCv.value.datosPersonales.nacionalidad}
+                          </td>
                         </tr>
                       </table>
-                    `:''
-                  } -->
+                    `
+                  : ""} -->
               </div>
             </div>
           `
@@ -4213,19 +4504,33 @@ export class MyElement extends SignalWatcher(LitElement) {
                 </div>
 
                 <a href="${informacionCv.value.contacto.web}" class="lin ico">
-                  <div class="iico globe">${createElement(Globe)}<i data-lucide="globe"></i></div>
+                  <div class="iico globe">
+                    ${createElement(Globe)}<i data-lucide="globe"></i>
+                  </div>
                   <span>${informacionCv.value.contacto.web}</span></a
                 >
-                <a href="tel:${informacionCv.value.contacto.telefono}" class="ico">
-                  <div class="iico phone">${createElement(Phone)}<i data-lucide="phone"></i></div>
+                <a
+                  href="tel:${informacionCv.value.contacto.telefono}"
+                  class="ico"
+                >
+                  <div class="iico phone">
+                    ${createElement(Phone)}<i data-lucide="phone"></i>
+                  </div>
                   <span>${informacionCv.value.contacto.telefono}</span>
                 </a>
-                <a href="mailto:${informacionCv.value.contacto.email}" class="ico">
-                  <div class="iico mail">${createElement(Mail)}<i data-lucide="mail"></i></div>
+                <a
+                  href="mailto:${informacionCv.value.contacto.email}"
+                  class="ico"
+                >
+                  <div class="iico mail">
+                    ${createElement(Mail)}<i data-lucide="mail"></i>
+                  </div>
                   <span>${informacionCv.value.contacto.email}</span>
                 </a>
                 <div href="tel:" class="ico">
-                  <div class="iico map-pin">${createElement(MapPin)}<i data-lucide="map-pin"></i></div>
+                  <div class="iico map-pin">
+                    ${createElement(MapPin)}<i data-lucide="map-pin"></i>
+                  </div>
                   <span>${informacionCv.value.contacto.direccion}</span>
                 </div>
 
@@ -4235,21 +4540,25 @@ export class MyElement extends SignalWatcher(LitElement) {
                   <div class="ii"></div>
                 </div>
 
-                ${
-                  informacionCv.value.educacion.map((value) => {
-                    const { fechaInicio, fechaFin, titulo, institucion, descripcion } = value
-                    return (html`
-                      <div class="ti2">(${fechaInicio}-${fechaFin}) ${titulo}</div>
-                      <div class="contrP" style="width: 100%;">
-                        <div class="bb">${institucion}</div>
-                      </div>
-                      <div class="p">
-                        ${descripcion}
-                      </div>
-                      <div style="margin-bottom: 30px;"></div>
-                    `)
-                  })
-                }                   
+                ${informacionCv.value.educacion.map((value) => {
+                  const {
+                    fechaInicio,
+                    fechaFin,
+                    titulo,
+                    institucion,
+                    descripcion,
+                  } = value;
+                  return html`
+                    <div class="ti2">
+                      (${fechaInicio}-${fechaFin}) ${titulo}
+                    </div>
+                    <div class="contrP" style="width: 100%;">
+                      <div class="bb">${institucion}</div>
+                    </div>
+                    <div class="p">${descripcion}</div>
+                    <div style="margin-bottom: 30px;"></div>
+                  `;
+                })}
 
                 <div style="margin-top: 30px"></div>
                 <div class="ti">Habilidades</div>
@@ -4258,13 +4567,18 @@ export class MyElement extends SignalWatcher(LitElement) {
                 </div>
 
                 <ul style="margin-left: 14px;">
-                  ${informacionCv.value.experticia.map((value) => html`<li>${value}</li>`)}
+                  ${informacionCv.value.experticia.map(
+                    (value) => html`<li>${value}</li>`
+                  )}
                 </ul>
               </div>
 
               <div class="dere">
                 <div style="margin-top: 23px"></div>
-                <h1>${informacionCv.value.perfil.nombre.split(" ")[0]} ${informacionCv.value.perfil.nombre.split(" ")[2]}</h1>
+                <h1>
+                  ${informacionCv.value.perfil.nombre.split(" ")[0]}
+                  ${informacionCv.value.perfil.nombre.split(" ")[2]}
+                </h1>
                 <div class="rayaa"></div>
                 <div style="margin-top: -4px"></div>
                 <h2>${informacionCv.value.perfil.titulo}</h2>
@@ -4277,9 +4591,7 @@ export class MyElement extends SignalWatcher(LitElement) {
                   <div class="ii"></div>
                 </div>
 
-                <div class="p">
-                  ${informacionCv.value.perfil.descripcion}
-                </div>
+                <div class="p">${informacionCv.value.perfil.descripcion}</div>
 
                 <div style="margin-top: 38px"></div>
                 <div class="ti">Experiencia</div>
@@ -4287,21 +4599,26 @@ export class MyElement extends SignalWatcher(LitElement) {
                   <div class="ii"></div>
                 </div>
 
-                ${
-                  informacionCv.value.experiencia.map((value) => {
-                    const { titulo, empresa, duracionInicio, duracionFin, descripcion } = value
-                    return (html`
-                      <div class="ti2">${titulo}</div>
-                      <div class="contrP">
-                        <div class="bb">${empresa}</div>
-                        <div class="pp">${duracionInicio} - ${duracionFin}</div>
-                      </div>
-                      ${descripcion.map((value2) => html`<div class="p">${value2}</div>`)}
-                      <div style="margin-bottom: 30px;"></div>
-                    `)
-                  })
-                }
-
+                ${informacionCv.value.experiencia.map((value) => {
+                  const {
+                    titulo,
+                    empresa,
+                    duracionInicio,
+                    duracionFin,
+                    descripcion,
+                  } = value;
+                  return html`
+                    <div class="ti2">${titulo}</div>
+                    <div class="contrP">
+                      <div class="bb">${empresa}</div>
+                      <div class="pp">${duracionInicio} - ${duracionFin}</div>
+                    </div>
+                    ${descripcion.map(
+                      (value2) => html`<div class="p">${value2}</div>`
+                    )}
+                    <div style="margin-bottom: 30px;"></div>
+                  `;
+                })}
               </div>
             </div>
           `

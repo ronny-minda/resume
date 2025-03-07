@@ -2,6 +2,7 @@ import { SignalWatcher } from "@lit-labs/preact-signals";
 import { LitElement, css, html } from "lit";
 import { customElement } from "lit/decorators.js";
 import "./templates-selec";
+import { zoom } from "../store/ui";
 // import { coleccionTemplates } from "../data/templates";
 // import { informacionCv, perfilBase64Image, seleccionado } from "../store/ui";
 
@@ -13,6 +14,12 @@ export class MyElement extends SignalWatcher(LitElement) {
 
   render() {
     return html`
+        <style>
+          .contenedor {
+            /* transition: 0.1s; */
+           transform: scale(${(zoom.value * 0.01)+0.5})
+          }
+        </style>
       <div class="contenedor">
         <templates-selec></templates-selec>
       </div>
@@ -27,7 +34,6 @@ export class MyElement extends SignalWatcher(LitElement) {
     }
 
     :host {
-      scrollbar-gutter: stable both-edges;
       height: 100%;
       width: 100%;
       flex-direction: 1;
